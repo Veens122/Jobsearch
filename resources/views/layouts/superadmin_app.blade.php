@@ -76,6 +76,7 @@
     <!-- Morris.js charts -->
     <script src="{{ asset('assets/js/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('assets/js/morris.js/morris.min.js') }}"></script>
+
     <!-- Custom Chart JavaScript -->
     <script src="{{ asset('assets/js/custom/dashboard.js') }}"></script>
     <!-- ============================================================== -->

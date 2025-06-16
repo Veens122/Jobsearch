@@ -14,7 +14,7 @@ class Job extends Model
 
     public function employer()
     {
-        return $this->belongsTo(User::class, 'employer_id');
+        return $this->belongsTo(User::class, 'employer_id')->with('employerProfile');
     }
 
     public function applications()
@@ -33,5 +33,10 @@ class Job extends Model
     public function applicants()
     {
         return $this->hasMany(Application::class, 'job_id');
+    }
+
+    public function employerProfile()
+    {
+        return $this->belongsTo(EmployerProfile::class, 'employer_id', 'user_id', 'user_id');
     }
 }

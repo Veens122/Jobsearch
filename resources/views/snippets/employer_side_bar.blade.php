@@ -63,7 +63,7 @@
                       <li><a href="employer-package.html"><i class="fa-solid fa-wallet me-2"></i>Package</a></li>
                       <li><a href="{{ route('messages') }}"><i class="fa-solid fa-comments me-2"></i>Messages</a>
                       </li>
-                      <li><a href="employer-change-password.html"><i class="fa-solid fa-unlock-keyhole me-2"></i>Change
+                      <li><a href="{{ route('password.edit')}}"><i class="fa-solid fa-unlock-keyhole me-2"></i>Change
                               Password</a></li>
                       <li><a href="employer-delete-account.html"><i class="fa-solid fa-trash-can me-2"></i>Delete
                               Account</a></li>

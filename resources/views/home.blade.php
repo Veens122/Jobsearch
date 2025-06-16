@@ -32,9 +32,9 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <h6 class="primary-2-cl fw-medium d-inline-flex align-items-center mb-3"><span
                             class="primary-2-bg w-10 h-05 me-2"></span>Get Hot & Trending Jobs</h6>
-                    <h1 class="mb-4">Find & Hire<br><span>Top Experts on Job Veens</span></h1>
+                    <h1 class="mb-4">Find & Hire<br><span>Top Experts on Job Stock</span></h1>
                     <p class="fs-5">Getting a new job is never easy. Check what new jobs we have in store for you on
-                        Job Veens.</p>
+                        Job Stock.</p>
                     <div class="lios-vrst">
                         <ul>
                             <li>
@@ -171,7 +171,7 @@
                 <div class="col-xl-4 col-lg-7 col-md-10 text-center">
                     <div class="center mb-4">
                         <h5 class="fw-medium lh-lg">Join over 2,000 companies around the world that trust the <span
-                                class="text-primary">Job Veens</span> platforms</h5>
+                                class="text-primary">Job Stock</span> platforms</h5>
                     </div>
                 </div>
             </div>
@@ -233,226 +233,59 @@
             <div class="row justify-content-center gx-xl-3 gx-3 gy-4">
 
                 <!-- Single Item -->
+                @foreach($jobs as $job)
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
                     <div class="job-instructor-layout border">
+                        {{-- Tags --}}
                         <div class="left-tags-capt">
+                            @if($job->is_featured)
                             <span class="featured-text">Featured</span>
+                            @endif
+                            @if($job->is_urgent)
                             <span class="urgent">Urgent</span>
+                            @endif
                         </div>
-                        <div class="brows-job-type"><span class="enternship">Enternship</span></div>
-                        <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-1.png" class="img-fluid" alt=""></a>
-                        </div>
-                        <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Jr. PHP Developer</a></h4>
-                            <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
-                            </div>
-                        </div>
-                        <div class="job-instructor-footer">
-                            <div class="instructor-students">
-                                <h5 class="instructor-scount">$5K - $8K</h5>
-                            </div>
-                            <div class="instructor-corses">
-                                <span class="c-counting">6 Open</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <div class="job-instructor-layout border">
-                        <div class="left-tags-capt">
-                            <span class="urgent">Urgent</span>
+                        {{-- Job Type --}}
+                        <div class="brows-job-type">
+                            <span class="enternship">{{ ucfirst($job->type) }}</span>
                         </div>
-                        <div class="brows-job-type"><span class="freelanc">Freelancer</span></div>
-                        <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-2.png" class="img-fluid" alt=""></a>
-                        </div>
-                        <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Exp. Project manager</a></h4>
-                            <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
-                            </div>
-                        </div>
-                        <div class="job-instructor-footer">
-                            <div class="instructor-students">
-                                <h5 class="instructor-scount">$6K - $10K</h5>
-                            </div>
-                            <div class="instructor-corses">
-                                <span class="c-counting">4 Open</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <div class="job-instructor-layout border">
-                        <div class="left-tags-capt">
-                            <span class="featured-text">Featured</span>
-                            <span class="urgent">Urgent</span>
-                        </div>
-                        <div class="brows-job-type"><span class="part-time">Part Time</span></div>
+                        {{-- Company Logo --}}
                         <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-3.png" class="img-fluid" alt=""></a>
+                            <a href="{{ route('job-detail', ['id' => $job->id]) }}">
+                                <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
+                                    class="img-fluid" alt="{{ $job->company_name }}">
+                            </a>
                         </div>
-                        <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Sr. WordPress Developer</a></h4>
-                            <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
-                            </div>
-                        </div>
-                        <div class="job-instructor-footer">
-                            <div class="instructor-students">
-                                <h5 class="instructor-scount">$5K - $8K</h5>
-                            </div>
-                            <div class="instructor-corses">
-                                <span class="c-counting">3 Open</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <div class="job-instructor-layout border">
-                        <div class="left-tags-capt">
-                            <span class="featured-text">Featured</span>
-                        </div>
-                        <div class="brows-job-type"><span class="full-time">Full Time</span></div>
-                        <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-4.png" class="img-fluid" alt=""></a>
-                        </div>
+                        {{-- Job Info --}}
                         <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Jr. Laravel Developer</a></h4>
-                            <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
-                            </div>
-                        </div>
-                        <div class="job-instructor-footer">
-                            <div class="instructor-students">
-                                <h5 class="instructor-scount">$4.2K - $6K</h5>
-                            </div>
-                            <div class="instructor-corses">
-                                <span class="c-counting">2 Open</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <div class="job-instructor-layout border">
-                        <div class="left-tags-capt">
-                            <span class="urgent">Urgent</span>
-                        </div>
-                        <div class="brows-job-type"><span class="freelanc">Freelancer</span></div>
-                        <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-5.png" class="img-fluid" alt=""></a>
-                        </div>
-                        <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Sr. UI/UX Designer</a></h4>
-                            <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
-                            </div>
-                        </div>
-                        <div class="job-instructor-footer">
-                            <div class="instructor-students">
-                                <h5 class="instructor-scount">$4K - $5.5K</h5>
-                            </div>
-                            <div class="instructor-corses">
-                                <span class="c-counting">5 Open</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <div class="job-instructor-layout border">
-                        <div class="left-tags-capt">
-                            <span class="featured-text">Featured</span>
-                            <span class="urgent">Urgent</span>
-                        </div>
-                        <div class="brows-job-type"><span class="part-time">Part Time</span></div>
-                        <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-6.png" class="img-fluid" alt=""></a>
-                        </div>
-                        <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Java & Python Developer</a></h4>
-                            <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
-                            </div>
-                        </div>
-                        <div class="job-instructor-footer">
-                            <div class="instructor-students">
-                                <h5 class="instructor-scount">$2K - $4K</h5>
-                            </div>
-                            <div class="instructor-corses">
-                                <span class="c-counting">4 Open</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <div class="job-instructor-layout border">
-                        <div class="left-tags-capt">
-                            <span class="urgent">Urgent</span>
-                        </div>
-                        <div class="brows-job-type"><span class="full-time">FullTime</span></div>
-                        <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-7.png" class="img-fluid" alt=""></a>
-                        </div>
-                        <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Sr. Code Ignetor Developer</a>
+                            <h4 class="instructor-title">
+                                <a href="{{ route('job-detail', ['id' => $job->id]) }}">{{ $job->title }}</a>
                             </h4>
                             <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
+                                {{ $job->skills ?? 'Not specified' }}
                             </div>
                         </div>
+
+                        {{-- Footer --}}
                         <div class="job-instructor-footer">
                             <div class="instructor-students">
-                                <h5 class="instructor-scount">$5K - $6K</h5>
+                                <h5 class="instructor-scount">{{ $job->salary_range ?? 'Negotiable' }}</h5>
                             </div>
                             <div class="instructor-corses">
-                                <span class="c-counting">3 Open</span>
+                                <span class="c-counting">{{ $job->vacancies ?? 'N/A' }} Open</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                    <div class="job-instructor-layout border">
-                        <div class="left-tags-capt">
-                            <span class="featured-text">Featured</span>
-                        </div>
-                        <div class="brows-job-type"><span class="enternship">Enternship</span></div>
-                        <div class="job-instructor-thumb">
-                            <a href="job-detail.html"><img src="assets/img/l-8.png" class="img-fluid" alt=""></a>
-                        </div>
-                        <div class="job-instructor-content">
-                            <h4 class="instructor-title"><a href="job-detail.html">Sr. Magento Developer</a></h4>
-                            <div class="instructor-skills">
-                                CSS3, HTML5, Javascript, Bootstrap, Jquery
-                            </div>
-                        </div>
-                        <div class="job-instructor-footer">
-                            <div class="instructor-students">
-                                <h5 class="instructor-scount">$3.2K - $5K</h5>
-                            </div>
-                            <div class="instructor-corses">
-                                <span class="c-counting">5 Open</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
+
+
+
+
 
         </div>
     </section>
@@ -476,6 +309,7 @@
             <div class="row justify-content-center gx-4 gy-4">
 
                 <!-- Single Item -->
+                @foreach($categories as $category)
                 <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                     <div class="category-box">
                         <div class="category-desc">
@@ -484,124 +318,16 @@
                                 <i class="fa-solid fa-file-invoice abs-icon"></i>
                             </div>
                             <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Accounting & Finance</a></h4>
-                                <p class="block">122 Active Jobs</p>
+                                <h4 class="fs-5">
+                                    <a href="{{ route('all-jobs') }}">{{ $category->title }}</a>
+                                </h4>
+                                <p class="block">{{ $category->jobs_count }} Active Jobs</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
 
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="category-box">
-                        <div class="category-desc">
-                            <div class="category-icon">
-                                <i class="fa-solid fa-caravan text-primary"></i>
-                                <i class="fa-solid fa-caravan abs-icon"></i>
-                            </div>
-                            <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Automotive Jobs</a></h4>
-                                <p class="block">78 Active Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="category-box">
-                        <div class="category-desc">
-                            <div class="category-icon">
-                                <i class="fa-solid fa-person-chalkboard text-primary"></i>
-                                <i class="fa-solid fa-person-chalkboard abs-icon"></i>
-                            </div>
-                            <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Business & Tech</a></h4>
-                                <p class="block">25 Active Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="category-box">
-                        <div class="category-desc">
-                            <div class="category-icon">
-                                <i class="fa-solid fa-user-graduate text-primary"></i>
-                                <i class="fa-solid fa-user-graduate abs-icon"></i>
-                            </div>
-                            <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Education Training</a></h4>
-                                <p class="block">212 Active Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="category-box">
-                        <div class="category-desc">
-                            <div class="category-icon">
-                                <i class="fa-solid fa-briefcase-medical text-primary"></i>
-                                <i class="fa-solid fa-briefcase-medical abs-icon"></i>
-                            </div>
-                            <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Healthcare</a></h4>
-                                <p class="block">90 Active Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="category-box">
-                        <div class="category-desc">
-                            <div class="category-icon">
-                                <i class="fa-solid fa-burger text-primary"></i>
-                                <i class="fa-solid fa-burger abs-icon"></i>
-                            </div>
-                            <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Restaurant & Food</a></h4>
-                                <p class="block">65 Active Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="category-box">
-                        <div class="category-desc">
-                            <div class="category-icon">
-                                <i class="fa-solid fa-jet-fighter text-primary"></i>
-                                <i class="fa-solid fa-jet-fighter abs-icon"></i>
-                            </div>
-                            <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Transportation</a></h4>
-                                <p class="block">160 Active Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Item -->
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="category-box">
-                        <div class="category-desc">
-                            <div class="category-icon">
-                                <i class="fa-solid fa-mobile-screen-button text-primary"></i>
-                                <i class="fa-solid fa-mobile-screen-button abs-icon"></i>
-                            </div>
-                            <div class="category-detail category-desc-text">
-                                <h4 class="fs-5"><a href="browse-jobs-grid.html">Telecommunications</a></h4>
-                                <p class="block">80 Active Jobs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 
@@ -969,9 +695,13 @@
                             </div>
 
                             <div class="form-floating mb-4">
-                                <input type="password" name="password" class="form-control" placeholder="Password"
-                                    required>
+                                <input type="password" name="password" class="form-control" id="password"
+                                    placeholder="Password" required>
                                 <label for="password">Password</label>
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                    style="cursor: pointer;" onclick="togglePassword()">
+                                    👁️
+                                </span>
                             </div>
 
                             <div class="form-group">
@@ -1345,10 +1075,10 @@
 
 @if ($errors->has('email') || $errors->has('password'))
 <script>
-    window.onload = () => {
-        const loginModal = new bootstrap.Modal(document.getElementById('login'));
-        loginModal.show();
-    };
+window.onload = () => {
+    const loginModal = new bootstrap.Modal(document.getElementById('login'));
+    loginModal.show();
+};
 </script>
 @endif
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

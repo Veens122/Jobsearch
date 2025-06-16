@@ -1,14 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<!-- <div class="container">
-    <h1>Application Details</h1>
 
-    <p><strong>Candidate Name:</strong> {{ $application->user->name ?? 'N/A' }}</p>
-    <p><strong>Status:</strong> {{ ucfirst($application->status) }}</p>
-    <p><strong>Job Title:</strong> {{ $application->job->title ?? 'N/A' }}</p>
-    <p><strong>Resume:</strong> <a href="{{ asset('storage/' . $application->resume) }}" target="_blank">Download</a>
-    </p>
-</div> -->
 
 <div id="main-wrapper">
 
@@ -74,7 +66,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if($candidateProfile)
+                        <!-- @if($candidateProfile)
                         <div class="cndt-head-right">
                             @if($candidateProfile->resume)
                             <a href="{{ asset('storage/' . $candidateProfile->resume) }}" download
@@ -86,7 +78,37 @@
                                 <i class="fa-solid fa-bookmark"></i>
                             </button>
                         </div>
-                        @endif
+                        @endif -->
+
+                        <div class="cndt-head-right">
+                            {{-- Download Resume --}}
+                            @if ($application->resume)
+                            <a href="{{ route('employer.applications.download-resume', $application->id) }}"
+                                class="btn btn-sm btn-primary">
+                                Download Resume
+                            </a>
+                            @else
+                            <button class="btn btn-sm btn-secondary" disabled title="No resume available">
+                                Download Resume
+                            </button>
+                            @endif
+
+                            {{-- Download Cover Letter --}}
+                            @if ($application->cover_letter)
+                            <a href="{{ route('employer.applications.download-coverletter', $application->id) }}"
+                                class="btn btn-sm btn-primary">
+                                Download Cover Letter
+                            </a>
+                            @else
+                            <button class="btn btn-sm btn-secondary" disabled title="No cover letter submitted">
+                                Download Cover Letter
+                            </button>
+                            @endif
+                        </div>
+
+
+
+
 
                     </div>
                 </div>
@@ -276,8 +298,9 @@
                                                                 class="img-fluid circle" alt=""></figure>
                                                     </div>
                                                     <div class="jbs-list-job-caption ms-3">
-                                                        <h4><a href="{{ route('candidate.detail', $related->user_id) }}"
-                                                                class="jbs-job-title">{{ $related->full_name }}</a></h4>
+                                                        <h4><a href="{{ route('employer.applications.show-candidate', $related->user_id) }}"
+                                                                class="jbs-job-title">{{ $related->full_name }}</a>
+                                                        </h4>
                                                         <div class="jbs-job-mrch-lists">
                                                             <span>{{ $related->job_title }}</span> |
                                                             <span><i
@@ -286,8 +309,9 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <a href="{{ route('candidate.detail', $related->user_id) }}"
+                                                    <a href="{{ route('employer.applications.show-candidate', $related->user_id) }}"
                                                         class="btn btn-md btn-primary">View Detail</a>
+                                                    class="btn btn-md btn-primary">View Detail</a>
                                                 </div>
                                             </div>
                                         </div>

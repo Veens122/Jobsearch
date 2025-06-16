@@ -16,4 +16,16 @@ class CandidateProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // CandidateProfile.php
+
+    public function educationHistory()
+    {
+        return $this->hasMany(EducationHistory::class, 'user_id', 'user_id');
+    }
+
+    public function jobHistory()
+    {
+        return $this->hasMany(JobHistory::class, 'user_id', 'user_id');
+    }
 }

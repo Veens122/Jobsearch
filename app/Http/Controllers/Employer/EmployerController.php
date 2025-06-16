@@ -8,6 +8,7 @@ use App\Models\Application;
 use App\Models\User;
 use App\Models\Job;
 use App\Notifications\CandidateShortlisted;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -171,11 +172,31 @@ class EmployerController extends Controller
             $query->where('employer_id', $employer->id);
         })->count();
 
+        //  Active Jobs: expiry_date is today or later
+        $activeJobsCount = Job::where('employer_id', $employer->id)
+            ->whereDate('expiry_date', '>=', Carbon::today())
+            ->count();
+
+        // Expired Jobs: expiry_date is before today
+        $expiredJobsCount = Job::where('employer_id', $employer->id)
+            ->whereDate('expiry_date', '<', Carbon::today())
+            ->count();
+
+        //  Shortlisted applications
+        $shortlistedCount = Application::whereHas('job', function ($query) use ($employer) {
+            $query->where('employer_id', $employer->id);
+        })->where('status', 'shortlisted')->count();
+
+
+
         return view('employer.dashboard', compact(
             'employer',
             'jobs',
             'postedJobsCount',
-            'applicantsCount'
+            'applicantsCount',
+            'activeJobsCount',
+            'expiredJobsCount',
+            'shortlistedCount'
         ));
     }
 
@@ -196,5 +217,25 @@ class EmployerController extends Controller
         $candidate->notify(new CandidateShortlisted($application));
 
         return back()->with('success', 'Candidate shortlisted and notified.');
+    }
+
+    // Download Resume
+    public function downloadResume($candidateId)
+    {
+        $candidate = User::with('candidateProfile')->findOrFail($candidateId);
+
+        // Ensure candidate has a profile and resume
+        if (!$candidate->candidateProfile || !$candidate->candidateProfile->resume) {
+            return redirect()->back()->with('error', 'Resume not found for this candidate.');
+        }
+
+        $resumePath = $candidate->candidateProfile->resume;
+
+        // Check if resume file actually exists
+        if (Storage::disk('public')->exists($resumePath)) {
+            return response()->download(storage_path('app/public/' . $resumePath));
+        }
+
+        return redirect()->back()->with('error', 'Resume file not found.');
     }
 }

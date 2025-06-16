@@ -11,7 +11,7 @@
                     <ul>
                         @guest
                         <li class="list-buttons">
-                            <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#login"><i
+                            <a href="{{ route('login')}}" data-bs-toggle="modal" data-bs-target="#login"><i
                                     class="fas fa-sign-in-alt me-2"></i>Log In</a>
                         </li>
                         @endguest
@@ -144,7 +144,7 @@
                 <ul class="nav-menu nav-menu-social align-to-right">
                     <li>
                         @guest
-                        <a href="JavaScript:Void(0);" data-bs-toggle="modal" data-bs-target="#login"><i
+                        <a href="J{{ route('login')}}" data-bs-toggle="modal" data-bs-target="#login"><i
                                 class="fas fa-sign-in-alt me-2"></i>Sign In</a>
                         @endguest
                     </li>

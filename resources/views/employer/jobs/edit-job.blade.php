@@ -60,7 +60,7 @@
                             @endif
 
                             <div class="row">
-                                {{-- Company Logo --}}
+                                <!-- Company Logo -->
                                 <div class="col-12 mb-3">
                                     <label>Company Logo</label>
                                     @if ($job->company_logo)
@@ -78,7 +78,7 @@
                                     @enderror
                                 </div>
 
-                                {{-- Company Name --}}
+                                <!-- Company Name -->
                                 <div class="col-12 mb-3">
                                     <label for="company_name">Company Name</label>
                                     <input type="text" name="company_name" id="company_name" class="form-control"
@@ -98,7 +98,17 @@
                                     @enderror
                                 </div>
 
-                                {{-- Job Description --}}
+                                <!-- {{-- Industry --}} -->
+                                <div class="col-12 mb-3">
+                                    <label for="industry">Industry</label>
+                                    <input type="text" name="industry" id="industry" class="form-control"
+                                        value="{{ old('industry', $job->industry) }}" required>
+                                    @error('industry')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <!--  Job Description  -->
                                 <div class="col-12 mb-3">
                                     <label for="description">Job Description</label>
                                     <textarea name="description" id="description" class="form-control" rows="4"
@@ -108,7 +118,7 @@
                                     @enderror
                                 </div>
 
-                                {{-- Job Category --}}
+                                <!-- Job Category -->
                                 <div class="col-md-6 mb-3">
                                     <label for="category_id">Job Category</label>
                                     <select name="category_id" id="category_id" class="form-control" required>
@@ -125,7 +135,7 @@
                                     @enderror
                                 </div>
 
-                                {{-- Job Type --}}
+                                <!-- Job type -->
                                 <div class="col-md-6 mb-3">
                                     <label for="type">Job Type</label>
                                     <select name="type" id="type" class="form-control" required>
@@ -145,7 +155,8 @@
 
                                 {{-- Experience --}}
                                 <div class="col-md-6 mb-3">
-                                    <label for="experience">Experience</label>
+                                    <label for="experience">Experience</label> <small class="text-muted">(enter only the
+                                        number example: 4)</small>
                                     <input type="text" name="experience" id="experience" class="form-control"
                                         value="{{ old('experience', $job->experience) }}">
                                     @error('experience')
@@ -163,6 +174,21 @@
                                     @enderror
                                 </div>
 
+
+                                <!-- Education Level / Qualifications -->
+                                <div class="col-12 mb-3">
+                                    <label for="education_level">Qualifications <small class="text-muted">(enter each
+                                            qualification on a new line)</small></label>
+                                    <textarea name="education_level" id="education_level" class="form-control"
+                                        rows="5">{{ old('education_level', $job->education_level) }}</textarea>
+                                    @error('education_level')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+
+
+                                <!-- 
                                 {{-- Education Level --}}
                                 <div class="col-md-6 mb-3">
                                     <label for="education_level">Qualification</label>
@@ -180,17 +206,8 @@
                                     @error('education_level')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
+                                </div> -->
 
-                                {{-- Skills --}}
-                                <div class="col-12 mb-3">
-                                    <label for="skills">Skills (use commas to separate)</label>
-                                    <input type="text" name="skills" id="skills" class="form-control"
-                                        value="{{ old('skills', $job->skills) }}">
-                                    @error('skills')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
 
                                 {{-- Country --}}
                                 <div class="col-md-6 mb-3">
@@ -295,6 +312,19 @@
                                     @enderror
                                 </div>
 
+
+
+                                {{-- Skills --}}
+                                <div class="col-12 mb-3">
+                                    <label for="skills">skills <small class="text-muted">(enter each
+                                            skill on a new line)</small></label>
+                                    <textarea name="skills" id="skills" class="form-control"
+                                        rows="5">{{ old('skills', $job->skills) }}</textarea>
+                                    @error('skills')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
                                 {{-- Responsibilities --}}
                                 <div class="col-12 mb-3">
                                     <label for="responsibilities">Responsibilities <small class="text-muted">(enter each
@@ -306,17 +336,6 @@
                                     @enderror
                                 </div>
 
-                                {{-- Other Qualifications --}}
-                                <div class="col-12 mb-3">
-                                    <label for="other_qualifications">Other Qualifications</label>
-                                    <textarea name="other_qualifications" id="other_qualifications" class="form-control"
-                                        rows="3">{{ old('other_qualifications', $job->other_qualifications) }}</textarea>
-                                    @error('other_qualifications')
-                                    <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-
-                                {{-- Submit --}}
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Update Job</button>
                                 </div>

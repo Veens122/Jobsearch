@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function employerProfile()
     {
-        return $this->hasOne(EmployerProfile::class, 'user_id');
+        return $this->hasOne(EmployerProfile::class);
     }
 
     public function jobs()
@@ -93,5 +93,20 @@ class User extends Authenticatable
     public function receivedMessages()
     {
         return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    public function adminProfile()
+    {
+        return $this->hasOne(AdminProfile::class, 'user_id');
+    }
+
+    public function jobHistories()
+    {
+        return $this->hasMany(JobHistory::class);
+    }
+
+    public function educationHistories()
+    {
+        return $this->hasMany(EducationHistory::class);
     }
 }

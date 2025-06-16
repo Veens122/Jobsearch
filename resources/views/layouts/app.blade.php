@@ -75,6 +75,9 @@
     <script src="{{ asset('assets/js/counterup.min.js') }}"></script>
     <!-- Candidate and employer registrationn toggle -->
     <script src="{{ asset('assets/js/registrationform.js') }}"></script>
+    <!-- password toggle -->
+    <script src="{{ asset('assets/js/password-toggle.js') }}"></script>
+
 
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
@@ -92,25 +95,25 @@
 
     @if (session('message'))
     <script>
-        swal("Successful!", "{{ session('message') }}", "success");
+    swal("Successful!", "{{ session('message') }}", "success");
     </script>
     @endif
 
     @if (session('info'))
     <script>
-        swal("Info", "{{ session('info') }}", "info");
+    swal("Info", "{{ session('info') }}", "info");
     </script>
     @endif
 
     @if (Session::has('success'))
     <script>
-        swal("Successful!", "{{ Session::get('success') }}", "success");
+    swal("Successful!", "{{ Session::get('success') }}", "success");
     </script>
     @endif
 
     @if (Session::has('error'))
     <script>
-        swal("Error!", "{{ Session::get('error') }}", "warning");
+    swal("Error!", "{{ Session::get('error') }}", "warning");
     </script>
     @endif
 

@@ -57,9 +57,6 @@
                             </div>
                         </div>
 
-                        <!-- Saved Candidates -->
-
-
                         <!-- Applicants -->
                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                             <div class="dash-wrap-bloud">
@@ -77,6 +74,58 @@
                             </div>
                         </div>
 
+                        <!-- Active Jobs -->
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="dash-wrap-bloud">
+                                <div class="dash-wrap-bloud-icon">
+                                    <div class="bloud-icon text-primary bg-light-primary">
+                                        <i class="fa-solid fa-briefcase"></i>
+                                    </div>
+                                </div>
+                                <div class="dash-wrap-bloud-caption">
+                                    <div class="dash-wrap-bloud-content">
+                                        <h5 class="ctr">{{ $activeJobsCount }}</h5>
+                                        <p>Active Jobs</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shortlisted -->
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="dash-wrap-bloud">
+                                <div class="dash-wrap-bloud-icon">
+                                    <div class="bloud-icon text-warning bg-light-warning">
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                                <div class="dash-wrap-bloud-caption">
+                                    <div class="dash-wrap-bloud-content">
+                                        <h5 class="ctr">{{ $shortlistedCount }}</h5>
+                                        <p>Shortlisted</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expired Jobs -->
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                            <div class="dash-wrap-bloud">
+                                <div class="dash-wrap-bloud-icon">
+                                    <div class="bloud-icon text-secondary bg-light-secondary">
+                                        <i class="fa-solid fa-calendar-xmark"></i>
+                                    </div>
+                                </div>
+                                <div class="dash-wrap-bloud-caption">
+                                    <div class="dash-wrap-bloud-content">
+                                        <h5 class="ctr">{{ $expiredJobsCount }}</h5>
+                                        <p>Expired Jobs</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <!-- Total Reviews -->
 
                     </div>
@@ -85,7 +134,7 @@
 
                     <!-- Row Start -->
                     <div class="row gx-4 gy-4 mb-4">
-                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                        <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
                             <div class="card d-none d-lg-block">
                                 <div class="card-header">
                                     <h4 class="mb-0">Extra Area Chart</h4>
@@ -106,7 +155,7 @@
                                     <div class="chart" id="line-chart" style="height:300px;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                             <div class="card">
@@ -244,7 +293,7 @@
                                                             </span>
                                                         </p>
                                                         <p class="m-0 text-sm-muted">
-                                                            <strong>Expired:</strong>
+                                                            <strong>Expiry date:</strong>
                                                             <span class="text-danger">
                                                                 {{ $job->expiry_date ? \Carbon\Carbon::parse($job->expiry_date)->format('d M Y') : 'N/A' }}
 

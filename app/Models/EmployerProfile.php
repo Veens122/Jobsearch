@@ -12,8 +12,13 @@ class EmployerProfile extends Model
 
     protected $guarded = [];
 
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function employer()
+    {
+        return $this->belongsTo(User::class, 'employer_id')->with('employerProfile');
     }
 }

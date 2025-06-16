@@ -30,12 +30,15 @@ class JobController extends Controller
 
     public function jobDetail($id)
     {
-        $job = Job::findOrFail($id);
-        $employer = User::with('employerProfile')->find($job->employer_id);
+        $job = Job::with('employerProfile')->findOrFail($id);
+        $employer = User::with('employerProfile')->find($job->user_id);
 
         // Fetch related jobs
-        $relatedJobs = Job::where('category_id', $job->category_id)
-            ->where('id', '!=', $job->id)
+        $relatedJobs = Job::where('id', '!=', $job->id)
+            ->where(function ($query) use ($job) {
+                $query->where('category_id', $job->category_id)
+                    ->orWhere('industry', $job->industry);
+            })
             ->latest()
             ->take(5)
             ->get();
@@ -99,6 +102,7 @@ class JobController extends Controller
             'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'company_name' => 'required|string|max:255',
             'title' => 'required|string|max:255',
+            'industry' => 'required|string|max:255',
             'description' => 'required|string',
             'category_id' => 'required|exists:job_categories,id',
             'type' => 'required|string',
@@ -167,7 +171,6 @@ class JobController extends Controller
             'salary_min' => 'nullable|numeric',
             'salary_max' => 'nullable|numeric|gte:salary_min',
             'salary_type' => 'nullable|in:weekly,monthly',
-            'experience' => 'nullable|string',
             'age_limit' => 'nullable|string',
             'responsibilities' => 'nullable|string',
             'other_qualifications' => 'nullable|string',
@@ -181,6 +184,7 @@ class JobController extends Controller
         $job->employer_profile_id = $employerProfile->id ?? null;
         $job->company_name = $request->company_name;
         $job->title = $request->title;
+        $job->industry = $request->industry;
         $job->description = $request->description;
         $job->category_id = $request->category_id;
         $job->type = $request->type;
@@ -284,19 +288,7 @@ class JobController extends Controller
         return view('all-jobs', compact('categories', 'cities', 'jobs'));
     }
 
-    public function showRelatedJobs($id)
-    {
-        $job = Job::findOrFail($id);
 
-        // Example: find jobs in same category, exclude current job
-        $relatedJobs = Job::where('category_id', $job->category_id)
-            ->where('id', '!=', $id)
-            ->latest()
-            ->take(5)
-            ->get();
-
-        return view('jobs.show-candidate', compact('job', 'relatedJobs'));
-    }
 
     public function jobCategories()
     {
@@ -327,4 +319,8 @@ class JobController extends Controller
 
         return back()->with('success', 'Category deleted.');
     }
+
+    // For job category on the home page 
+
+
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Candidate\CandidateController;
 use App\Http\Controllers\CandidateProfileController;
 use App\Http\Controllers\Employer\EmployerController;
@@ -56,6 +57,8 @@ Route::get('/login', function () {
 })->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // ===========================
 // Dashboards
@@ -67,11 +70,6 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 Route::middleware(['auth', 'role:2', 'check.banned'])->group(function () {
     Route::get('/employer/dashboard', [EmployerController::class, 'dashboard'])->name('employer.dashboard');
 });
-
-Route::middleware(['auth', 'role:3', 'check.banned'])->group(function () {
-    Route::get('/candidate/dashboard', [CandidateController::class, 'dashboard'])->name('candidate.dashboard');
-});
-
 
 
 // ===========================
@@ -90,9 +88,7 @@ Route::get('/resend-otp/{email}', [EmployerController::class, 'resendOtp'])->nam
 // Profile Routes
 // ===========================
 // Candidate
-Route::get('/profile/candidate-profile', [CandidateProfileController::class, 'showProfile'])->name('profile.candidate-profile');
-Route::get('/profile/edit', [CandidateProfileController::class, 'editProfile'])->name('profile.edit');
-Route::put('/candidate/profile', [CandidateProfileController::class, 'updateProfile'])->name('profile.update');
+
 
 // Employer
 Route::get('/profile/employer-profile', [EmployerProfileController::class, 'showProfile'])->name('employer-profile');
@@ -100,7 +96,7 @@ Route::get('/profile/employer-edit', [EmployerProfileController::class, 'editPro
 Route::put('/profile/employer-update', [EmployerProfileController::class, 'updateProfile'])->name('employer-profile.update');
 
 // Super Admin
-Route::middleware(['auth', 'role'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:1'])->prefix('admin')->group(function () {
     Route::get('dashboard', [SuperAdminController::class, 'admin_dashboard'])->name('admin.dashboard');
     Route::get('/profile/admin-profile', [SuperAdminProfileController::class, 'showProfile'])->name('admin-profile');
     Route::get('profile/admin-edit', [SuperAdminProfileController::class, 'editProfile'])->name('admin-profile.edit');
@@ -126,7 +122,7 @@ Route::post('/profile/resume', [CandidateController::class, 'uploadResume'])->na
 Route::delete('/profile/resume', [CandidateController::class, 'deleteResume'])->name('profile.resume.delete');
 
 // ===========================
-// Job Routes
+// Job Routes public
 // ===========================
 Route::get('/job-details/{id}', [JobController::class, 'jobDetail'])->name('job-detail');
 Route::get('/all-jobs', [JobController::class, 'allJobs'])->name('all-jobs');
@@ -135,25 +131,12 @@ Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter'
 
 Route::post('/jobs/apply', [JobApplicationController::class, 'apply'])->name('job.apply');
 Route::post('/jobs/apply/{id}', [JobApplicationController::class, 'apply'])->middleware('auth')->name('job.apply');
-Route::get('/jobs/{id}', [JobApplicationController::class, 'showRelatedJobss'])->name('job.details');
+Route::get('/jobs/{id}', [JobApplicationController::class, 'showRelatedJobs'])->name('job.details');
 
-Route::middleware(['auth', 'role:2'])->prefix('employer')->name('employer.')->group(function () {
-    Route::get('jobs/create-job', [JobController::class, 'create'])->name('jobs.create-job');
-    Route::post('jobs', [JobController::class, 'store'])->name('jobs.store');
-    Route::get('jobs/job-list', [JobController::class, 'jobList'])->name('jobs.job-list');
-    Route::get('jobs/{id}/edit', [JobController::class, 'editJob'])->name('jobs.edit-job');
-    Route::put('jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
-    Route::delete('jobs/{id}', [JobController::class, 'destroy'])->name('jobs.destroy');
 
-    Route::get('/applications', [JobApplicationController::class, 'index'])->name('applications.index');
-    Route::post('/applications/{id}/shortlist', [JobApplicationController::class, 'shortlist'])->name('shortlist');
-    Route::post('/applications/{id}/reject', [JobApplicationController::class, 'reject'])->name('reject');
-    Route::delete('/applications/{id}', [JobApplicationController::class, 'destroy'])->name('destroy');
-    Route::get('/applications/{id}/show-candidate', [JobApplicationController::class, 'showCandidate'])->name('applications.show-candidate');
-});
 
 // ===========================
-// Super Admin Panel
+// Super with the role of 1
 // ===========================
 Route::middleware(['auth', 'role:1'])->prefix('superadmin')->group(function () {
     Route::get('/employer-list', [SuperAdminController::class, 'employerList'])->name('superadmin.employer-list');
@@ -175,6 +158,60 @@ Route::middleware(['auth', 'role:1'])->prefix('superadmin')->group(function () {
     Route::delete('/categories/{id}', [SuperAdminController::class, 'deleteCategory'])->name('categories.delete');
 });
 
+// Employer with the the role:2
+Route::middleware(['auth', 'role:2'])->prefix('employer')->name('employer.')->group(function () {
+    Route::get('jobs/create-job', [JobController::class, 'create'])->name('jobs.create-job');
+    Route::post('jobs', [JobController::class, 'store'])->name('jobs.store');
+    Route::get('jobs/job-list', [JobController::class, 'jobList'])->name('jobs.job-list');
+    Route::get('jobs/{id}/edit', [JobController::class, 'editJob'])->name('jobs.edit-job');
+    Route::put('jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
+    Route::delete('jobs/{id}', [JobController::class, 'destroy'])->name('jobs.destroy');
+
+    Route::get('/applications', [JobApplicationController::class, 'index'])->name('applications.index');
+    Route::post('/applications/{id}/shortlist', [JobApplicationController::class, 'shortlist'])->name('shortlist');
+    Route::post('/applications/{id}/reject', [JobApplicationController::class, 'reject'])->name('reject');
+    Route::delete('/applications/{id}', [JobApplicationController::class, 'destroy'])->name('destroy');
+
+    // Route::get('/applications/{id}/show-candidate', [JobApplicationController::class, 'showCandidate'])->name('applications.show-candidate');
+
+
+    // for viewing candidate's profile and downloading resume and cover letter by the employer
+
+    Route::get('/candidate/{id}/view', [JobApplicationController::class, 'showCandidate'])->name('applications.show-candidate');
+
+    // download resume
+    Route::get('/applications/{id}/download-resume', [JobApplicationController::class, 'downloadResume'])
+        ->name('applications.download-resume');
+
+    Route::get('/applications/{id}/download-coverletter', [JobApplicationController::class, 'downloadCoverLetter'])
+        ->name('applications.download-coverletter');
+});
+
+
+// Candidate with the role:3
+Route::middleware(['auth', 'role:3', 'check.banned'])->group(function () {
+    Route::get('/candidate/dashboard', [CandidateController::class, 'dashboard'])->name('candidate.dashboard');
+
+    Route::get('/profile/candidate-profile', [CandidateProfileController::class, 'showProfile'])->name('profile.candidate-profile');
+    Route::get('/profile/edit', [CandidateProfileController::class, 'editProfile'])->name('profile.edit');
+    Route::put('/candidate/profile', [CandidateProfileController::class, 'updateProfile'])->name('profile.update');
+
+    // for viewing candidate's profile and downloading resume and cover letter by candidates
+    Route::get('/candidate/{id}/profile', [CandidateController::class, 'publicProfile'])->name('candidate.profile.public');
+    Route::post('/candidate/upload-resume', [CandidateController::class, 'uploadResume'])->name('candidate.upload.resume');
+    Route::get('/download/resume/{id}', [CandidateController::class, 'downloadResume'])->name('download.resume');
+});
+
+// download resume
+Route::middleware(['auth'])->get('/download/resume/{id}', [CandidateController::class, 'downloadResume'])->name('download.resume');
+
+// download cover letter
+Route::middleware(['auth'])->get('/download/coverletter/{id}', [JobApplicationController::class, 'downloadCoverLetter'])->name('download.coverletter');
+
+
+
+
+
 // ===========================
 // Messages
 // ===========================
@@ -182,6 +219,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/messages', [MessageController::class, 'inbox'])->name('messages.inbox');
     Route::get('/messages/all', [MessageController::class, 'messages'])->name('messages');
     Route::post('/messages/send', [MessageController::class, 'sendMessage'])->name('messages.send');
+
+    // Change password route
+    Route::get('/change-password', [PasswordController::class, 'editPassword'])->name('password.edit');
+    Route::post('/change-password', [PasswordController::class, 'updatePassword'])->name('password.update');
 });
 
 // ===========================
@@ -191,3 +232,6 @@ Route::post('/candidate/contact', [CandidateProfileController::class, 'contactCa
 Route::get('/candidate/notifications', function () {
     return view('candidate.notifications');
 })->name('candidate.notifications');
+
+// for job categories on the home page
+Route::get('/jobs/job-list', [JobController::class, 'listByCategory'])->name('jobs.job-list');

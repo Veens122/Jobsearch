@@ -37,7 +37,7 @@
                     <h2>All Users</h2>
                     <form action="{{ route('users.users-list') }}" method="GET" class="form-inline">
                         <select name="status" onchange="this.form.submit()" class="form-select form-select-sm">
-                            <option value="">-- Filter Status --</option>
+                            <option value="">All users</option>
                             <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
                             <option value="banned" {{ request('status') == 'banned' ? 'selected' : '' }}>Banned</option>
                         </select>
@@ -91,15 +91,17 @@
                                 <td>
                                     @if($user->banned_until && now()->lessThan($user->banned_until))
                                     <!-- Unban Button -->
-                                    <form action="{{ route('superadmin.unban.user', $user->id) }}" method="POST"
-                                        class="d-inline-block">
+                                    <form action="{{ route('superadmin.unban.user', $user->id) }}"
+                                        onsubmit="return confirm('Are you sure you want to unban this user?')"
+                                        id="unbanForm{{ $user->id }}" method="POST" class="d-inline-block">
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-sm">Unban</button>
                                     </form>
                                     @else
                                     <!-- Ban Form -->
-                                    <form action="{{ route('superadmin.ban.user', $user->id) }}" method="POST"
-                                        class="d-inline-block">
+                                    <form action="{{ route('superadmin.ban.user', $user->id) }}"
+                                        onsubmit="return confirm('Are you sure you want to ban this user?')"
+                                        id="banForm{{ $user->id }}" method="POST" class="d-inline-block">
                                         @csrf
                                         <div class="input-group input-group-sm">
                                             <input type="number" name="ban_days" class="form-control" placeholder="Days"

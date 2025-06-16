@@ -4,68 +4,99 @@ namespace App\Http\Controllers;
 
 use App\Mail\ApplicationShortlistedMail;
 use App\Models\Application;
+use App\Models\EmployerProfile;
+use App\Models\Job;
+use App\Models\User;
 use App\Notifications\ApplicationShortlistedNotification;
 use App\Notifications\CandidateShortlisted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Support\Facades\Log; // Add this at the top
+
 
 class JobApplicationController extends Controller
 {
     // Apply for a job
+
     public function apply(Request $request)
     {
         $request->validate([
             'job_id' => 'required|exists:jobs,id',
             'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
             'cover_letter' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-
         ]);
 
-        $jobId = $request->input('job_id');
-
-        if (Application::where('user_id', auth()->id())->where('job_id', $jobId)->exists()) {
+        // Check for duplicate application
+        if (Application::where('user_id', auth()->id())
+            ->where('job_id', $request->job_id)
+            ->exists()
+        ) {
             return back()->with('error', 'You have already applied for this job.');
         }
 
-        $resumePath = $request->file('resume')->storeAs(
-            'resumes',
-            uniqid() . '_' . $request->file('resume')->getClientOriginalName(),
-            'public'
-        );
+        // Store resume
+        $resumePath = $request->file('resume')->store('applications/resumes', 'public');
 
-        if ($request->hasFile('cover_letter')) {
-            $coverLetter = $request->file('cover_letter');
-            $coverLetterName = time() . '_cover_' . $coverLetter->getClientOriginalName();
-            $coverLetterPath = $coverLetter->storeAs('applications/cover_letters', $coverLetterName, 'public');
+        if (!$resumePath) {
+            Log::error('Resume upload failed for user: ' . auth()->id());
+            return back()->with('error', 'Resume upload failed. Please try again.');
         }
 
+        Log::info('Resume uploaded by user ' . auth()->id() . ': ' . $resumePath);
 
-        Application::create([
-            'job_id' => $jobId,
+        // Store cover letter if provided
+        $coverLetterPath = null;
+        if ($request->hasFile('cover_letter')) {
+            $coverLetterPath = $request->file('cover_letter')->store('applications/cover_letters', 'public');
+        }
+
+        // Create application
+        $application = Application::create([
+            'job_id' => $request->job_id,
             'user_id' => auth()->id(),
             'resume' => $resumePath,
-            'cover_letter' => $coverLetterPath ?? null,
+            'cover_letter' => $coverLetterPath,
+            'status' => 'pending'
         ]);
+
+        Log::info('Application created: ' . $application->id . ' | Resume Path: ' . $resumePath);
 
         return back()->with('success', 'Application submitted successfully!');
     }
 
 
+
     // Show list of applications for jobs owned by the employer
-    public function index()
+
+    public function index(Request $request)
     {
         $employerId = auth()->id();
 
         $applications = Application::whereHas('job', function ($query) use ($employerId) {
             $query->where('employer_id', $employerId);
-        })->with(['candidateProfile.user', 'job'])
+        })
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->whereHas('job', function ($q) use ($request) {
+                    $q->where('title', 'like', '%' . $request->search . '%');
+                });
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->status);
+            })
+            ->with(['candidateProfile.user', 'job'])
             ->latest()
             ->paginate(10);
+
+        // Preserve filters in pagination links
+        $applications->appends($request->all());
 
         $employer = auth()->user()->load('employerProfile');
 
         return view('employer.applications.index', compact('applications', 'employer'));
     }
+
 
     // Show  application
     public function showCandidate($id)
@@ -75,21 +106,68 @@ class JobApplicationController extends Controller
         $candidateProfile = $candidate->candidateProfile;
 
         // Check if profile exists before fetching related candidates
-        if ($candidateProfile) {
-            $relatedCandidates = \App\Models\CandidateProfile::where('job_title', $candidateProfile->job_title)
-                ->where('id', '!=', $candidateProfile->id)
-                ->take(4)
-                ->get();
-        } else {
-            $relatedCandidates = collect(); // Empty collection to avoid blade error
-        }
+        $relatedCandidates = $candidateProfile
+            ? \App\Models\CandidateProfile::where('job_title', $candidateProfile->job_title)
+            ->where('id', '!=', $candidateProfile->id)
+            ->take(4)
+            ->get()
+            : collect();
+
+        // This candidate applied for the job, allow downloads
+        $hasApplied = true;
 
         return view('employer.applications.show-candidate', compact(
             'application',
             'candidate',
             'candidateProfile',
-            'relatedCandidates'
+            'relatedCandidates',
+            'hasApplied'
         ));
+    }
+
+
+
+    public function downloadResume($applicationId)
+    {
+        $application = Application::with('job')->findOrFail($applicationId);
+
+        // Verify employer owns this application
+        if (auth()->id() !== $application->job->employer_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        if (!$application->resume) {
+            abort(404, 'No resume was submitted with this application.');
+        }
+
+        $path = storage_path('app/public/' . $application->resume);
+
+        if (!file_exists($path)) {
+            abort(404, 'File not found in storage.');
+        }
+
+        return response()->download($path);
+    }
+
+    public function downloadCoverLetter($applicationId)
+    {
+        $application = Application::with('job')->findOrFail($applicationId);
+
+        if (auth()->id() !== $application->job->employer_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        if (!$application->cover_letter) {
+            abort(404, 'No cover letter was submitted with this application.');
+        }
+
+        $path = storage_path('app/public/' . $application->cover_letter);
+
+        if (!file_exists($path)) {
+            abort(404, 'File not found in storage.');
+        }
+
+        return response()->download($path);
     }
 
 
@@ -98,7 +176,7 @@ class JobApplicationController extends Controller
     // Update application status 
     public function updateStatus(Application $application, string $status)
     {
-        $validStatuses = ['shortlisted', 'rejected', 'approved', 'ignored']; // your statuses
+        $validStatuses = ['shortlisted', 'rejected', 'approved', 'ignored'];
 
         if (!in_array($status, $validStatuses)) {
             return back()->withErrors(['Invalid status.']);
@@ -117,12 +195,38 @@ class JobApplicationController extends Controller
         return back()->with('success', "Candidate has been {$status}.");
     }
 
+    public function showRelatedJobs($id)
+    {
+        // Load job with its employer relationship
+        $job = Job::with('employerProfile')->findOrFail($id);
+
+        // Get employer info from the job relationship
+        $employer = $job->employerProfile;
+
+        // Get related jobs using same industry and category, exclude current job
+        $relatedJobs = Job::where('id', '!=', $job->id)
+            ->where(function ($query) use ($job) {
+                $query->where('industry', $job->industry)
+                    ->orWhere('category_id', $job->category_id);
+            })
+            ->latest()
+            ->limit(5)
+            ->get();
+
+        return view('job-detail', compact('job', 'employer', 'relatedJobs'));
+    }
+
+
 
 
 
     public function shortlist($id)
     {
-        $application = Application::findOrFail($id);
+        $application = Application::where('id', $id)
+            ->whereHas('job', function ($query) {
+                $query->where('employer_id', auth()->id());
+            })->firstOrFail();
+
         $application->status = 'shortlisted';
         $application->save();
 

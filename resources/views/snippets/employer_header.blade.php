@@ -308,7 +308,7 @@ $employer = auth()->user();
                                             Resume</a></li>
                                     <li><a href="candidate-messages.html"><i class="fa fa-envelope"></i>Messages<span
                                                 class="notti_coun style-3">3</span></a></li>
-                                    <li><a href="candidate-change-password.html"><i class="fa fa-unlock-alt"></i>Change
+                                    <li><a href="{{ route('password.edit')}}"><i class="fa fa-unlock-alt"></i>Change
                                             Password</a></li>
                                     <li><a href="candidate-delete-account.html"><i
                                                 class="fa-solid fa-trash-can"></i>Delete Account</a></li>

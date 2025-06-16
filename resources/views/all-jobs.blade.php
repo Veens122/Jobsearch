@@ -190,10 +190,9 @@
 
                                     <!-- Quick Apply Button -->
                                     <div class="jbs-list-head-last mt-3">
-                                        <a href="javascript:void(0);"
-                                            class="btn btn-md btn-primary px-4 quick-apply-btn" data-bs-toggle="modal"
-                                            data-bs-target="#quickApplyModal" data-job-id="{{ $job->id }}">
-                                            Quick Apply
+                                        <a href="{{ route('job-detail', ['id' => $job->id]) }}"
+                                            class="btn btn-md btn-primary px-4 quick-apply-btn">
+                                            Apply
                                         </a>
                                     </div>
 
@@ -413,36 +412,44 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-login-form">
-                        <form>
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
 
                             <div class="form-floating mb-4">
-                                <input type="email" class="form-control" placeholder="name@example.com">
-                                <label>User Name</label>
+                                <input type="email" name="email" class="form-control" placeholder="name@example.com"
+                                    required>
+                                <label for="email">Email</label>
                             </div>
 
                             <div class="form-floating mb-4">
-                                <input type="password" class="form-control" placeholder="Password">
-                                <label>Password</label>
+                                <input type="password" name="password" class="form-control" id="password"
+                                    placeholder="Password" required>
+                                <label for="password">Password</label>
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                    style="cursor: pointer;" onclick="togglePassword()">
+                                    👁️
+                                </span>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary full-width font--bold btn-lg">Log
-                                    In</button>
+                                <button type="submit" class="btn btn-primary full-width font--bold btn-lg">
+                                    Log In
+                                </button>
                             </div>
 
                             <div class="modal-flex-item mb-3">
                                 <div class="modal-flex-first">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="savepassword"
-                                            value="option1">
-                                        <label class="form-check-label" for="savepassword">Save Password</label>
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                        <label class="form-check-label" for="remember">Remember Me</label>
                                     </div>
                                 </div>
                                 <div class="modal-flex-last">
-                                    <a href="JavaScript:Void(0);">Forget Password?</a>
+                                    <a href="{{ route('forgotPassword') }}">Forgot Password?</a>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                     <div class="social-login">
                         <ul>
@@ -454,7 +461,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <p>Don't have an account yet?<a href="signup.html" class="text-primary font--bold ms-1">Sign
+                    <p>Don't have an account yet?<a href="{{ route('sign-up') }}"
+                            class="text-primary font--bold ms-1">Sign
                             Up</a></p>
                 </div>
             </div>

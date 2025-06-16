@@ -26,13 +26,9 @@
             <div class="dashboard-tlbar d-block mb-4">
                 <div class="row">
                     <div class="colxl-12 col-lg-12 col-md-12">
-                        <h1 class="mb-1 fs-3 fw-medium">Applied Jobs</h1>
+                        <h1 class="mb-1 fs-3 fw-medium">Job Applications</h1>
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item text-muted"><a href="#">Candidate</a></li>
-                                <li class="breadcrumb-item text-muted"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="#" class="text-primary">Applied Jobs</a></li>
-                            </ol>
+
                         </nav>
                     </div>
                 </div>
@@ -44,29 +40,46 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
-                            <div class="card-header">
-                                <div class="_mp-inner-content elior">
-                                    <div class="_mp-inner-first">
-                                        <div class="search-inline">
-                                            <input type="text" class="form-control"
-                                                placeholder="Job title, Keywords etc.">
-                                            <button type="button" class="btn btn-primary">Search</button>
-                                        </div>
-                                    </div>
-                                    <div class="_mp_inner-last">
-                                        <div class="item-shorting-box-right">
-                                            <div class="shorting-by me-2 small">
-                                                <select>
-                                                    <option value="0">Short by (Default)</option>
-                                                    <option value="1">Short by (Featured)</option>
-                                                    <option value="2">Short by (Urgent)</option>
-                                                    <option value="3">Short by (Post Date)</option>
-                                                </select>
+                            <div class="card-header p-3">
+                                <form method="GET" action="{{ route('employer.applications.index') }}" class="w-100">
+                                    <div class="row g-2">
+
+                                        {{-- 🔍 Search Field --}}
+                                        <div class="col-md-8 col-12">
+                                            <div class="input-group w-100">
+                                                <input type="text" name="search" class="form-control"
+                                                    placeholder="Job title, Keywords etc."
+                                                    value="{{ request('search') }}">
+                                                <button type="submit" class="btn btn-primary">Search</button>
                                             </div>
                                         </div>
+
+                                        {{-- 🔽 Status Filter --}}
+                                        <div class="col-md-4 col-12">
+                                            <select name="status" class="form-select w-100"
+                                                onchange="this.form.submit()">
+                                                <option value="">Sort by (All Status)</option>
+                                                <option value="shortlisted"
+                                                    {{ request('status') == 'shortlisted' ? 'selected' : '' }}>
+                                                    Shortlisted
+                                                </option>
+                                                <option value="pending"
+                                                    {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                                    Pending
+                                                </option>
+                                                <option value="rejected"
+                                                    {{ request('status') == 'rejected' ? 'selected' : '' }}>
+                                                    Rejected
+                                                </option>
+                                            </select>
+                                        </div>
+
                                     </div>
-                                </div>
+                                </form>
                             </div>
+
+
+
                             <div class="card-body">
                                 <!-- Start All List -->
                                 <div class="row justify-content-start gx-3 gy-4">
@@ -77,21 +90,22 @@
                                                 <div class="jbs-list-head-thunner">
                                                     <div class="jbs-list-emp-thumb jbs-verified">
                                                         <a
-                                                            href="{{ route('applications.index', $application->job->id) }}">
+                                                            href="{{ route('employer.applications.index', $application->job->id) }}">
                                                             <figure>
-                                                                <img src="{{ asset('assets/img/l-1.png') }}"
-                                                                    class="img-fluid" alt="">
+                                                                <img src="{{ $application->job->company_logo ? asset('storage/' . $application->job->company_logo) : asset('assets/img/default-logo.png') }}"
+                                                                    class="img-fluid"
+                                                                    alt="{{ $application->job->company_name }}">
                                                             </figure>
                                                         </a>
                                                     </div>
                                                     <div class="jbs-list-job-caption">
                                                         <div class="jbs-job-types-wrap">
                                                             <span
-                                                                class="label text-success bg-light-success">{{ $application->job->job_type ?? 'N/A' }}</span>
+                                                                class="label text-success bg-light-success">{{ $application->job->type ?? 'N/A' }}</span>
                                                         </div>
                                                         <div class="jbs-job-title-wrap">
                                                             <h4>
-                                                                <a href="{{ route('applications.show-candidate', $application->id) }}"
+                                                                <a href="{{ route('employer.applications.show-candidate', $application->id) }}"
                                                                     class="jbs-job-title">
                                                                     {{ $application->job->title }}
                                                                 </a>
@@ -148,7 +162,7 @@
                                                             {{-- Shortlist Action --}}
                                                             <li>
                                                                 <form
-                                                                    action="{{ route('shortlist', $application->id) }}"
+                                                                    action="{{ route('employer.shortlist', $application->id) }}"
                                                                     method="POST"
                                                                     onsubmit="return confirm('Shortlist this candidate?');">
                                                                     @csrf
@@ -159,7 +173,8 @@
 
                                                             {{-- Reject Action --}}
                                                             <li>
-                                                                <form action="{{ route('reject', $application->id) }}"
+                                                                <form
+                                                                    action="{{ route('employer.reject', $application->id) }}"
                                                                     method="POST"
                                                                     onsubmit="return confirm('Reject this candidate?');">
                                                                     @csrf
@@ -171,13 +186,14 @@
 
                                                             {{-- View Candidate --}}
                                                             <li>
-                                                                <a href="{{ route('applications.show-candidate', $application->id) }}"
+                                                                <a href="{{ route('employer.applications.show-candidate', $application->id) }}"
                                                                     class="dropdown-item">View</a>
                                                             </li>
 
                                                             {{-- Delete Application --}}
                                                             <li>
-                                                                <form action="{{ route('destroy', $application->id) }}"
+                                                                <form
+                                                                    action="{{ route('employer.destroy', $application->id) }}"
                                                                     method="POST"
                                                                     onsubmit="return confirm('Delete this application?');">
                                                                     @csrf
@@ -208,6 +224,9 @@
                         </div>
                     </div>
                 </div>
+
+                {{ $applications->appends(request()->query())->links() }}
+
                 <!-- Header Wrap -->
 
             </div>

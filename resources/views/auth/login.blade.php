@@ -82,10 +82,14 @@
                                                     <label>Email</label>
                                                 </div>
 
-                                                <div class="form-floating mb-4">
+                                                <div class="form-floating mb-4 position-relative">
                                                     <input type="password" name="password" class="form-control"
-                                                        placeholder="Password" required>
+                                                        id="password" placeholder="Password" required>
                                                     <label>Password</label>
+                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        👁️
+                                                    </span>
                                                 </div>
 
                                                 <div class="form-group">
@@ -105,12 +109,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-flex-last">
-                                                        <a href="">Forgot Password?</a>
+                                                        <a href="{{ route('forgotPassword') }}">Forgot Password?</a>
                                                     </div>
                                                 </div>
                                             </form>
-
                                         </div>
+
+
+
 
                                         <div class="social-login">
                                             <ul>
@@ -120,6 +126,11 @@
                                                             class="fa-brands fa-google"></i>Google+</a></li>
                                             </ul>
                                         </div>
+                                    </div>
+                                    <div class="modal-footer text-center">
+                                        <p>Don't have an account yet?<a href="{{ route('sign-up') }}"
+                                                class="text-primary font--bold ms-1 text-center">Sign Up</a>
+                                        </p>
                                     </div>
                                 </div>
 
@@ -212,8 +223,7 @@
 
                                                 {{-- Company Name --}}
                                                 <div class="form-floating mb-4">
-                                                    <input type="text" value=""
-                                                        class="form-control" name="company_name"
+                                                    <input type="text" value="" class="form-control" name="company_name"
                                                         placeholder="Company Name" required>
                                                     <label>Company Name</label>
                                                     @error('company_name')
@@ -223,8 +233,8 @@
 
                                                 {{-- Email --}}
                                                 <div class="form-floating mb-4">
-                                                    <input type="email" value="" class="form-control"
-                                                        name="email" placeholder="email@example.com" required>
+                                                    <input type="email" value="" class="form-control" name="email"
+                                                        placeholder="email@example.com" required>
                                                     <label>Email</label>
                                                     @error('email')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -233,9 +243,8 @@
 
                                                 {{-- Username --}}
                                                 <div class="form-floating mb-4">
-                                                    <input type="text" value=""
-                                                        class="form-control" name="username" placeholder="User Name"
-                                                        required>
+                                                    <input type="text" value="" class="form-control" name="username"
+                                                        placeholder="User Name" required>
                                                     <label>Username</label>
                                                     @error('username')
                                                     <span class="text-danger">{{ $message }}</span>
@@ -341,8 +350,8 @@
                             @csrf
 
                             <div class="form-floating mb-4">
-                                <input type="email" value="" class="form-control"
-                                    placeholder="name@example.com" name="email" required>
+                                <input type="email" value="" class="form-control" placeholder="name@example.com"
+                                    name="email" required>
                                 <label>Email</label>
                                 @error('email')
                                 <span class="text-danger">{{ $message }}</span>
@@ -350,8 +359,8 @@
                             </div>
 
                             <div class="form-floating mb-4">
-                                <input type="password" value="" class="form-control"
-                                    placeholder="Password" name="password" required>
+                                <input type="password" value="" class="form-control" placeholder="Password"
+                                    name="password" required>
                                 <label>Password</label>
                                 @error('password')
                                 <span class="text-danger">{{ $message }}</span>
@@ -719,6 +728,8 @@
 
 
     <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+    <!-- Password view toggle script -->
 
 
 </div>

@@ -89,6 +89,12 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('assets/js/cl-switch.js') }}"></script>
 
+    <!-- To populate Education history template -->
+    <script src="{{ asset('assets/js/education_history.js') }}"></script>
+
+    <!-- To populate Education history template -->
+    <script src="{{ asset('assets/js/job_history.js') }}"></script>
+
     <!-- Morris.js charts -->
     <script src="{{ asset('assets/js/raphael/raphael.min.js') }}"></script>
     <script src="{{ asset('assets/js/morris.js/morris.min.js') }}"></script>
@@ -108,27 +114,28 @@
     <!-- Bootstrap 5 JS (with Popper.js included) -->
 
 
+
     @if (session('message'))
     <script>
-        swal("Successful!", "{{ session('message') }}", "success");
+    swal("Successful!", "{{ session('message') }}", "success");
     </script>
     @endif
 
     @if (session('info'))
     <script>
-        swal("Info", "{{ session('info') }}", "info");
+    swal("Info", "{{ session('info') }}", "info");
     </script>
     @endif
 
     @if (Session::has('success'))
     <script>
-        swal("Successful!", "{{ Session::get('success') }}", "success");
+    swal("Successful!", "{{ Session::get('success') }}", "success");
     </script>
     @endif
 
     @if (Session::has('error'))
     <script>
-        swal("Error!", "{{ Session::get('error') }}", "warning");
+    swal("Error!", "{{ Session::get('error') }}", "warning");
     </script>
     @endif
 

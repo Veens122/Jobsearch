@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+
 
 class LoginController extends Controller
 {
@@ -16,6 +19,17 @@ class LoginController extends Controller
             'email'    => 'required|email',
             'password' => 'required',
         ]);
+
+
+        $throttleKey = Str::lower($request->input('email')) . '|' . $request->ip();
+
+        if (RateLimiter::tooManyAttempts($throttleKey, 3)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+            $minutes = ceil($seconds / 60);
+
+            return redirect()->back()->with('error', "Too many login attempts. Please try again in {$minutes} minute(s).");
+        }
+
 
         $credentials = $request->only('email', 'password');
 
@@ -60,8 +74,18 @@ class LoginController extends Controller
             }
         }
 
+
+        RateLimiter::hit($throttleKey, 300); // 300 seconds = 5 minutes
+        $attemptsLeft = 3 - RateLimiter::attempts($throttleKey);
+
+        if ($attemptsLeft === 1) {
+            return redirect()->back()->withErrors([
+                'email' => 'Unrecognized credentials. You have only 1 attempt left before lockout.',
+            ]);
+        }
+
         return redirect()->back()->withErrors([
-            'email' => 'Invalid credentials.',
+            'email' => 'Unrecognized credentials.',
         ]);
     }
 }

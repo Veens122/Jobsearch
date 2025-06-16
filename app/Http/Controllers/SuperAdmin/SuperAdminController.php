@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Application;
 use App\Models\Job;
 use App\Models\JobCategory;
 use App\Models\User;
@@ -18,7 +19,19 @@ class SuperAdminController extends Controller
     {
         $admin = Auth::user();
 
-        return view('superadmin.dashboard', compact('admin'));
+        $totalJobs = Job::count();
+        $totalEmployers = User::where('role_id', 2)->count();
+        $totalUsers = User::where('role_id', '!=', 1)->count();
+        $totalCandidates = User::where('role_id', 3)->count();
+        $totalCategories = JobCategory::count();
+        $activeJobs = Job::where('status', 'active')->count();
+        $expiredJobs = Job::where('expiry_date', '<', now())->count();
+        $appliedJobs = Application::count();
+
+        $jobs = Job::withCount('applications')->latest()->get();
+
+
+        return view('superadmin.dashboard', compact('admin', 'totalJobs', 'totalEmployers', 'totalUsers', 'totalCandidates', 'totalCategories', 'activeJobs', 'activeJobs', 'expiredJobs', 'appliedJobs', 'jobs'));
     }
 
     public function employerList(Request $request)

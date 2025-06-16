@@ -4,15 +4,10 @@
 
 <div id="main-wrapper">
 
-    <!-- ============================================================== -->
-    <!-- Top header  -->
-    <!-- ============================================================== -->
-    <!-- Start Navigation -->
+
 
     <!-- End Navigation -->
     <div class="clearfix"></div>
-    <!-- ============================================================== -->
-    <!-- Top header  -->
     <!-- ============================================================== -->
 
     <!-- ======================= dashboard Detail ======================== -->
@@ -37,72 +32,66 @@
 
             <!-- Row Start -->
             <div class="row align-items-center gx-4 gy-4 mb-4">
+
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                    <div class="dash-wrap-bloud">
-                        <div class="dash-wrap-bloud-icon">
-                            <div class="bloud-icon text-success bg-light-success">
-                                <i class="fa-solid fa-business-time"></i>
+                    <div class="dash-wrap-bloud bg-white rounded shadow-sm p-2 d-flex flex-column justify-content-center align-items-center h-100 text-center"
+                        style="min-width: 200px;">
+                        <div class="dash-wrap-bloud-icon mb-3">
+                            <div class="bloud-icon text-success bg-light-success d-flex justify-content-center align-items-center"
+                                style="width: 70px; height: 70px; border-radius: 50%;">
+                                <i class="fa-solid fa-business-time fs-2"></i>
                             </div>
                         </div>
                         <div class="dash-wrap-bloud-caption">
-                            <div class="dash-wrap-bloud-content">
-                                <h5 class="ctr">523</h5>
-                                <p>Applied jobs</p>
-                            </div>
+                            <p class="mb-0 text-muted">Applied Jobs</p>
+                            <h5 class="ctr fw-bold mb-1">{{ $appliedJobsCount }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                    <div class="dash-wrap-bloud">
-                        <div class="dash-wrap-bloud-icon">
-                            <div class="bloud-icon text-warning bg-light-warning">
-                                <i class="fa-solid fa-bookmark"></i>
+
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 lg">
+                    <div class="dash-wrap-bloud bg-white rounded shadow-sm p-2 d-flex flex-column justify-content-center align-items-center h-100 text-center"
+                        style="min-width: 200px;">
+                        <div class="dash-wrap-bloud-icon mb-3">
+                            <div class="bloud-icon text-danger bg-light-danger d-flex justify-content-center align-items-center"
+                                style="width: 70px; height: 70px; border-radius: 50%;">
+                                <i class="fa-solid fa-eye fs-2"></i>
                             </div>
                         </div>
                         <div class="dash-wrap-bloud-caption">
-                            <div class="dash-wrap-bloud-content">
-                                <h5 class="ctr">523</h5>
-                                <p>Saved Jobs</p>
-                            </div>
+                            <p class="mb-0 text-muted">Shortlisted Jobs</p>
+                            <h5 class="ctr fw-bold mb-1">{{ $shortlistedJobsCount }}</h5>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                    <div class="dash-wrap-bloud">
-                        <div class="dash-wrap-bloud-icon">
-                            <div class="bloud-icon text-danger bg-light-danger">
-                                <i class="fa-solid fa-eye"></i>
+                    <div class="dash-wrap-bloud bg-white rounded shadow-sm p-2 d-flex flex-column justify-content-center align-items-center h-100 text-center"
+                        style="min-width: 200px;">
+                        <div class="dash-wrap-bloud-icon mb-3">
+                            <div class="bloud-icon text-warning bg-light-warning d-flex justify-content-center align-items-center"
+                                style="width: 70px; height: 70px; border-radius: 50%;">
+                                <i class="fa-solid fa-clock fs-2"></i> <!-- Larger icon -->
                             </div>
                         </div>
                         <div class="dash-wrap-bloud-caption">
-                            <div class="dash-wrap-bloud-content">
-                                <h5 class="ctr">523</h5>
-                                <p>Viewed Jobs</p>
-                            </div>
+                            <p class="mb-0 text-muted">Pending Applications</p>
+                            <h5 class="ctr fw-bold mb-1">{{ $pendingJobsCount }}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-                    <div class="dash-wrap-bloud">
-                        <div class="dash-wrap-bloud-icon">
-                            <div class="bloud-icon text-info bg-light-info">
-                                <i class="fa-sharp fa-solid fa-comments"></i>
-                            </div>
-                        </div>
-                        <div class="dash-wrap-bloud-caption">
-                            <div class="dash-wrap-bloud-content">
-                                <h5 class="ctr">523</h5>
-                                <p>Total Review</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
+
+
+
             </div>
             <!-- Row End -->
 
             <!-- Row Start -->
             <div class="row gx-4 gy-4 mb-4">
-                <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                <!-- <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
                     <div class="card d-none d-lg-block">
                         <div class="card-header">
                             <h4 class="mb-0">Extra Area Chart</h4>
@@ -122,7 +111,7 @@
                             <div class="chart full-width" id="line-chart" style="height:300px;"></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12">
                     <div class="card">
@@ -184,8 +173,9 @@
                                                 </div>
                                                 <div class="jbs-list-job-caption">
                                                     <div class="jbs-job-types-wrap">
-                                                        <span
-                                                            class="label text-success bg-light-success">{{ ucfirst($job->type) }}</span>
+                                                        <span class="label text-success bg-light-success">
+                                                            {{ ucfirst($job->type) }}
+                                                        </span>
                                                     </div>
                                                     <div class="jbs-job-title-wrap">
                                                         <h4>
@@ -197,7 +187,7 @@
                                                     </div>
                                                     <div class="jbs-job-mrch-lists">
                                                         <div class="single-mrch-lists">
-                                                            <span>{{ $job->company_name }}</span>.
+                                                            <span>{{ $job->employer->employerProfile->company_name ?? 'Company' }}</span>.
                                                             <span><i
                                                                     class="fa-solid fa-location-dot me-1"></i>{{ $job->country }}</span>.
                                                             <span>{{ \Carbon\Carbon::parse($job->created_at)->format('d M Y') }}</span>
@@ -208,21 +198,24 @@
                                             <div class="jbs-list-head-middle">
                                                 <div class="elsocrio-jbs">
                                                     <div class="ilop-tr"><i class="fa-solid fa-sack-dollar"></i></div>
-                                                    <h5 class="jbs-list-pack">
-                                                        {{ $job->salary }} <span class="patype">/PA</span>
-                                                    </h5>
+                                                    <p class="jbs-list-pack">
+                                                        {{ $job->salary_min }} - {{ $job->salary_max}} <span
+                                                            class="patype"></span>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <div class="jbs-list-head-last">
                                                 <a href="{{ route('job-detail', ['id' => $job->id]) }}"
                                                     class="btn btn-md btn-outline-secondary px-3 me-2">View Detail</a>
-                                                <a href="#" class="btn btn-md btn-primary px-3">Quick Apply</a>
+                                                <!-- <a href="#" class="btn btn-md btn-primary px-3">Quick Apply</a> -->
                                             </div>
                                         </div>
                                     </div>
                                     @empty
                                     <p>No shortlisted jobs found.</p>
                                     @endforelse
+
+
 
                                 </div>
 

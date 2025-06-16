@@ -10,28 +10,33 @@
                  <div class="jbs-grid-usrs-thumb">
                      <div class="jbs-grid-yuo">
                          <a href="candidate-detail.html">
-                             <figure><img src="{{ Auth::user()->profile_picture 
-    ? asset('storage/' . Auth::user()->profile_picture) 
-    : asset('assets/img/l-12.png') }}" class="img-fluid circle" alt="Admin Profile Picture">
+                             <figure>@if(Auth::user()->profile_picture)
+                                 <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
+                                     class="img-fluid circle" alt="Admin Profile Picture">
+                                 @else
+                                 <div class="img-fluid circle d-flex align-items-center justify-content-center bg-primary text-white fw-bold"
+                                     style="width: 90px; height: 90px;  border-radius: 50%; font-size: 80px">
+                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                 </div>
+                                 @endif
+
                              </figure>
                          </a>
                      </div>
                  </div>
                  <div class="jbs-grid-usrs-caption mb-3">
-                     <div class="jbs-kioyer">
-                         <span class="label text-light theme-bg">05 Openings</span>
-                     </div>
+
                      <div class="jbs-tiosk">
-                         <h4 class="jbs-tiosk-title"><a href="candidate-detail.html">Instagram App</a></h4>
+                         <h4 class="jbs-tiosk-title"><a href="">{{ Auth::user()->name }}</a></h4>
                          <div class="jbs-tiosk-subtitle"><span><i
-                                     class="fa-solid fa-location-dot me-2"></i>Canada</span>
+                                     class="fa-solid fa-location-dot me-2"></i>{{ $admin->adminProfile->country ?? 'N/A' }}</span>
                          </div>
                      </div>
                  </div>
              </div>
              <div class="dashboard-inner">
                  <ul data-submenu-title="Main Navigation">
-                     <li class="active"><a href="employer-dashboard.html"><i
+                     <li class="active"><a href="{{ route('superadmin.dashboard') }}"><i
                                  class="fa-solid fa-gauge-high me-2"></i>Admin
                              Dashboard</a></li>
                      <li><a href="{{ route('admin-profile') }}"><i class="fa-regular fa-user me-2"></i>My Profile
@@ -47,9 +52,10 @@
                                  class="fa-solid fa-pen-ruler me-2"></i>Employers list</a></li>
                      <li><a href="{{ route('users.users-list') }}"><i class="fa-solid fa-user-clock me-2"></i>All
                              Users</a></li>
-                     <li><a href="employer-messages.html"><i class="fa-solid fa-comments me-2"></i>Messages</a>
-                     </li>
-                     <li><a href="employer-change-password.html"><i class="fa-solid fa-unlock-keyhole me-2"></i>Change
+                     <!-- Message to be implemented later if time permits -->
+                     <!-- <li><a href="employer-messages.html"><i class="fa-solid fa-comments me-2"></i>Messages</a>
+                     </li> -->
+                     <li><a href="{{ route('password.edit')}}"><i class="fa-solid fa-unlock-keyhole me-2"></i>Change
                              Password</a></li>
                      <li><a href="employer-delete-account.html"><i class="fa-solid fa-trash-can me-2"></i>Delete
                              Account</a></li>

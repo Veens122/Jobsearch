@@ -12,7 +12,9 @@
                     <!-- <a href="{{ route('candidate.notifications') }}" class="relative">
                         <i class="fas fa-bell text-xl"></i>
                         @if(auth()->user()->unreadNotifications->count())
-                        <span class="absolute top-0 right-0 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+<span class="noti-status">
+  {{ auth()->check() && auth()->user()->unreadNotifications->count() > 0 ? '•' : '' }}
+</span>
                             {{ auth()->user()->unreadNotifications->count() }}
                         </span>
                         @endif
@@ -36,7 +38,7 @@
                                 </div>
 
                                 <div class="ntf-list-groups">
-                                    @forelse($notifications as $notification)
+                                    @forelse(auth()->user()->unreadNotifications as $notification)
                                     <div class="ntf-list-groups-single {{ $notification->read_at ? '' : 'bg-light' }}">
                                         <div class="ntf-list-groups-icon text-primary">
                                             <i class="fa-solid fa-bell"></i>
@@ -262,7 +264,7 @@
                                             Resume</a></li>
                                     <li><a href="candidate-messages.html"><i class="fa fa-envelope"></i>Messages<span
                                                 class="notti_coun style-3">3</span></a></li>
-                                    <li><a href="candidate-change-password.html"><i class="fa fa-unlock-alt"></i>Change
+                                    <li><a href="{{ route('password.edit')}}"><i class="fa fa-unlock-alt"></i>Change
                                             Password</a></li>
                                     <li><a href="candidate-delete-account.html"><i
                                                 class="fa-solid fa-trash-can"></i>Delete Account</a></li>

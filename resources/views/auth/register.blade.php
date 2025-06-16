@@ -40,11 +40,11 @@
                     <div class="vesh-detail-bloc">
                         <div class="vesh-detail-bloc-body pt-3">
                             <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <button class="nav-link active" id="signin-tab" data-bs-toggle="pill"
                                         data-bs-target="#signin" type="button" role="tab" aria-controls="signin"
                                         aria-selected="true">Login Account</button>
-                                </li>
+                                </li> -->
                                 <li class="nav-item">
                                     <button class="nav-link" id="register-tab" data-bs-toggle="pill"
                                         data-bs-target="#register" type="button" role="tab" aria-controls="register"
@@ -52,7 +52,7 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                <!-- <div class="tab-pane fade show active" id="signin" role="tabpanel"
                                     aria-labelledby="signin-tab" tabindex="0">
                                     <div class="row gx-3 gy-4">
                                         <div class="modal-login-form">
@@ -68,8 +68,12 @@
 
                                                 <div class="form-floating mb-4">
                                                     <input type="password" name="password" class="form-control"
-                                                        placeholder="Password" required>
+                                                        id="password" placeholder="Password" required>
                                                     <label>Password</label>
+                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        👁️
+                                                    </span>
                                                 </div>
 
                                                 <div class="form-group">
@@ -104,16 +108,16 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab"
                                     tabindex="0">
                                     <div class="row gx-3 gy-4">
                                         <div class="modal-login-form">
                                             <div class="container mt-5">
+
+
                                                 <!-- Registration form here -->
-
-
 
                                             </div>
 
@@ -170,8 +174,12 @@
 
                                                 <div class="form-floating mb-4">
                                                     <input type="password" class="form-control" id="password"
-                                                        name="password" placeholder="Password" required>
+                                                        name="password" id="password" placeholder="Password" required>
                                                     <label for="password">Password</label>
+                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        👁️
+                                                    </span>
                                                     @error('password')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -180,8 +188,12 @@
                                                 <div class="form-floating mb-4">
                                                     <input type="password" class="form-control"
                                                         id="password_confirmation" name="password_confirmation"
-                                                        placeholder="Confirm Password" required>
+                                                        id="password" placeholder="Confirm Password" required>
                                                     <label for="password_confirmation">Confirm Password</label>
+                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        👁️
+                                                    </span>
                                                     @error('password_confirmation')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -236,8 +248,12 @@
                                                 {{-- Password --}}
                                                 <div class="form-floating mb-4">
                                                     <input type="password" class="form-control" name="password"
-                                                        placeholder="Password" required>
+                                                        id="password" id="password" placeholder="Password" required>
                                                     <label>Password</label>
+                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        👁️
+                                                    </span>
                                                     @error('password')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -246,9 +262,14 @@
                                                 {{-- Confirm Password --}}
                                                 <div class="form-floating mb-4">
                                                     <input type="password" class="form-control"
-                                                        name="password_confirmation" placeholder="Confirm Password"
-                                                        required>
+                                                        name="password_confirmation" id="password"
+                                                        placeholder="Confirm Password" required>
+
                                                     <label>Confirm Password</label>
+                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        👁️
+                                                    </span>
                                                     @error('password_confirmation')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -340,14 +361,22 @@
                                 @enderror
                             </div>
 
-                            <div class="form-floating mb-4">
-                                <input type="password" value="" class="form-control" placeholder="Password"
+                            <div class="form-floating mb-4 position-relative password-wrapper">
+                                <input type="password" class="form-control password-input" placeholder="Password"
                                     name="password" required>
                                 <label>Password</label>
+
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-3 toggle-password"
+                                    style="cursor: pointer;">
+                                    👁️
+                                </span>
+
                                 @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+
+
 
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary full-width font--bold btn-lg">Log
@@ -368,6 +397,29 @@
                             </div>
                         </form>
                     </div>
+
+
+                    <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        document.querySelectorAll('.toggle-password').forEach(function(icon) {
+                            icon.addEventListener('click', function() {
+                                const wrapper = this.closest('.password-wrapper');
+                                const input = wrapper.querySelector('.password-input');
+
+                                if (input.type === 'password') {
+                                    input.type = 'text';
+                                    this.textContent = '🙈';
+                                } else {
+                                    input.type = 'password';
+                                    this.textContent = '👁️';
+                                }
+                            });
+                        });
+                    });
+                    </script>
+
+
+
                     <div class="social-login">
                         <ul>
                             <li><a href="JavaScript:Void(0);" class="btn connect-fb"><i

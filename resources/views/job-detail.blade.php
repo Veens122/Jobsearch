@@ -3,54 +3,9 @@
 
 <div id="main-wrapper">
 
-    <!-- ============================================================== -->
-    <!-- Top header  -->
-    <!-- ============================================================== -->
-    <!-- Start Navigation -->
-    <!-- <div class="header header-light head-shadow">
-        <div class="container">
-            <nav id="navigation" class="navigation navigation-landscape">
-                <div class="nav-header">
-                    <a class="nav-brand" href="#">
-                        <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="">
-                    </a>
 
-                </div>
-
-            </nav>
-        </div>
-    </div> -->
-    <!-- End Navigation -->
     <div class="clearfix"></div>
-    <!-- ============================================================== -->
-    <!-- Top header  -->
-    <!-- ============================================================== -->
 
-    <!-- ============================ Header Top Start================================== -->
-    <!-- <section class="bg-cover primary-bg-dark position-relative py-4">
-        <div class="position-absolute top-0 end-0 z-0">
-            <img src="assets/img/shape-3-soft-light.svg" alt="SVG" width="100">
-        </div>
-        <div class="position-absolute top-0 start-0 me-10 z-0">
-            <img src="assets/img/shape-1-soft-light.svg" alt="SVG" width="150">
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-6 col-lg-9 col-md-12">
-                    <div class="bread-wraps breadcrumbs light">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="grid-style-1.html">Career</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Sr. Front-end Designer</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!-- ============================ Header Top End ================================== -->
 
     <!-- ================================  Job Detail ========================== -->
     <section class="gray-simple position-relative">
@@ -87,7 +42,7 @@
                                                                 class="fa-solid fa-briefcase"></i></span>
                                                     </div>
                                                     <div class="drixko-box-caps"><span
-                                                            class="text-medium fw-medium">{{ $job->category_title }}</span>
+                                                            class="text-medium fw-medium">{{ $job->industry ?? 'N/A'}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,9 +53,12 @@
                                                             class="square--30 rounded-2 bg-light-primary text-primary"><i
                                                                 class="fa-brands fa-wordpress"></i></span>
                                                     </div>
+
+
                                                     <div class="drixko-box-caps"><span
-                                                            class="text-medium fw-medium">{{ $job->experience_level }}
-                                                            Years Experience</span></div>
+                                                            class="text-medium fw-medium">{{ $job->experience }}
+                                                            Years Experience</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="exloip-wraps my-2 mb-0">
@@ -110,83 +68,67 @@
                                                             class="square--30 rounded-2 bg-light-primary text-primary"><i
                                                                 class="fa-solid fa-sack-dollar"></i></span>
                                                     </div>
-                                                    <div class="drixko-box-caps"><span
-                                                            class="text-medium fw-medium">{{ $job->salary }} PA</span>
+                                                    <div class="drixko-box-caps">
+                                                        <span class="text-medium fw-medium">
+                                                            @if ($job->salary_min && $job->salary_max)
+                                                            {{ $job->salary_min }} to {{ $job->salary_max }}
+                                                            @elseif ($job->salary_min)
+                                                            {{ $job->salary_min }}
+                                                            @elseif ($job->salary_max)
+                                                            {{ $job->salary_max }}
+                                                            @else
+                                                            Not available
+                                                            @endif
+                                                        </span>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="jbs-content px-4 py-4 border-bottom">
-                                <h5>Job Description</h5>
-                                <p>{{ $job->description }}</p>
 
-
-                            </div>
                             <div class="jbs-content-body px-4 py-4">
-                                <h5 class="mb-3">Job Requirements</h5>
+                                <h3 class="mb-3">Job Requirements</h3>
+
                                 <div class="jbs-content mb-3">
-                                    <h6>Requirements:</h6>
+                                    <h4>Job Description:</h4>
                                     <ul class="simple-list">
-                                        <li>Candidate must have a Bachelors or Masters degree in Computer. (B.tech, Bsc
-                                            or BCA/MCA)</li>
-                                        <li>Candidate must have a good working knowledge of Javascript and Jquery.</li>
-                                        <li>Good knowledge of HTML and CSS is required.</li>
-                                        <li>Experience in Word press is an advantage</li>
-                                        <li>Jamshedpur, Jharkhand: Reliably commute or planning to relocate before
-                                            starting work (Required)</li>
+                                        <p>{!! nl2br(e($job->description)) !!}</p>
                                     </ul>
+                                </div>
+
+                                <div class="jbs-content mb-3">
+                                    <h4>Qualifications:</h4>
+                                    <ul class="simple-list">
+                                        <p>{!! nl2br(e($job->education_level)) !!}</p>
+                                    </ul>
+                                </div>
+
+
+                                <div class="jbs-content mb-4">
+                                    <h4>Responsibilities:</h4>
+                                    <p>{!! nl2br(e($job->responsibilities)) !!}</p>
                                 </div>
 
                                 <div class="jbs-content mb-4">
-                                    <h6>Responsibilities:</h6>
+                                    <h6>Required Skills:</h6>
                                     <ul class="simple-list">
-                                        <li>Write clean, maintainable and efficient code.</li>
-                                        <li>Design robust, scalable and secure features.</li>
-                                        <li>Collaborate with team members to develop and ship web applications within
-                                            tight timeframes.</li>
-                                        <li>Work on bug fixing, identifying performance issues and improving application
-                                            performance</li>
-                                        <li>Write unit and functional testcases.</li>
-                                        <li>Continuously discover, evaluate, and implement new technologies to maximise
-                                            development efficiency. Handling complex technical iss</li>
-                                    </ul>
-                                </div>
-
-                                <div class="jbs-content mb-4">
-                                    <h6>Qualifications and Educations</h6>
-                                    <ul class="colored-list">
-                                        <li>Minimum of {{ $job->education_level }}</li>
-
-                                    </ul>
-                                </div>
-
-                                <div class="jbs-content">
-                                    <h6>Required Skills</h6>
-                                    <ul class="p-0 m-0 d-flex align-items-center flex-wrap">
-                                        <li class="me-1 mb-1"><span
-                                                class="label bg-light-success text-success fw-medium">
-                                                {{ $job->skills }}</span></li>
-
-
+                                        <p>{!! nl2br(e($job->skills)) !!}</p>
 
                                     </ul>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="jbs-blox-footer">
-
-                            <div class="blox-last-footer">
-                                <div class="jbs-roots-action-btns">
-                                    <p class="m-0"><span
-                                            class="text-muted me-1">{{ $job->application_count }}</span>|<span
-                                            class="text-muted ms-1">{{ $job->time_posted }}</span></p>
-                                </div>
+                        <!-- 
+                        <div class="blox-last-footer">
+                            <div class="jbs-roots-action-btns">
+                                <p class="m-0"><span class="text-muted me-1">{{ $job->application_count }}</span><span
+                                        class="text-muted ms-1">{{ $job->time_posted }}</span></p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -215,12 +157,14 @@
                                     <label>Email:</label>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label>Upload Resume</label>
-                                    <input type="file" name="resume" class="form-control" required>
+                                    <label>Upload Resume (PDF, DOC, DOCX - Max 2MB)</label>
+                                    <input type="file" name="resume" class="form-control" accept=".pdf,.doc,.docx"
+                                        required>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label>Upload Cover Letter</label>
-                                    <input type="file" name="resume" class="form-control" required>
+                                    <label>Upload Cover Letter (Optional - PDF, DOC, DOCX - Max 2MB)</label>
+                                    <input type="file" name="cover_letter" class="form-control"
+                                        accept=".pdf,.doc,.docx">
                                 </div>
 
                                 <div class="form-group">
@@ -268,17 +212,20 @@
                     <div class="side-jbs-info-blox bg-white mb-4">
                         <div class="side-jbs-info-header">
                             <div class="side-jbs-info-thumbs">
-                                <figure> <img
-                                        src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
-                                        class="img-fluid" alt="{{ $job->company_name }}"></figure>
+                                <figure>
+                                    <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
+                                        class="img-fluid" alt="{{ $job->company_name ?? 'Company' }}">
+                                </figure>
                             </div>
                             <div class="side-jbs-info-captionyo ps-3">
                                 <div class="sld-info-title">
-                                    <h5 class="rtls-title mb-1">{{ $job->company_name }}</h5>
+                                    <h5 class="rtls-title mb-1">
+                                        {{ $job->company_name ?? 'Not available' }}
+                                    </h5>
                                     <div class="jbs-locat-oiu text-sm-muted">
                                         <span class="me-1"><i
-                                                class="fa-solid fa-location-dot me-1"></i>{{ $job->country }}</span>.<span
-                                            class="ms-1">{{ $job->industry }}</span>
+                                                class="fa-solid fa-location-dot me-1"></i>{{ $job->country ?? 'N/A' }}</span>
+                                        <span class="ms-1">{{ $job->industry ?? 'N/A' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -287,79 +234,86 @@
                             <div class="side-full-info-groups">
                                 <div class="single-side-info">
                                     <span class="text-sm-muted sld-subtitle">Company Founder:</span>
-                                    <h6 class="sld-title">{{ $employer->name }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Industry:</span>
-                                    <h6 class="sld-title">{{ $employer->industry }}</h6>
+                                    <h6 class="sld-title">
+                                        {{ $job->company_name ?? 'Not available' }}
+                                    </h6>
                                 </div>
                                 <div class="single-side-info">
                                     <span class="text-sm-muted sld-subtitle">Founded:</span>
-                                    <h6 class="sld-title">{{ $job->date_founded }}</h6>
+                                    <h6 class="sld-title">{{ $job->date_founded ?? 'N/A' }}</h6>
                                 </div>
                                 <div class="single-side-info">
                                     <span class="text-sm-muted sld-subtitle">Head Office:</span>
-                                    <h6 class="sld-title">{{ $job->country }}</h6>
+                                    <h6 class="sld-title">{{ $job->country ?? 'N/A' }}</h6>
                                 </div>
                                 <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Revenue</span>
-                                    <h6 class="sld-title">$70B+</h6>
-                                </div>
-
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Min Exp.</span>
-                                    <h6 class="sld-title">{{ $job->experience }} </h6>
+                                    <span class="text-sm-muted sld-subtitle">Email:</span>
+                                    <h6 class="sld-title">{{ $job->email ?? 'N/A' }}</h6>
                                 </div>
                                 <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Openings</span>
-                                    <h6 class="sld-title">06 Openings</h6>
+                                    <span class="text-sm-muted sld-subtitle">Age limit:</span>
+                                    <h6 class="sld-title">{{ $job->age_limit ?? 'N/A' }}</h6>
+                                </div>
+                                <div class="single-side-info">
+                                    <span class="text-sm-muted sld-subtitle">Date posted:</span>
+                                    <h6 class="sld-title">{{ $job->created_at ?? 'N/A' }}</h6>
+                                </div>
+                                <div class="single-side-info">
+                                    <span class="text-sm-muted sld-subtitle">Expiry date:</span>
+                                    <h6 class="sld-title">{{ $job->expiry_date ?? 'N/A' }}</h6>
+                                </div>
+                                <div class="single-side-info">
+                                    <span class="text-sm-muted sld-subtitle">Salary type:</span>
+                                    <h6 class="sld-title">{{ $job->salary_type ?? 'N/A' }}</h6>
+                                </div>
+                                <div class="single-side-info">
+                                    <span class="text-sm-muted sld-subtitle">Status:</span>
+                                    <h6 class="sld-title">{{ $job->status ?? 'N/A' }}</h6>
+                                </div>
+                                <div class="single-side-info">
+                                    <span class="text-sm-muted sld-subtitle">Min Exp.:</span>
+                                    <h6 class="sld-title">{{ $job->experience ?? 'N/A' }}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="side-rtl-jbs-block">
                         <div class="side-rtl-jbs-head">
                             <h5 class="side-jbs-titles">Related Jobs</h5>
                         </div>
                         <div class="side-rtl-jbs-body">
-                            <div class="side-rtl-jbs-groups">
-                                @if($relatedJobs->count())
-                                @foreach($relatedJobs as $related)
-                                <div class="single-side-rtl-jbs">
-                                    <div class="single-fliox">
-                                        <div class="single-rtl-jbs-caption">
-                                            <div class="hjs-rtls-titles">
-                                                <div class="jbs-types mb-1">
-                                                    <span
-                                                        class="label text-success bg-light-success">{{ $related->type }}</span>
-                                                </div>
-                                                <h5 class="rtls-title">
-                                                    <a
-                                                        href="{{ route('job.details', $related->id) }}">{{ $related->title }}</a>
-                                                </h5>
-                                                <div class="jbs-locat-oiu text-sm-muted">
-                                                    <span><i
-                                                            class="fa-solid fa-location-dot me-1"></i>{{ $related->country }}</span>
-                                                </div>
-                                            </div>
+                            @forelse($relatedJobs as $related)
+                            <div class="single-side-rtl-jbs">
+                                <div class="single-rtl-jbs-caption">
+                                    <div class="hjs-rtls-titles">
+                                        <div class="jbs-types mb-1">
+                                            <span
+                                                class="label text-success bg-light-success">{{ $related->type }}</span>
+                                        </div>
+                                        <h5 class="rtls-title">
+                                            <a href="{{ route('job.details', $related->id) }}">{{ $related->title }}</a>
+                                        </h5>
+                                        <div class="jbs-locat-oiu text-sm-muted">
+                                            <span><i
+                                                    class="fa-solid fa-location-dot me-1"></i>{{ $related->country }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                @endforeach
-                                @else
-                                <div class="alert alert-warning text-center mt-3">
-                                    No related jobs found.
-                                </div>
-                                @endif
+                            </div>
+                            @empty
+                            <div class="alert alert-warning text-center mt-3">
+                                No related jobs found.
+                            </div>
+                            @endforelse
 
-                                <!-- Always visible link -->
-                                <div class="text-center mt-3">
-                                    <a href="{{ route('all-jobs') }}" class="btn btn-outline-primary">See All Jobs</a>
-                                </div>
+                            <div class="text-center mt-3">
+                                <a href="{{ route('all-jobs') }}" class="btn btn-outline-primary">See All Jobs</a>
                             </div>
                         </div>
                     </div>
+
 
 
 

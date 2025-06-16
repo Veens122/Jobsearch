@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
 use App\Mail\OtpMail;
+use App\Models\Application;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -134,16 +135,39 @@ class CandidateController extends Controller
     {
         $user = auth()->user();
 
-        // Fetch shortlisted jobs
+        // Paginate shortlisted applications and eager load job and employer info
+        $shortlistedApplications = Application::with('job.employer.employerProfile')
+            ->where('user_id', $user->id)
+            ->where('status', 'shortlisted')
+            ->latest('created_at')
+            ->paginate(10);
 
-        $shortlistedJobs = $user->shortlistedJobs()->get();
+        // Extract jobs from paginated applications
+        $shortlistedJobs = $shortlistedApplications->map(function ($application) {
+            return $application->job;
+        });
 
+        $appliedJobsCount = Application::where('user_id', $user->id)->count();
+        $shortlistedJobsCount = Application::where('user_id', $user->id)
+            ->where('status', 'shortlisted')
+            ->count();
+        $pendingJobsCount = Application::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->count();
 
         // Fetch latest 10 notifications
         $notifications = $user->notifications()->latest()->take(10)->get();
 
-        return view('candidate.dashboard', compact('shortlistedJobs', 'notifications'));
+        return view('candidate.dashboard', compact(
+            'shortlistedJobs',
+            'shortlistedApplications',
+            'notifications',
+            'appliedJobsCount',
+            'shortlistedJobsCount',
+            'pendingJobsCount'
+        ));
     }
+
 
 
 
@@ -152,7 +176,7 @@ class CandidateController extends Controller
     public function uploadResume(Request $request)
     {
         $request->validate([
-            'resume' => 'required|file|mimes:pdf,doc,docx|max:2048', // Max 2MB
+            'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
         $candidateProfile = auth()->user()->candidateProfile;
@@ -199,5 +223,23 @@ class CandidateController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'check.banned', 'role:3']);
+    }
+
+    public function publicProfile($id)
+    {
+        $candidate = User::with('candidateProfile')->findOrFail($id);
+        return view('candidate.public-profile', compact('candidate'));
+    }
+
+
+    public function downloadResume($id)
+    {
+        $candidate = User::with('candidateProfile')->findOrFail($id);
+
+        if (auth()->user()->role_id == 2 || auth()->id() == $id) {
+            return Storage::download('public/' . $candidate->candidateProfile->resume);
+        }
+
+        abort(403, 'Unauthorized');
     }
 }

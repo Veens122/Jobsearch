@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JobCategory extends Model
+class EducationHistory extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function jobs()
+    public function user()
     {
-        return $this->hasMany(Job::class, 'category_id');
+        return $this->belongsTo(User::class);
     }
-
-    protected $table = 'job_categories';
 }
