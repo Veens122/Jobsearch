@@ -18,10 +18,10 @@
     <section class="bg-cover primary-bg-dark" style="background:url(assets/img/bg2.png)no-repeat;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 text-center">
 
-                    <h2 class="ipt-title text-light">Create An Account</h2>
-                    <span class="text-light opacity-75">Create an account or signin</span>
+                    <h2 class="ipt-title text-light mt-3 text-center">Create An Account</h2>
+                    <span class="text-light opacity-75 text-center">Create an account or signin</span>
 
                 </div>
             </div>
@@ -140,8 +140,8 @@
                                             </div>
                                             @endif
 
-                                            <form id="candidateForm" action="{{ route('candidate.register') }}"
-                                                method="POST" style="display: block;">
+                                            <form id="candidateForm" action="{{ route('register') }}" method="POST"
+                                                style="display: block;">
                                                 @csrf
                                                 <h5 class="mb-3">Candidate Registration</h5>
 
@@ -172,32 +172,44 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="form-floating mb-4">
-                                                    <input type="password" class="form-control" id="password"
-                                                        name="password" id="password" placeholder="Password" required>
-                                                    <label for="password">Password</label>
-                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
-                                                        style="cursor: pointer;" onclick="togglePassword()">
-                                                        👁️
-                                                    </span>
-                                                    @error('password')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                <!-- Candidate Password -->
+                                                <div class="mb-4">
+                                                    <div class="form-floating position-relative">
+                                                        <input type="password" class="form-control"
+                                                            id="candidate_password" name="password"
+                                                            placeholder="Password" required>
+                                                        <label for="candidate_password">Password</label>
+                                                        <span
+                                                            class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                            style="cursor: pointer; z-index: 10;"
+                                                            data-target="candidate_password"
+                                                            onclick="togglePassword(this)">
+                                                            👁️
+                                                        </span>
+                                                    </div>
                                                 </div>
 
-                                                <div class="form-floating mb-4">
-                                                    <input type="password" class="form-control"
-                                                        id="password_confirmation" name="password_confirmation"
-                                                        id="password" placeholder="Confirm Password" required>
-                                                    <label for="password_confirmation">Confirm Password</label>
-                                                    <span class="position-absolute top-50 end-0 translate-middle-y me-3"
-                                                        style="cursor: pointer;" onclick="togglePassword()">
-                                                        👁️
-                                                    </span>
-                                                    @error('password_confirmation')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+
+                                                <!-- Candidate Confirm Password -->
+                                                <div class="mb-4">
+                                                    <div class="form-floating position-relative">
+                                                        <input type="password" class="form-control"
+                                                            id="candidate_password_confirmation"
+                                                            name="password_confirmation" placeholder="Confirm Password"
+                                                            required>
+                                                        <label for="candidate_password_confirmation">Confirm
+                                                            Password</label>
+                                                        <span
+                                                            class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                                            style="cursor: pointer; z-index: 10;"
+                                                            data-target="candidate_password_confirmation"
+                                                            onclick="togglePassword(this)">
+                                                            👁️
+                                                        </span>
+                                                    </div>
                                                 </div>
+
+
 
                                                 <div class="form-group">
                                                     <button type="submit"
@@ -209,8 +221,8 @@
 
 
                                             <!-- Employer Registration Form -->
-                                            <form id="employerForm" action="{{ route('employer.register') }}"
-                                                method="POST" style="display: none;">
+                                            <form id="employerForm" action="{{ route('register') }}" method="POST"
+                                                style="display: none;">
                                                 @csrf
 
                                                 <h5 class="mb-3">Employer Registration</h5>
@@ -246,34 +258,32 @@
                                                 </div>
 
                                                 {{-- Password --}}
-                                                <div class="form-floating mb-4">
-                                                    <input type="password" class="form-control" name="password"
-                                                        id="password" id="password" placeholder="Password" required>
-                                                    <label>Password</label>
+                                                <!-- Employer Password -->
+                                                <div class="form-floating mb-4 position-relative">
+                                                    <input type="password" class="form-control" id="employer_password"
+                                                        name="password" placeholder="Password" required>
+                                                    <label for="employer_password">Password</label>
                                                     <span class="position-absolute top-50 end-0 translate-middle-y me-3"
-                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        style="cursor: pointer;" data-target="employer_password"
+                                                        onclick="togglePassword(this)">
                                                         👁️
                                                     </span>
-                                                    @error('password')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
                                                 </div>
 
-                                                {{-- Confirm Password --}}
-                                                <div class="form-floating mb-4">
+                                                <!-- Employer Confirm Password -->
+                                                <div class="form-floating mb-4 position-relative">
                                                     <input type="password" class="form-control"
-                                                        name="password_confirmation" id="password"
+                                                        id="employer_password_confirmation" name="password_confirmation"
                                                         placeholder="Confirm Password" required>
-
-                                                    <label>Confirm Password</label>
+                                                    <label for="employer_password_confirmation">Confirm Password</label>
                                                     <span class="position-absolute top-50 end-0 translate-middle-y me-3"
-                                                        style="cursor: pointer;" onclick="togglePassword()">
+                                                        style="cursor: pointer;"
+                                                        data-target="employer_password_confirmation"
+                                                        onclick="togglePassword(this)">
                                                         👁️
                                                     </span>
-                                                    @error('password_confirmation')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
                                                 </div>
+
 
                                                 {{-- Submit --}}
                                                 <div class="form-group">
@@ -294,9 +304,12 @@
                 </div>
 
             </div>
-            <!-- /row -->
         </div>
     </section>
+
+
+
+
 
 
 
@@ -310,7 +323,7 @@
 
                     <div class="call-action-wrap">
                         <div class="sec-heading center">
-                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Stock That is Superb For
+                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Veens That is Superb For
                                 You</h2>
                             <p class="fs-6 text-light">At vero eos et accusamus et iusto odio dignissimos ducimus qui
                                 blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
@@ -340,86 +353,72 @@
             <div class="modal-content" id="loginmodal">
                 <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="fas fa-close"></i></span>
                 <div class="modal-header">
-                    <div class="mdl-thumb"><img src="{{ asset('assets/img/ico.png') }}" class="img-fluid" width="70"
-                            alt=""></div>
+                    <div class="mdl-thumb"><img src="assets/img/ico.png" class="img-fluid" width="70" alt=""></div>
                     <div class="mdl-title">
                         <h4 class="modal-header-title">Hello, Again</h4>
                     </div>
                 </div>
                 <div class="modal-body">
+
                     <div class="modal-login-form">
-                        <!-- LOGIN FORM -->
-                        <form action="{{ route('login.submit') }}" method="POST">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
+
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
 
+
+
                             <div class="form-floating mb-4">
-                                <input type="email" value="" class="form-control" placeholder="name@example.com"
-                                    name="email" required>
-                                <label>Email</label>
-                                @error('email')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <input type="email" name="email" class="form-control" placeholder="name@example.com"
+                                    required>
+                                <label for="email">Email</label>
                             </div>
 
-                            <div class="form-floating mb-4 position-relative password-wrapper">
-                                <input type="password" class="form-control password-input" placeholder="Password"
-                                    name="password" required>
-                                <label>Password</label>
-
-                                <span class="position-absolute top-50 end-0 translate-middle-y me-3 toggle-password"
-                                    style="cursor: pointer;">
+                            <div class="form-floating mb-4">
+                                <input type="password" name="password" class="form-control" id="password"
+                                    placeholder="Password" required>
+                                <label for="password">Password</label>
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                    style="cursor: pointer;" onclick="togglePassword()">
                                     👁️
                                 </span>
-
-                                @error('password')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
                             </div>
 
-
-
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary full-width font--bold btn-lg">Log
-                                    In</button>
+                                <button type="submit" class="btn btn-primary full-width font--bold btn-lg">
+                                    Log In
+                                </button>
                             </div>
 
                             <div class="modal-flex-item mb-3">
                                 <div class="modal-flex-first">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="savepassword"
-                                            value="option1">
-                                        <label class="form-check-label" for="savepassword">Save Password</label>
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                        <label class="form-check-label" for="remember">Remember Me</label>
                                     </div>
                                 </div>
                                 <div class="modal-flex-last">
-                                    <a href="{{ route('forgotPassword') }}">Forget Password?</a>
+                                    <a href="{{ route('forgotPassword') }}">Forgot Password?</a>
                                 </div>
                             </div>
                         </form>
+
                     </div>
-
-
-                    <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        document.querySelectorAll('.toggle-password').forEach(function(icon) {
-                            icon.addEventListener('click', function() {
-                                const wrapper = this.closest('.password-wrapper');
-                                const input = wrapper.querySelector('.password-input');
-
-                                if (input.type === 'password') {
-                                    input.type = 'text';
-                                    this.textContent = '🙈';
-                                } else {
-                                    input.type = 'password';
-                                    this.textContent = '👁️';
-                                }
-                            });
-                        });
-                    });
-                    </script>
-
-
-
                     <div class="social-login">
                         <ul>
                             <li><a href="JavaScript:Void(0);" class="btn connect-fb"><i
@@ -429,10 +428,10 @@
                         </ul>
                     </div>
                 </div>
-                <div class="modal-footer text-center">
+                <div class="modal-footer">
                     <p>Don't have an account yet?<a href="{{ route('sign-up') }}"
-                            class="text-primary font--bold ms-1 text-center">Sign Up</a>
-                    </p>
+                            class="text-primary font--bold ms-1">Sign
+                            Up</a></p>
                 </div>
             </div>
         </div>
@@ -440,7 +439,7 @@
     <!-- End Modal -->
 
     <!-- Filter Modal -->
-    <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="filtermodal" aria-hidden="true">
+    <!-- <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="filtermodal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered filter-popup" role="document">
             <div class="modal-content" id="filtermodal">
                 <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="fas fa-close"></i></span>
@@ -757,7 +756,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Modal -->
 
 
@@ -765,5 +764,16 @@
 
 
 </div>
+
+
+@if ($errors->has('email') || $errors->has('password'))
+<script>
+    window.onload = () => {
+        const loginModal = new bootstrap.Modal(document.getElementById('login'));
+        loginModal.show();
+    };
+</script>
+@endif
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection

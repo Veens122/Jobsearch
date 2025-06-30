@@ -85,38 +85,38 @@
                                             </form>
 
                                             <script>
-                                                document.addEventListener("DOMContentLoaded", function() {
-                                                    let countdownTime = localStorage.getItem("otpCountdown") ?
-                                                        parseInt(localStorage.getItem("otpCountdown")) :
-                                                        60;
+                                            document.addEventListener("DOMContentLoaded", function() {
+                                                let countdownTime = localStorage.getItem("otpCountdown") ?
+                                                    parseInt(localStorage.getItem("otpCountdown")) :
+                                                    60;
 
-                                                    const verifyBtn = document.getElementById("verifyBtn");
-                                                    const resendBtn = document.getElementById("resendBtn");
-                                                    const countdownDisplay = document.getElementById("countdown");
+                                                const verifyBtn = document.getElementById("verifyBtn");
+                                                const resendBtn = document.getElementById("resendBtn");
+                                                const countdownDisplay = document.getElementById("countdown");
 
-                                                    function updateCountdown() {
-                                                        if (countdownTime > 0) {
-                                                            resendBtn.disabled = true;
-                                                            countdownDisplay.innerText =
-                                                                `OTP expires in ${countdownTime}s`;
-                                                            countdownTime--;
-                                                            localStorage.setItem("otpCountdown", countdownTime);
-                                                        } else {
-                                                            resendBtn.disabled = false;
-                                                            countdownDisplay.innerText =
-                                                                "OTP expired. You can request a new one.";
-                                                            localStorage.removeItem("otpCountdown");
-                                                            clearInterval(countdownInterval);
-                                                        }
+                                                function updateCountdown() {
+                                                    if (countdownTime > 0) {
+                                                        resendBtn.disabled = true;
+                                                        countdownDisplay.innerText =
+                                                            `OTP expires in ${countdownTime}s`;
+                                                        countdownTime--;
+                                                        localStorage.setItem("otpCountdown", countdownTime);
+                                                    } else {
+                                                        resendBtn.disabled = false;
+                                                        countdownDisplay.innerText =
+                                                            "OTP expired. You can request a new one.";
+                                                        localStorage.removeItem("otpCountdown");
+                                                        clearInterval(countdownInterval);
                                                     }
+                                                }
 
-                                                    let countdownInterval = setInterval(updateCountdown, 1000);
-                                                    updateCountdown();
+                                                let countdownInterval = setInterval(updateCountdown, 1000);
+                                                updateCountdown();
 
-                                                    resendBtn.addEventListener("click", function() {
-                                                        localStorage.setItem("otpCountdown", 60);
-                                                    });
+                                                resendBtn.addEventListener("click", function() {
+                                                    localStorage.setItem("otpCountdown", 60);
                                                 });
+                                            });
                                             </script>
 
                                         </div>
@@ -145,7 +145,7 @@
 
                     <div class="call-action-wrap">
                         <div class="sec-heading center">
-                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Stock That is Superb For
+                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Veens That is Superb For
                                 You</h2>
                             <p class="fs-6 text-light">At vero eos et accusamus et iusto odio dignissimos ducimus qui
                                 blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias

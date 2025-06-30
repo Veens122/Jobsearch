@@ -32,126 +32,158 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <h6 class="primary-2-cl fw-medium d-inline-flex align-items-center mb-3"><span
                             class="primary-2-bg w-10 h-05 me-2"></span>Get Hot & Trending Jobs</h6>
-                    <h1 class="mb-4">Find & Hire<br><span>Top Experts on Job Stock</span></h1>
+                    <h1 class="mb-4">Find & Hire<br><span>Top Experts on Job Veens</span></h1>
                     <p class="fs-5">Getting a new job is never easy. Check what new jobs we have in store for you on
-                        Job Stock.</p>
+                        Job Veens.</p>
                     <div class="lios-vrst">
                         <ul>
                             <li>
                                 <div class="lios-parts">
-                                    <h2><span class="ctr">200</span><span class="primary-2-cl">M</span></h2>
+                                    <h2><span class="ctr">{{ number_format($activeJobsCount) }}</span></h2>
                                     <h6>Active Jobs</h6>
                                 </div>
                             </li>
 
                             <li>
                                 <div class="lios-parts">
-                                    <h2><span class="ctr">40</span><span class="primary-2-cl">K</span></h2>
-                                    <h6>Startups</h6>
+                                    <h2><span class="ctr">{{ number_format($totalEmployers) }}</span></h2>
+                                    <h6>Registered Companies</h6>
                                 </div>
                             </li>
 
                             <li>
                                 <div class="lios-parts">
-                                    <h2><span class="ctr">340</span><span class="primary-2-cl">K</span></h2>
-                                    <h6>Talents</h6>
+                                    <h2><span class="ctr">{{ number_format($totalCandidates) }}</span><span
+                                            class="primary-2-cl">K</span></h2>
+                                    <h6>Registered Users</h6>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </div>
 
+
                 <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
-                    <div class="hero-search-wrap">
-                        <div class="hero-search">
-                            <h1>Grow Your Career with <span class="text-primary">Job Stock</span></h1>
-                        </div>
-                        <div class="hero-search-content verticle-space">
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <div class="input-with-icon">
-                                            <input type="text" class="form-control border"
-                                                placeholder="Search Job Keywords..">
-                                            <img src="assets/img/pin.svg" width="18" alt="">
+
+                    <form method="GET" action="{{ route('search-jobs') }}">
+                        <div class="hero-search-wrap">
+                            <div class="hero-search">
+                                <h1>Grow Your Career with <span class="text-primary">Job Veens</span></h1>
+                            </div>
+                            <div class="hero-search-content verticle-space">
+                                <div class="row">
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <div class="input-with-icon">
+                                                <input type="text" name="keyword" class="form-control border"
+                                                    placeholder="Search Job Keywords..">
+                                                <img src="{{ asset('assets/img/pin.svg') }}" width="18" alt="">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Job Category</label>
-                                        <select class="form-control">
-                                            <option value="1">Software & Application</option>
-                                            <option value="2">Banking</option>
-                                            <option value="3">Health & Medical</option>
-                                            <option value="4">Mobile & App</option>
-                                            <option value="5">Education</option>
-                                        </select>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="category">Job Category</label>
+                                            <div style="position: relative;">
+                                                <input type="text" class="form-control" placeholder="Select Category"
+                                                    readonly id="categoryInput" onclick="toggleCategoryDropdown()" />
+                                                <div id="categoryDropdown"
+                                                    style="display: none; position: absolute; top: 100%; left: 0; right: 0; max-height: 200px; overflow-y: auto; border: 1px solid #ddd; background: white; z-index: 1000;">
+                                                    @foreach($categories as $category)
+                                                    <div onclick="selectCategory('{{ $category->id }}', '{{ $category->title }}')"
+                                                        style="padding: 8px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                        {{ $category->title }}
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                                <input type="hidden" name="category" id="selectedCategoryId" />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Job Type</label>
-                                        <select class="form-control">
-                                            <option value="1">All Type</option>
-                                            <option value="2">Full Time</option>
-                                            <option value="3">Part Time</option>
-                                            <option value="4">Contractor</option>
-                                            <option value="5">Freelance</option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Job Lavel</label>
-                                        <select class="form-control">
-                                            <option value="1">Junior Lavel</option>
-                                            <option value="2">Mid Lavel</option>
-                                            <option value="3">Manager</option>
-                                            <option value="4">Team Leader</option>
-                                            <option value="5">Senior Lavel</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <label>Experience</label>
-                                        <select class="form-control">
-                                            <option value="1">1 Year</option>
-                                            <option value="2">2 Year</option>
-                                            <option value="3">3 Year</option>
-                                            <option value="4">4 Year</option>
-                                            <option value="5">5 Year</option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Expected Sallary</label>
-                                        <select class="form-control">
-                                            <option value="1">$500 - $1000 PA</option>
-                                            <option value="2">$200 - $5000 PA</option>
-                                            <option value="3">$5000 - $10000 PA</option>
-                                            <option value="4">$10000 - $20000 PA</option>
-                                            <option value="5">$20000 - $40000 PA</option>
-                                            <option value="6">$40000 - $50000 PA</option>
-                                            <option value="7">$50000 - $100000 PA</option>
-                                        </select>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Job Type</label>
+                                            <select name="type" class="form-control">
+                                                <option value="">All Type</option>
+                                                <option value="Full-time">Full Time</option>
+                                                <option value="Part-time">Part Time</option>
+                                                <option value="Contract">Contract</option>
+                                                <option value="Internship">Internship</option>
+                                                <option value="Temporary">Temporary</option>
+                                                <option value="Volunteer">Volunteer</option>
+                                            </select>
+
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                    <button type="submit" class="btn btn-primary full-width">Search Result</button>
-                                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Country</label>
+                                            <select name="country" class="form-control">
+                                                <option value="">Any Country</option>
+                                                @foreach($countries as $country)
+                                                <option value="{{ $country }}"
+                                                    {{ request('country') == $country ? 'selected' : '' }}>
+                                                    {{ ucfirst($country) }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Experience</label>
+                                            <select name="experience" class="form-control">
+                                                <option value="">Any</option>
+                                                <option value="1">1 Year</option>
+                                                <option value="2">2 Years</option>
+                                                <option value="5">5+ Years</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Salary Type</label>
+                                            <select name="salary_type" class="form-control">
+                                                <option value="">Select Salary Type</option>
+                                                <option value="WEEKLY">Weekly</option>
+                                                <option value="MONTHLY">Monthly</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Salary Range</label>
+                                            <select name="salary">
+                                                <option value="">Select Salary Range</option>
+                                                <option value="0-500">₦10,000 - ₦50,000</option>
+                                                <option value="501-1000">₦51,000 - ₦200,000</option>
+                                                <option value="1001-2000">₦201,000 - ₦1,000,000</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary full-width">Search Result</button>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
+                    </form>
 
-                    </div>
                 </div>
+
 
             </div>
 
@@ -161,6 +193,30 @@
             <img src="assets/img/shape-2-soft-light.svg" alt="SVG" width="400">
         </div>
     </div>
+
+    <!-- For category scrolling -->
+    <script>
+        function toggleCategoryDropdown() {
+            const dropdown = document.getElementById('categoryDropdown');
+            dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function selectCategory(id, name) {
+            document.getElementById('selectedCategoryId').value = id;
+            document.getElementById('categoryInput').value = name;
+            document.getElementById('categoryDropdown').style.display = 'none';
+        }
+
+        // Close dropdown if clicked outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('categoryDropdown');
+            const input = document.getElementById('categoryInput');
+            if (!dropdown.contains(e.target) && !input.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    </script>
+
     <!-- ============================ Hero Banner End ================================== -->
 
     <!-- ============================ Our Partners Start ================================== -->
@@ -171,7 +227,7 @@
                 <div class="col-xl-4 col-lg-7 col-md-10 text-center">
                     <div class="center mb-4">
                         <h5 class="fw-medium lh-lg">Join over 2,000 companies around the world that trust the <span
-                                class="text-primary">Job Stock</span> platforms</h5>
+                                class="text-primary">Job Veens</span> platforms</h5>
                     </div>
                 </div>
             </div>
@@ -272,11 +328,11 @@
                         {{-- Footer --}}
                         <div class="job-instructor-footer">
                             <div class="instructor-students">
-                                <h5 class="instructor-scount">{{ $job->salary_range ?? 'Negotiable' }}</h5>
+                                <h5 class="instructor-scount">{{ $job->salary_min }} - {{ $job->salary_max }}</h5>
                             </div>
-                            <div class="instructor-corses">
+                            <!-- <div class="instructor-corses">
                                 <span class="c-counting">{{ $job->vacancies ?? 'N/A' }} Open</span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -319,14 +375,18 @@
                             </div>
                             <div class="category-detail category-desc-text">
                                 <h4 class="fs-5">
-                                    <a href="{{ route('all-jobs') }}">{{ $category->title }}</a>
+                                    <a href="{{ route('all-jobs', ['category' => $category->id]) }}">
+                                        {{ $category->title }}
+                                    </a>
                                 </h4>
-                                <p class="block">{{ $category->jobs_count }} Active Jobs</p>
+                                <p class="block">{{ $category->active_jobs_count }} Active Jobs</p>
+
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
+
 
 
             </div>
@@ -483,37 +543,37 @@
 
             <div class="row justify-content-center gx-4 gy-4">
 
-                <!-- Single Review -->
-                <div class="col-xl-4 col-lg-4 col-md-6">
-                    <div class="jobstock-reviews-box">
-                        <div class="jobstock-reviews-desc">
-                            <h6 class="review-title-yui">"The best useful website"</h6>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+                <!-- Single Review
+        <div class="col-xl-4 col-lg-4 col-md-6">
+            <div class="jobstock-reviews-box">
+                <div class="jobstock-reviews-desc">
+                    <h6 class="review-title-yui">"The best useful website"</h6>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+                </div>
+                <div class="jobstock-reviews-flex">
+                    <div class="jobstock-reviews-thumb">
+                        <div class="jobstock-reviews-figure"><img src="assets/img/team-1.jpg" class="img-fluid circle"
+                                alt=""></div>
+                    </div>
+                    <div class="jobstock-reviews-caption">
+                        <div class="jobstock-reviews-title">
+                            <h4>Lucia E. Nugent</h4>
                         </div>
-                        <div class="jobstock-reviews-flex">
-                            <div class="jobstock-reviews-thumb">
-                                <div class="jobstock-reviews-figure"><img src="assets/img/team-1.jpg"
-                                        class="img-fluid circle" alt=""></div>
-                            </div>
-                            <div class="jobstock-reviews-caption">
-                                <div class="jobstock-reviews-title">
-                                    <h4>Lucia E. Nugent</h4>
-                                </div>
-                                <div class="jobstock-reviews-designation"><span>CEO of Climber</span></div>
-                                <div class="jobstock-reviews-rates">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star deactive"></i>
-                                </div>
-                            </div>
+                        <div class="jobstock-reviews-designation"><span>CEO of Climber</span></div>
+                        <div class="jobstock-reviews-rates">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star deactive"></i>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Single Review -->
+        <!-- Single Review -->
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="jobstock-reviews-box">
                         <div class="jobstock-reviews-desc">
@@ -684,9 +744,29 @@
                     </div>
                 </div>
                 <div class="modal-body">
+
                     <div class="modal-login-form">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
+
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
+
+
 
                             <div class="form-floating mb-4">
                                 <input type="email" name="email" class="form-control" placeholder="name@example.com"
@@ -741,6 +821,8 @@
             </div>
         </div>
     </div>
+
+
     <!-- End Modal -->
 
     <!-- Filter Modal -->
@@ -1073,12 +1155,13 @@
 
 </div>
 
+<!-- To keep modal open after a login error -->
 @if ($errors->has('email') || $errors->has('password'))
 <script>
-window.onload = () => {
-    const loginModal = new bootstrap.Modal(document.getElementById('login'));
-    loginModal.show();
-};
+    window.onload = () => {
+        const loginModal = new bootstrap.Modal(document.getElementById('login'));
+        loginModal.show();
+    };
 </script>
 @endif
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

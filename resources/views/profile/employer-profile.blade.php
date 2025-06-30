@@ -21,10 +21,14 @@
                 <h1 class="mb-1 fs-3 fw-medium">Employer Profile</h1>
 
             </div>
+            @if(auth()->check() && auth()->id() === $employer->id)
             <div class="col-xl-6 col-lg-6 col-md-6 text-end">
-                <a href="{{ route('employer-profile.edit') }}" class="btn btn-sm btn-primary">Edit
-                    Profile</a>
+                <a href="{{ route('employer.employer-profile.edit') }}" class="btn btn-sm btn-primary">
+                    Edit Profile
+                </a>
             </div>
+            @endif
+
         </div>
     </div>
 
@@ -212,7 +216,7 @@
     <!-- Footer -->
     <div class="row">
         <div class="col-md-12">
-            <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+            <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
         </div>
     </div>
 </div>

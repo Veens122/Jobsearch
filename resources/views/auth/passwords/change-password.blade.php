@@ -74,17 +74,17 @@
     <!-- Footer -->
     <div class="row">
         <div class="col-md-12">
-            <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+            <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
         </div>
     </div>
 </div>
 
 <!-- JavaScript for toggling password visibility -->
 <script>
-function togglePassword(id) {
-    const input = document.getElementById(id);
-    input.type = input.type === "password" ? "text" : "password";
-}
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === "password" ? "text" : "password";
+    }
 </script>
 
 

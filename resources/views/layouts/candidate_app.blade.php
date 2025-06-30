@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Job Stock - Responsive Job Portal Bootstrap Template | ThemezHub</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.png">
+    <title>Job Veens - </title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
 
     <!-- Custom CSS -->
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
@@ -39,9 +39,6 @@
     @yield('content')
 
     @include('snippets.candidate_footer')
-    <!-- Footer -->
-    @include('snippets.footer')
-    <!-- Footer End -->
 
 
 
@@ -117,25 +114,25 @@
 
     @if (session('message'))
     <script>
-    swal("Successful!", "{{ session('message') }}", "success");
+        swal("Successful!", "{{ session('message') }}", "success");
     </script>
     @endif
 
     @if (session('info'))
     <script>
-    swal("Info", "{{ session('info') }}", "info");
+        swal("Info", "{{ session('info') }}", "info");
     </script>
     @endif
 
     @if (Session::has('success'))
     <script>
-    swal("Successful!", "{{ Session::get('success') }}", "success");
+        swal("Successful!", "{{ Session::get('success') }}", "success");
     </script>
     @endif
 
     @if (Session::has('error'))
     <script>
-    swal("Error!", "{{ Session::get('error') }}", "warning");
+        swal("Error!", "{{ Session::get('error') }}", "warning");
     </script>
     @endif
 

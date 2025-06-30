@@ -9,7 +9,7 @@
               <div class="dash-user-blocks pt-5">
                   <div class="jbs-grid-usrs-thumb">
                       <div class="jbs-grid-yuo">
-                          <a href="candidate-detail.html">
+                          <a href="{{ route('employer-profile') }}">
                               <figure>
                                   @php
                                   $profile = Auth::user()->employerProfile;
@@ -45,7 +45,7 @@
                       <li class="active"><a href="{{ route('employer.dashboard') }}"><i
                                   class="fa-solid fa-gauge-high me-2"></i>
                               Dashboard</a></li>
-                      <li><a href="{{ route('employer-profile') }}"><i class="fa-regular fa-user me-2"></i>User
+                      <li><a href="{{ route('employer-profile') }}"><i class="fa-regular fa-user me-2"></i>My
                               Profile </a>
                       </li>
                       <li><a href="{{ route('employer.jobs.job-list') }}"><i
@@ -56,17 +56,16 @@
                                   class="fa-solid fa-pen-ruler me-2"></i>Post
                               Jobs</a></li>
                       <li><a href="{{ route('employer.applications.index') }}"><i
-                                  class="fa-solid fa-user-group me-2"></i>Applications</a></li>
-                      <li><a href="employer-shortlist-candidates.html"><i
+                                  class="fa-solid fa-user-group me-2"></i>Manage Applications</a></li>
+                      <li><a href="{{ route('employer.shortlisted.candidates')}}"><i
                                   class="fa-solid fa-user-clock me-2"></i>Shortlisted
                               Candidates</a></li>
-                      <li><a href="employer-package.html"><i class="fa-solid fa-wallet me-2"></i>Package</a></li>
-                      <li><a href="{{ route('messages') }}"><i class="fa-solid fa-comments me-2"></i>Messages</a>
+                      <!-- <li><a href="{{ route('messages') }}"><i class="fa-solid fa-comments me-2"></i>Messages</a> -->
                       </li>
                       <li><a href="{{ route('password.edit')}}"><i class="fa-solid fa-unlock-keyhole me-2"></i>Change
                               Password</a></li>
-                      <li><a href="employer-delete-account.html"><i class="fa-solid fa-trash-can me-2"></i>Delete
-                              Account</a></li>
+                      <!-- <li><a href="employer-delete-account.html"><i class="fa-solid fa-trash-can me-2"></i>Delete
+                              Account</a></li> -->
 
                       <button type="button" class="btn btn-whites">
                           <div class="drp_menu_headr-right">

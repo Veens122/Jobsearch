@@ -17,4 +17,9 @@ class JobCategory extends Model
     }
 
     protected $table = 'job_categories';
+
+    public function activeJobs()
+    {
+        return $this->hasMany(Job::class)->where('status', 'open');
+    }
 }

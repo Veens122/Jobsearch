@@ -35,7 +35,8 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('employer-profile.update') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('employer.employer-profile.update') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

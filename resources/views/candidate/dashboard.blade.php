@@ -22,13 +22,24 @@
         <div class="dashboard-tlbar d-block mb-5">
             <div class="row">
                 <div class="colxl-12 col-lg-12 col-md-12">
-                    <h1 class="mb-1 fs-3 fw-medium">Candidate Dashboard</h1>
+                    <h1 class="mb-1 fs-3 fw-medium"> Dashboard</h1>
 
                 </div>
             </div>
         </div>
 
         <div class="dashboard-widg-bar d-block">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Welcome, {{ auth()->user()->name }}!</h4>
+                        <p>Thank you for registering with us. You can now post jobs, manage applicants, and more.
+                        </p>
+                        <hr>
+                        <p class="mb-0">If you have any questions, feel free to contact our support team.</p>
+                    </div>
+                </div>
+            </div>
 
             <!-- Row Start -->
             <div class="row align-items-center gx-4 gy-4 mb-4">
@@ -233,7 +244,7 @@
         <!-- footer -->
         <div class="row">
             <div class="col-md-12">
-                <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+                <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
             </div>
         </div>
 

@@ -210,7 +210,7 @@
             <!-- Footer -->
             <div class="row mx-0">
                 <div class="col-md-12 px-3">
-                    <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+                    <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
                 </div>
             </div>
         </div>

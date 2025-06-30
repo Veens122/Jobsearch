@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmployerApprovedMail;
+use App\Mail\EmployerDeclinedMail;
 use App\Models\Application;
 use App\Models\Job;
 use App\Models\JobCategory;
@@ -10,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class SuperAdminController extends Controller
 {
@@ -24,14 +27,29 @@ class SuperAdminController extends Controller
         $totalUsers = User::where('role_id', '!=', 1)->count();
         $totalCandidates = User::where('role_id', 3)->count();
         $totalCategories = JobCategory::count();
-        $activeJobs = Job::where('status', 'active')->count();
         $expiredJobs = Job::where('expiry_date', '<', now())->count();
         $appliedJobs = Application::count();
+
+        $activeJobs = Job::where('status', 'open')
+            ->where('expiry_date', '>=', now())
+            ->count();
+
 
         $jobs = Job::withCount('applications')->latest()->get();
 
 
-        return view('superadmin.dashboard', compact('admin', 'totalJobs', 'totalEmployers', 'totalUsers', 'totalCandidates', 'totalCategories', 'activeJobs', 'activeJobs', 'expiredJobs', 'appliedJobs', 'jobs'));
+        return view('superadmin.dashboard', compact(
+            'admin',
+            'totalJobs',
+            'totalEmployers',
+            'totalUsers',
+            'totalCandidates',
+            'totalCategories',
+            'activeJobs',
+            'expiredJobs',
+            'appliedJobs',
+            'jobs'
+        ));
     }
 
     public function employerList(Request $request)
@@ -56,12 +74,19 @@ class SuperAdminController extends Controller
         $employer->is_approved = 1;
         $employer->save();
 
+        Mail::to($employer->email)->send(new EmployerApprovedMail($employer));
+
+
         return redirect()->back()->with('success', 'Employer approved successfully.');
     }
+
 
     public function declineEmployer($id)
     {
         $employer = User::findOrFail($id);
+
+        Mail::to($employer->email)->send(new EmployerDeclinedMail($employer));
+
         $employer->delete();
 
         return redirect()->back()->with('success', 'Employer declined and deleted.');
@@ -148,7 +173,7 @@ class SuperAdminController extends Controller
 
 
 
-    // SuperAdminController or AdminController
+    // To Ban user
 
     public function banUser(Request $request, $id)
     {
@@ -210,7 +235,7 @@ class SuperAdminController extends Controller
     public function jobCategories()
     {
         $categories = JobCategory::all();
-        return view('superadmin.categories.index', compact('categories'));
+        return view('superadmin.job-categories.index', compact('categories'));
     }
 
     public function createCategory(Request $request)
@@ -221,13 +246,27 @@ class SuperAdminController extends Controller
         return back()->with('success', 'Category created.');
     }
 
-    public function editCategory(Request $request, $id)
+
+    public function editCategoryForm($id)
     {
+        $category = JobCategory::findOrFail($id);
+        return view('superadmin.job-categories.edit', compact('category'));
+    }
+
+    public function updateCategory(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+        ]);
+
         $category = JobCategory::findOrFail($id);
         $category->update(['title' => $request->title]);
 
-        return back()->with('success', 'Category updated.');
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
+
+
+
 
     public function deleteCategory($id)
     {

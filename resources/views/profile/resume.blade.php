@@ -25,13 +25,7 @@
                 <div class="row">
                     <div class="colxl-12 col-lg-12 col-md-12">
                         <h1 class="mb-1 fs-3 fw-medium">My Resume</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item text-muted"><a href="#">Candidate</a></li>
-                                <li class="breadcrumb-item text-muted"><a href="#">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="#" class="text-primary">My Resume</a></li>
-                            </ol>
-                        </nav>
+
                     </div>
                 </div>
             </div>
@@ -39,16 +33,14 @@
             <div class="dashboard-widg-bar d-block">
 
                 <!-- Resume Section -->
-                <div class="card">
-                    <div class="card-header">
-                        <h4>My Resume</h4>
-                    </div>
-                    <div class="card-body">
+                <div class="card ">
+
+                    <div class="card-body ">
                         {{-- Upload Resume Form --}}
                         <form action="{{ route('profile.resume') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gx-4 gy-4 mb-3">
-                                <div class="col-xl-12">
+                                <div class="col-12">
                                     <div class="upload-btn-wrapper mb-3">
                                         <label class="form-label">Upload Resume</label>
                                         <input type="file" name="resume" class="form-control" required>
@@ -110,7 +102,7 @@
                 <!-- footer -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+                        <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
                     </div>
                 </div>
 

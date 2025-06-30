@@ -54,8 +54,7 @@
                                     <div class="row gx-3 gy-4">
                                         <div class="modal-login-form">
 
-                                            <form method="POST"
-                                                action="{{ route('verify.otp.submit', ['email' => $email]) }}">
+                                            <form method="POST" action="{{ route('submit.otp', ['email' => $email]) }}">
                                                 @csrf
 
 
@@ -97,54 +96,54 @@
 
 
                                                 <script>
-                                                document.addEventListener("DOMContentLoaded", function() {
-                                                    const verifyBtn = document.getElementById("verifyBtn");
-                                                    const resendBtn = document.getElementById("resendBtn");
-                                                    const countdownDisplay = document.getElementById(
-                                                        "countdown");
+                                                    document.addEventListener("DOMContentLoaded", function() {
+                                                        const verifyBtn = document.getElementById("verifyBtn");
+                                                        const resendBtn = document.getElementById("resendBtn");
+                                                        const countdownDisplay = document.getElementById(
+                                                            "countdown");
 
-                                                    // Set default expiry if not already set
-                                                    if (!localStorage.getItem("otpExpiry")) {
-                                                        const defaultExpiry = Date.now() + 60 *
-                                                            1000; // 60 seconds from now
-                                                        localStorage.setItem("otpExpiry", defaultExpiry);
-                                                    }
-
-                                                    function updateCountdown() {
-                                                        const expiry = parseInt(localStorage.getItem(
-                                                            "otpExpiry"));
-                                                        const now = Date.now();
-                                                        const remaining = Math.floor((expiry - now) / 1000);
-
-                                                        if (!expiry || remaining <= 0) {
-                                                            verifyBtn.disabled = true;
-                                                            resendBtn.disabled = false;
-                                                            countdownDisplay.innerText =
-                                                                "OTP expired. Request a new code.";
-                                                            clearInterval(countdownInterval);
-                                                            localStorage.removeItem("otpExpiry");
-                                                        } else {
-                                                            verifyBtn.disabled = false;
-                                                            resendBtn.disabled = true;
-                                                            countdownDisplay.innerText =
-                                                                `OTP expires in ${remaining}s`;
+                                                        // Set default expiry if not already set
+                                                        if (!localStorage.getItem("otpExpiry")) {
+                                                            const defaultExpiry = Date.now() + 60 *
+                                                                1000; // 60 seconds from now
+                                                            localStorage.setItem("otpExpiry", defaultExpiry);
                                                         }
-                                                    }
 
-                                                    // Start countdown interval
-                                                    let countdownInterval = setInterval(updateCountdown, 1000);
-                                                    updateCountdown();
+                                                        function updateCountdown() {
+                                                            const expiry = parseInt(localStorage.getItem(
+                                                                "otpExpiry"));
+                                                            const now = Date.now();
+                                                            const remaining = Math.floor((expiry - now) / 1000);
 
-                                                    // Resend OTP logic
-                                                    resendBtn.addEventListener("click", function() {
-                                                        const newExpiry = Date.now() + 60 * 1000;
-                                                        localStorage.setItem("otpExpiry", newExpiry);
-                                                        resendBtn.disabled = true;
-                                                        clearInterval(countdownInterval);
-                                                        countdownInterval = setInterval(updateCountdown,
-                                                            1000);
+                                                            if (!expiry || remaining <= 0) {
+                                                                verifyBtn.disabled = true;
+                                                                resendBtn.disabled = false;
+                                                                countdownDisplay.innerText =
+                                                                    "OTP expired. Request a new code.";
+                                                                clearInterval(countdownInterval);
+                                                                localStorage.removeItem("otpExpiry");
+                                                            } else {
+                                                                verifyBtn.disabled = false;
+                                                                resendBtn.disabled = true;
+                                                                countdownDisplay.innerText =
+                                                                    `OTP expires in ${remaining}s`;
+                                                            }
+                                                        }
+
+                                                        // Start countdown interval
+                                                        let countdownInterval = setInterval(updateCountdown, 1000);
+                                                        updateCountdown();
+
+                                                        // Resend OTP logic
+                                                        resendBtn.addEventListener("click", function() {
+                                                            const newExpiry = Date.now() + 60 * 1000;
+                                                            localStorage.setItem("otpExpiry", newExpiry);
+                                                            resendBtn.disabled = true;
+                                                            clearInterval(countdownInterval);
+                                                            countdownInterval = setInterval(updateCountdown,
+                                                                1000);
+                                                        });
                                                     });
-                                                });
                                                 </script>
 
 
@@ -161,7 +160,6 @@
                 </div>
 
             </div>
-            <!-- /row -->
         </div>
     </section>
 
@@ -177,7 +175,7 @@
 
                     <div class="call-action-wrap">
                         <div class="sec-heading center">
-                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Stock That is Superb For
+                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Veens That is Superb For
                                 You</h2>
                             <p class="fs-6 text-light">At vero eos et accusamus et iusto odio dignissimos ducimus qui
                                 blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias

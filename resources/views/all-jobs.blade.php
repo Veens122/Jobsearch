@@ -22,7 +22,7 @@
     <div class="page-title primary-bg-dark" style="background:url(assets/img/bg2.png) no-repeat;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 mt-5">
 
                     <form method="GET" action="{{ route('search-jobs') }}">
                         <div class="full-search-2">
@@ -30,7 +30,7 @@
                                 <div class="row classic-search-box m-0 gx-2">
 
                                     <!-- Keyword Search -->
-                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
                                         <div class="form-group briod">
                                             <div class="input-with-icon">
                                                 <input type="text" name="keyword" class="form-control"
@@ -42,8 +42,8 @@
                                     </div>
 
                                     <!-- Category Dropdown -->
-                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                                        <div class="form-group briod">
+                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                                        <div class="form-group briod ">
                                             <div class="input-with-icon">
                                                 <select class="form-control" name="category_id">
                                                     <option value="">All Categories</option>
@@ -80,11 +80,11 @@
                                     <!-- Search & Filter Buttons -->
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                                         <div class="fliox-search-wiop">
-                                            <div class="form-group me-2">
+                                            <!-- <div class="form-group me-2">
                                                 <a href="JavaScript:Void(0);" data-bs-toggle="modal"
                                                     data-bs-target="#filter" class="btn btn-filter-search"><i
                                                         class="fa-solid fa-filter"></i>Filter</a>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary full-width">Search</button>
                                             </div>
@@ -110,7 +110,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
 
                     <!-- Shorting Box -->
-                    <div class="row justify-content-center mb-5">
+                    <!-- <div class="row justify-content-center mb-5 mt-8">
                         <div class="col-lg-12 col-md-12">
                             <div class="item-shorting-box">
                                 <div class="item-shorting clearfix">
@@ -138,7 +138,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Shorting Wrap End -->
 
                     <!-- Start All List -->
@@ -183,7 +183,7 @@
                                             </div>
                                             <div class="jbs-single-y1 style-3">
                                                 <span><i class="fa-solid fa-briefcase"></i></span>
-                                                {{ $job->experience_level }}
+                                                {{ $job->experience }} Years
                                             </div>
                                         </div>
                                     </div>
@@ -224,15 +224,15 @@
 
                     <div class="call-action-wrap">
                         <div class="sec-heading center">
-                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Stock That is Superb
+                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Veens That is Superb
                                 For You</h2>
                             <p class="fs-6 text-light">At vero eos et accusamus et iusto odio dignissimos ducimus
                                 qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas
                                 molestias</p>
                         </div>
                         <div class="call-action-buttons mt-3">
-                            <a href="JavaScript:Void(0);"
-                                class="btn btn-lg btn-primary fw-medium px-xl-5 px-lg-4 me-2">Upload resume</a>
+                            <!-- <a href="JavaScript:Void(0);"
+                                class="btn btn-lg btn-primary fw-medium px-xl-5 px-lg-4 me-2">Upload resume</a> -->
                             <a href="JavaScript:Void(0);"
                                 class="btn btn-lg btn-whites fw-medium px-xl-5 px-lg-4 text-primary">Join Our
                                 Team</a>
@@ -246,157 +246,7 @@
     <!-- ============================ Call To Action End ================================== -->
 
     <!-- ============================ Footer Start ================================== -->
-    <footer class="footer skin-light-footer">
 
-        <!-- Footer Top Start -->
-        <div class="footer-top">
-            <div class="container">
-                <div class="row align-items-center justify-content-between">
-
-                    <div class="col-xl-5 col-lg-5 col-md-5">
-                        <div class="call-action-form rounded m-0">
-                            <form class="ms-0">
-                                <div class="newsltr-form gray-style">
-                                    <input type="text" class="form-control" placeholder="Enter Your email">
-                                    <button type="button" class="btn btn-subscribe">Subscribe</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-7 col-lg-7 col-md-7">
-                        <div class="job-info-count-group lg-ctr">
-                            <div class="single-jb-info-count">
-                                <div class="jbs-y7">
-                                    <h5 class="ctr">12</h5><span class="text-primary">K</span>
-                                </div>
-                                <div class="jbs-y5">
-                                    <p>Job Posted</p>
-                                </div>
-                            </div>
-                            <div class="single-jb-info-count">
-                                <div class="jbs-y7">
-                                    <h5 class="ctr">10</h5><span class="text-primary">M</span>
-                                </div>
-                                <div class="jbs-y5">
-                                    <p>Happy Customers</p>
-                                </div>
-                            </div>
-                            <div class="single-jb-info-count">
-                                <div class="jbs-y7">
-                                    <h5 class="ctr">76</h5><span class="text-primary">K</span>
-                                </div>
-                                <div class="jbs-y5">
-                                    <p>Freelancers</p>
-                                </div>
-                            </div>
-                            <div class="single-jb-info-count">
-                                <div class="jbs-y7">
-                                    <h5 class="ctr">200</h5><span class="text-primary">+</span>
-                                </div>
-                                <div class="jbs-y5">
-                                    <p>Companies</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- Footer Top End -->
-
-        <div>
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-4">
-                        <div class="footer-widget">
-                            <img src="assets/img/logo.png" class="img-footer" alt="">
-                            <div class="footer-add">
-                                <p>Collins Street West, Victoria Near Bank Road<br>Australia QHR12456.</p>
-                            </div>
-                            <div class="foot-socials">
-                                <ul>
-                                    <li><a href="JavaScript:Void(0);"><i class="fa-brands fa-facebook"></i></a></li>
-                                    <li><a href="JavaScript:Void(0);"><i class="fa-brands fa-linkedin"></i></a></li>
-                                    <li><a href="JavaScript:Void(0);"><i class="fa-brands fa-google-plus"></i></a>
-                                    </li>
-                                    <li><a href="JavaScript:Void(0);"><i class="fa-brands fa-twitter"></i></a></li>
-                                    <li><a href="JavaScript:Void(0);"><i class="fa-brands fa-dribbble"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4">
-                        <div class="footer-widget">
-                            <h4 class="widget-title text-primary">For Clients</h4>
-                            <ul class="footer-menu">
-                                <li><a href="JavaScript:Void(0);">Talent Marketplace</a></li>
-                                <li><a href="JavaScript:Void(0);">Payroll Services</a></li>
-                                <li><a href="JavaScript:Void(0);">Direct Contracts</a></li>
-                                <li><a href="JavaScript:Void(0);">Hire Worldwide</a></li>
-                                <li><a href="JavaScript:Void(0);">Hire in the USA</a></li>
-                                <li><a href="JavaScript:Void(0);">How to Hire</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-4">
-                        <div class="footer-widget">
-                            <h4 class="widget-title text-primary">Our Resources</h4>
-                            <ul class="footer-menu">
-                                <li><a href="JavaScript:Void(0);">Free Business tools</a></li>
-                                <li><a href="JavaScript:Void(0);">Affiliate Program</a></li>
-                                <li><a href="JavaScript:Void(0);">Success Stories</a></li>
-                                <li><a href="JavaScript:Void(0);">Upwork Reviews</a></li>
-                                <li><a href="JavaScript:Void(0);">Resources</a></li>
-                                <li><a href="JavaScript:Void(0);">Help & Support</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6">
-                        <div class="footer-widget">
-                            <h4 class="widget-title text-primary">The Company</h4>
-                            <ul class="footer-menu">
-                                <li><a href="JavaScript:Void(0);">About Us</a></li>
-                                <li><a href="JavaScript:Void(0);">Leadership</a></li>
-                                <li><a href="JavaScript:Void(0);">Contact Us</a></li>
-                                <li><a href="JavaScript:Void(0);">Investor Relations</a></li>
-                                <li><a href="JavaScript:Void(0);">Trust, Safety & Security</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-widget">
-                            <h4 class="widget-title text-primary">Download Apps</h4>
-                            <div class="app-wrap">
-                                <p><a href="JavaScript:Void(0);"><img src="assets/img/light-play.png" class="img-fluid"
-                                            alt=""></a></p>
-                                <p><a href="JavaScript:Void(0);"><img src="assets/img/light-ios.png" class="img-fluid"
-                                            alt=""></a></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row align-items-center justify-content-center">
-
-                    <div class="col-xl-12 col-lg-12 col-md-12">
-                        <p class="mb-0 text-center">© 2015 - 2025 Job Stock® Themezhub.</p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </footer>
     <!-- ============================ Footer End ================================== -->
 
     <!-- Log In Modal -->
@@ -411,9 +261,29 @@
                     </div>
                 </div>
                 <div class="modal-body">
+
                     <div class="modal-login-form">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
+
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
+
+
 
                             <div class="form-floating mb-4">
                                 <input type="email" name="email" class="form-control" placeholder="name@example.com"
@@ -471,7 +341,7 @@
     <!-- End Modal -->
 
     <!-- Filter Modal -->
-    <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="filtermodal" aria-hidden="true">
+    <!-- <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="filtermodal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered filter-popup" role="document">
             <div class="modal-content" id="filtermodal">
                 <span class="mod-close" data-bs-dismiss="modal" aria-hidden="true"><i class="fas fa-close"></i></span>
@@ -789,7 +659,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End Modal -->
 
 
@@ -797,6 +667,16 @@
 
 
 </div>
+
+@if ($errors->has('email') || $errors->has('password'))
+<script>
+window.onload = () => {
+    const loginModal = new bootstrap.Modal(document.getElementById('login'));
+    loginModal.show();
+};
+</script>
+@endif
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
 

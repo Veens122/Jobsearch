@@ -43,16 +43,17 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="_mp-inner-content elior">
-                                    <div class="_mp-inner-first">
+                                    <div class="_mp-inner-first w-100">
                                         <form method="GET" action="{{ route('employer.jobs.job-list') }}"
-                                            class="search-inline d-flex">
-                                            <input type="text" name="search" class="form-control"
+                                            class="d-flex w-100">
+                                            <input type="text" name="search" class="form-control w-100"
                                                 placeholder="Job title, Keywords etc." value="{{ request('search') }}">
                                             <button type="submit" class="btn btn-primary ms-2">Search</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+
 
 
 
@@ -102,7 +103,7 @@
                                                         <span
                                                             class="text-success">{{ $job->created_at ? $job->created_at->format('d M Y') : 'N/A' }}</span>
                                                     </p>
-                                                    <p class="m-0 text-sm-muted"><strong>Expired:</strong>
+                                                    <p class="m-0 text-sm-muted"><strong>Expiry Date:</strong>
                                                         <span
                                                             class="text-danger">{{ $job->expiry_date ? \Carbon\Carbon::parse($job->expiry_date)->format('d M Y') : 'N/A' }}
                                                         </span>
@@ -128,7 +129,10 @@
                                         </div>
                                     </div>
                                     @endforeach
+
                                 </div>
+
+
 
                                 <!-- End Row -->
 
@@ -154,7 +158,7 @@
             <!-- footer -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+                    <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
                 </div>
             </div>
 

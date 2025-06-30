@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ApplicationShortlistedMail;
+use App\Mail\ApplicationUnderReviewMail;
 use App\Models\Application;
 use App\Models\EmployerProfile;
 use App\Models\Job;
@@ -20,17 +21,16 @@ class JobApplicationController extends Controller
 {
     // Apply for a job
 
-    public function apply(Request $request)
+    public function apply(Request $request, $id) // $id is the job_id
     {
         $request->validate([
-            'job_id' => 'required|exists:jobs,id',
-            'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
-            'cover_letter' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'resume' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            'cover_letter' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
         ]);
 
         // Check for duplicate application
         if (Application::where('user_id', auth()->id())
-            ->where('job_id', $request->job_id)
+            ->where('job_id', $id)
             ->exists()
         ) {
             return back()->with('error', 'You have already applied for this job.');
@@ -54,7 +54,7 @@ class JobApplicationController extends Controller
 
         // Create application
         $application = Application::create([
-            'job_id' => $request->job_id,
+            'job_id' => $id,
             'user_id' => auth()->id(),
             'resume' => $resumePath,
             'cover_letter' => $coverLetterPath,
@@ -68,7 +68,8 @@ class JobApplicationController extends Controller
 
 
 
-    // Show list of applications for jobs owned by the employer
+
+
 
     public function index(Request $request)
     {
@@ -105,7 +106,15 @@ class JobApplicationController extends Controller
         $candidate = $application->user;
         $candidateProfile = $candidate->candidateProfile;
 
-        // Check if profile exists before fetching related candidates
+        // ✅ Send email ONLY if not under review
+        if (!$application->is_under_review) {
+            $application->is_under_review = true;
+            $application->save();
+
+            // Send one-time email to candidate
+            Mail::to($candidate->email)->send(new ApplicationUnderReviewMail($application));
+        }
+
         $relatedCandidates = $candidateProfile
             ? \App\Models\CandidateProfile::where('job_title', $candidateProfile->job_title)
             ->where('id', '!=', $candidateProfile->id)
@@ -113,7 +122,6 @@ class JobApplicationController extends Controller
             ->get()
             : collect();
 
-        // This candidate applied for the job, allow downloads
         $hasApplied = true;
 
         return view('employer.applications.show-candidate', compact(
@@ -251,5 +259,43 @@ class JobApplicationController extends Controller
         $application->delete();
 
         return redirect()->back()->with('success', 'Application deleted.');
+    }
+
+    // TO VIEW SHORTLISTED CANDIDATES
+    public function shortlistedCandidates(Request $request)
+    {
+        $employerId = auth()->id();
+
+        $applications = Application::whereHas('job', function ($query) use ($employerId) {
+            $query->where('employer_id', $employerId);
+        })
+            ->where('status', 'shortlisted')
+            ->with(['candidateProfile.user', 'job'])
+            ->latest()
+            ->paginate(10);
+
+        // Preserve filters in pagination links
+        $applications->appends($request->all());
+
+        return view('employer.shortlisted-candidates', compact('applications'));
+    }
+
+    public function removeShortlist($id)
+    {
+        $application = Application::findOrFail($id);
+
+        // Ensure employer owns this job
+        if ($application->job->employer_id !== auth()->id()) {
+            abort(403, 'Unauthorized');
+        }
+
+        if ($application->status === 'shortlisted') {
+            $application->status = 'pending';
+            $application->save();
+
+            return redirect()->back()->with('success', 'Candidate removed from shortlist and set back to pending.');
+        }
+
+        return redirect()->back()->with('info', 'Candidate is not shortlisted.');
     }
 }

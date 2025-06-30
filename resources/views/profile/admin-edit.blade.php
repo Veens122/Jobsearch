@@ -56,7 +56,7 @@
                                     <div class="mt-3">
                                         <input type="file" class="form-control" id="profile_picture"
                                             name="profile_picture" accept="image/*" onchange="previewImage(this)">
-                                        <small class="text-muted">Max 2MB (JPG, PNG, JPEG)</small>
+                                        <small class="text-muted">Max 5MB (JPG, PNG, JPEG)</small>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
             <!-- Footer -->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+                    <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
                 </div>
             </div>
         </div>

@@ -49,7 +49,7 @@ class SuperAdminProfileController extends Controller
             'country' => 'nullable|string',
             'city' => 'nullable|string',
             'zipcode' => 'nullable|string',
-            'profile_picture' => 'nullable|image|max:2048',
+            'profile_picture' => 'nullable|image|max:5020|mimes:jpeg,png,jpg,webp',
         ]);
 
         $user->name = $request->input('name');

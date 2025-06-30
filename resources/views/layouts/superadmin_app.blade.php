@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Job Stock - Responsive Job Portal Bootstrap Template | ThemezHub</title>
+    <title>Job Veens </title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
 
     <!-- Custom CSS -->
@@ -17,6 +17,8 @@
 
     <!-- Colors CSS -->
     <link href="{{ asset('assets/css/colors.css') }}" rel="stylesheet'">
+
+    <!-- Bootstrap css -->
 
 </head>
 
@@ -84,6 +86,8 @@
     <!-- ============================================================== -->
 
 
+
+
     @if (session('message'))
     <script>
         swal("Successful!", "{{ session('message') }}", "success");
@@ -107,8 +111,9 @@
         swal("Error!", "{{ Session::get('error') }}", "warning");
     </script>
     @endif
+
+
 </body>
 
-<!-- Mirrored from shreethemes.net/jobstock-landing-2.3/jobstock/employer-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 May 2025 12:45:24 GMT -->
 
 </html>

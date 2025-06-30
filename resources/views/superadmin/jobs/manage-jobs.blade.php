@@ -21,7 +21,7 @@
         <div class="dashboard-tlbar d-block mb-4">
             <div class="row">
                 <div class="colxl-12 col-lg-12 col-md-12">
-                    <h1 class="mb-1 fs-3 fw-medium">Admin Dashboard</h1>
+                    <h1 class="mb-1 fs-3 fw-medium">Manage Jobs</h1>
 
                 </div>
             </div>
@@ -110,7 +110,7 @@
                                                 </td>
                                                 <td>{{ $job->city }}, {{ $job->country }}</td>
                                                 <td>{{ ucfirst($job->type) }}</td>
-                                                <td>{{ $job->experience_level }}</td>
+                                                <td>{{ $job->experience }}</td>
                                                 <td>
                                                     <span class="text-muted"
                                                         title="{{ $job->created_at->format('M d, Y h:i A') }}">
@@ -164,7 +164,7 @@
         <!-- footer -->
         <div class="row">
             <div class="col-md-12">
-                <div class="py-3 text-center">© 2015 - 2025 Job Stock® Themezhub.</div>
+                <div class="py-3 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</div>
             </div>
         </div>
 

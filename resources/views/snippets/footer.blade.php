@@ -6,9 +6,9 @@
 
                  <div class="col-lg-3 col-md-4">
                      <div class="footer-widget">
-                         <img src="assets/img/logo-light.png" class="img-footer" alt="">
+                         <img src="assets/img/job veens logo light.png" class="img-footer" alt="">
                          <div class="footer-add">
-                             <p>Collins Street West, Victoria Near Bank Road<br>Australia QHR12456.</p>
+                             <p>Plot 44 tech road, Iyiagu Estate, Awka, Anambra State<br>Nigeria</p>
                          </div>
                          <div class="foot-socials">
                              <ul>
@@ -85,19 +85,22 @@
          </div>
      </div>
 
+
+
      <div class="footer-bottom">
          <div class="container">
              <div class="row align-items-center justify-content-between">
 
                  <div class="col-xl-4 col-lg-5 col-md-5">
-                     <p class="mb-0">© 2015 - 2025 Job Stock® Themezhub.</p>
+                     <p class="mb-0">© 2024 - 2025 Job Veens® Ugochukwu.</p>
                  </div>
 
                  <div class="col-xl-8 col-lg-7 col-md-7">
                      <div class="job-info-count-group">
                          <div class="single-jb-info-count">
                              <div class="jbs-y7">
-                                 <h5 class="ctr">12</h5><span class="primary-2-cl">K</span>
+                                 <h5 class="ctr">{{ number_format($totalJobCount) }}</h5><span
+                                     class="primary-2-cl"></span>
                              </div>
                              <div class="jbs-y5">
                                  <p>Job Posted</p>
@@ -105,23 +108,25 @@
                          </div>
                          <div class="single-jb-info-count">
                              <div class="jbs-y7">
-                                 <h5 class="ctr">10</h5><span class="primary-2-cl">M</span>
+                                 <h5 class="ctr">{{ number_format($totalUserCount) }}</h5><span
+                                     class="primary-2-cl"></span>
                              </div>
                              <div class="jbs-y5">
                                  <p>Happy Customers</p>
                              </div>
                          </div>
-                         <div class="single-jb-info-count">
+                         <!-- <div class="single-jb-info-count">
                              <div class="jbs-y7">
                                  <h5 class="ctr">76</h5><span class="primary-2-cl">K</span>
                              </div>
                              <div class="jbs-y5">
                                  <p>Freelancers</p>
                              </div>
-                         </div>
+                         </div> -->
                          <div class="single-jb-info-count">
                              <div class="jbs-y7">
-                                 <h5 class="ctr">200</h5><span class="primary-2-cl">+</span>
+                                 <h5 class="ctr">{{ number_format($totalEmployerCount) }}</h5><span
+                                     class="primary-2-cl"></span>
                              </div>
                              <div class="jbs-y5">
                                  <p>Companies</p>

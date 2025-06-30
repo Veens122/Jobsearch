@@ -233,6 +233,7 @@ class JobController extends Controller
     {
         $query = Job::query();
 
+        // Handle keyword (from either search bar)
         if ($request->filled('keyword')) {
             $query->where(function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->keyword . '%')
@@ -241,21 +242,64 @@ class JobController extends Controller
             });
         }
 
+        // Handle category 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
+        } elseif ($request->filled('category')) {
+            $query->where('category_id', $request->category);
         }
 
+        // Handle job type
+        if ($request->filled('type')) {
+            $query->where('job_type', $request->type);
+        }
+
+        // Handle job level
+        if ($request->filled('level')) {
+            $query->where('type', $request->level);
+        }
+
+        // Handle experience
+        if ($request->filled('experience')) {
+            $query->where('experience', 'like', '%' . $request->experience . '%');
+        }
+
+        // Filter by salary range (expects value like "500-1000")
+        if ($request->filled('salary')) {
+            [$min, $max] = explode('-', $request->salary);
+            $query->whereBetween('salary', [(int) $min, (int) $max]);
+        }
+
+        // Filter by salary type (MONTHLY, YEARLY, etc.)
+        if ($request->filled('salary_type')) {
+            $query->where('salary_type', $request->salary_type);
+        }
+
+        //  Filter by country 
+        if ($request->filled('country')) {
+            $query->where('country', $request->country);
+        }
+
+        // Handle city (optional)
         if ($request->filled('city')) {
             $query->where('city', $request->city);
         }
 
-        $jobs = $query->latest()->paginate(10);
+        $countries = Job::select('country')
+            ->whereNotNull('country')
+            ->where('country', '!=', '')
+            ->distinct()
+            ->pluck('country');
 
+
+        // Fetch results
+        $jobs = $query->latest()->paginate(10);
         $categories = JobCategory::all();
         $cities = Job::select('city')->distinct()->pluck('city');
 
-        return view('search-jobs', compact('jobs', 'categories', 'cities'));
+        return view('search-jobs', compact('jobs', 'categories', 'cities', 'countries'));
     }
+
 
 
 

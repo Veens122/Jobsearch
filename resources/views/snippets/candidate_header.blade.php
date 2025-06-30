@@ -3,7 +3,7 @@
         <nav id="navigation" class="navigation navigation-landscape">
             <div class="nav-header">
                 <a class="nav-brand" href="{{ route('home') }}">
-                    <img src="{{ asset('assets/img/logo.png') }}" class="logo" alt="">
+                    <img src="{{ asset('assets/img/job veens logo light.png') }}" class="logo" alt="">
                 </a>
                 <div class="nav-toggle"></div>
                 <ul class="mobile_nav dhsbrd">
@@ -99,10 +99,11 @@
                                     <li><a href="candidate-dashboard.html"><i
                                                 class="fa fa-tachometer-alt"></i>Dashboard<span
                                                 class="notti_coun style-1">4</span></a></li>
-                                    <li><a href="candidate-profile.html"><i class="fa fa-user-tie"></i>My
+                                    <li><a href="{{ route('profile.candidate-profile') }}"><i
+                                                class="fa fa-user-tie"></i>My
                                             Profile</a></li>
-                                    <li><a href="candidate-resume.html"><i class="fa fa-file"></i>My Resume<span
-                                                class="notti_coun style-2">7</span></a></li>
+                                    <li><a href="{{ route('profile.resume') }}"><i class="fa fa-file"></i>My Resume</a>
+                                    </li>
                                     <li><a href="candidate-saved-jobs.html"><i class="fa-solid fa-bookmark"></i>Saved
                                             Resume</a></li>
                                     <li><a href="{{ route('messages') }}"><i class="fa fa-envelope"></i>Messages<span
@@ -121,19 +122,11 @@
                 <ul class="nav-menu">
 
                     </li>
-                    <li><a href="JavaScript:Void(0);">Job Search on Map<span class="submenu-indicator"></span></a>
+                    <li><a href="JavaScript:Void(0);">Home<span class="submenu-indicator"></span></a>
 
                     </li>
 
-                    <li><a href="JavaScript:Void(0);">Single job Detail<span class="submenu-indicator"></span></a>
 
-                    </li>
-                    <li><a href="">Candidate Detail<span class=""></span></a>
-
-                    </li>
-                    <li><a href="advance-search.html">Advance Search</a></li>
-
-                    <li><a href="advance-search.html">Search Employer</a></li>
 
                 </ul>
                 </li>
@@ -151,7 +144,7 @@
                 </ul>
 
                 <ul class="nav-menu nav-menu-social align-to-right dhsbrd">
-                    <li>
+                    <!-- <li>
                         <div class="btn-group account-drop">
                             <button type="button" class="btn btn-order-by-filt" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -175,7 +168,7 @@
                                                 class="fa-solid fa-envelope"></i></div>
                                         <div class="ntf-list-groups-caption">
                                             <p class="small">Mortin Denver Accepted Your Resume <strong
-                                                    class="text-success">On Job Stock</strong></p>
+                                                    class="text-success">On Job Veens</strong></p>
                                         </div>
                                     </div>
                                     <div class="ntf-list-groups-single">
@@ -208,7 +201,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                     <li>
                         <div class="btn-group account-drop">
                             <button type="button" class="btn btn-order-by-filt" data-bs-toggle="dropdown"
@@ -253,21 +246,22 @@
                                     </div>
                                 </div>
                                 <ul>
-                                    <li><a href="candidate-dashboard.html"><i
-                                                class="fa fa-tachometer-alt"></i>Dashboard<span
-                                                class="notti_coun style-1">4</span></a></li>
-                                    <li><a href="candidate-profile.html"><i class="fa fa-user-tie"></i>My
+                                    <li><a href="{{ route('candidate.dashboard') }}"><i
+                                                class="fa fa-tachometer-alt"></i>Dashboard</a></li>
+                                    <li><a href="{{ route('profile.candidate-profile') }}"><i
+                                                class="fa fa-user-tie"></i>My
                                             Profile</a></li>
-                                    <li><a href="{{ route('profile.resume') }}"><i class="fa fa-file"></i>My Resume<span
-                                                class="notti_coun style-2">7</span></a></li>
-                                    <li><a href="candidate-saved-jobs.html"><i class="fa-solid fa-bookmark"></i>Saved
+                                    <!-- <li><a href="{{ route('profile.resume') }}"><i class="fa fa-file"></i>My Resume<span
+                                                class="notti_coun style-2">7</span></a></li> -->
+                                    <li><a href="{{ route('profile.resume') }}"><i
+                                                class="fa-solid fa-bookmark"></i>Saved
                                             Resume</a></li>
-                                    <li><a href="candidate-messages.html"><i class="fa fa-envelope"></i>Messages<span
-                                                class="notti_coun style-3">3</span></a></li>
+                                    <!-- <li><a href="candidate-messages.html"><i class="fa fa-envelope"></i>Messages<span
+                                                class="notti_coun style-3">3</span></a></li> -->
                                     <li><a href="{{ route('password.edit')}}"><i class="fa fa-unlock-alt"></i>Change
                                             Password</a></li>
-                                    <li><a href="candidate-delete-account.html"><i
-                                                class="fa-solid fa-trash-can"></i>Delete Account</a></li>
+                                    <!-- <li><a href="candidate-delete-account.html"><i
+                                                class="fa-solid fa-trash-can"></i>Delete Account</a></li> -->
                                 </ul>
                             </div>
                         </div>

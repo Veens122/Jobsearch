@@ -710,7 +710,7 @@
 
 
             <div class="col-xl-12 col-lg-12 col-md-12">
-                <p class="mb-0 text-center">© 2015 - 2025 Job Stock® Themezhub.</p>
+                <p class="mb-0 text-center">© 2024 - 2025 Job Veens® Ugochukwu.</p>
             </div>
 
             <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>

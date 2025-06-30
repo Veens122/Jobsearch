@@ -49,16 +49,38 @@
                      <li><a href="{{ route('categories.index') }}"><i class="fa-solid fa-list-check me-2"></i>View All
                              Job Category</a></li>
                      <li><a href="{{ route('superadmin.employer-list') }}"><i
-                                 class="fa-solid fa-pen-ruler me-2"></i>Employers list</a></li>
+                                 class="fa-solid fa-pen-ruler me-2"></i>Manage Employers</a></li>
                      <li><a href="{{ route('users.users-list') }}"><i class="fa-solid fa-user-clock me-2"></i>All
                              Users</a></li>
+                     <li><a href="{{ route('blog-categories.index') }}"><i
+                                 class="fa-solid fa-user-clock me-2"></i>Manage Blog Categories</a></li>
+
+                     <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" id="blogDropdown" role="button"
+                             data-bs-toggle="dropdown" aria-expanded="false">
+                             <i class="fa-solid fa-list-check me-2"></i>Manage Blogs
+                         </a>
+                         <ul class="dropdown-menu" aria-labelledby="blogDropdown">
+                             <!-- <li><a class="dropdown-item" href="">Manage Blog
+                                     Categories</a></li> -->
+                             <!-- <li><a class="dropdown-item" href="{{ route('blogs.create') }}"> Blog</a>
+                             </li> -->
+                             <li><a class="dropdown-item" href="{{ route('blogs.create') }}">Add Blog</a>
+                             </li>
+                             <li><a class="dropdown-item" href="{{ route('superadmin.blogs.index') }}">View Blog
+                                     lists</a></li>
+                         </ul>
+                     </li>
+
+
+
                      <!-- Message to be implemented later if time permits -->
                      <!-- <li><a href="employer-messages.html"><i class="fa-solid fa-comments me-2"></i>Messages</a>
                      </li> -->
                      <li><a href="{{ route('password.edit')}}"><i class="fa-solid fa-unlock-keyhole me-2"></i>Change
                              Password</a></li>
-                     <li><a href="employer-delete-account.html"><i class="fa-solid fa-trash-can me-2"></i>Delete
-                             Account</a></li>
+                     <!-- <li><a href="employer-delete-account.html"><i class="fa-solid fa-trash-can me-2"></i>Delete
+                             Account</a></li> -->
 
                      <button type="button" class="btn btn-whites">
                          <div class="drp_menu_headr-right">

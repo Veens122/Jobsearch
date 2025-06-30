@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Mail;
 
 class MessageController extends Controller
 {
-    //
 
     public function messages()
     {

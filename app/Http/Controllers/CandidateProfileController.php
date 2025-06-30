@@ -14,7 +14,15 @@ class CandidateProfileController extends Controller
 
     public function showProfile()
     {
-        $candidate = auth()->user()->load('candidateProfile');
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to access your profile.');
+        }
+
+        $candidate = auth()->user()->load([
+            'candidateProfile',
+            'jobHistories',
+            'educationHistories'
+        ]);
 
         $jobHistories = $candidate->jobHistories;
         $educationHistories = $candidate->educationHistories;

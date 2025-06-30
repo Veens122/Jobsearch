@@ -7989,6 +7989,7 @@ ul.shorting-list li a:hover, ul.shorting-list li a:focus, ul.shorting-list li a.
 }
 .modal-body {
     padding: 1rem 2rem 2rem;
+    
 }
 .modal-login-form .form-group .form-control {
     height: 52px;

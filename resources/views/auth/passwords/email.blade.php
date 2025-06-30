@@ -96,7 +96,7 @@
 
                     <div class="call-action-wrap">
                         <div class="sec-heading center">
-                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Stock That is Superb For
+                            <h2 class="lh-base mb-3 text-light">Find The Perfect Job<br>on Job Veens That is Superb For
                                 You</h2>
                             <p class="fs-6 text-light">At vero eos et accusamus et iusto odio dignissimos ducimus qui
                                 blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias

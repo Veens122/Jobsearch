@@ -71,7 +71,7 @@
                                                     <div class="drixko-box-caps">
                                                         <span class="text-medium fw-medium">
                                                             @if ($job->salary_min && $job->salary_max)
-                                                            {{ $job->salary_min }} to {{ $job->salary_max }}
+                                                            ₦{{ $job->salary_min }} to ₦{{ $job->salary_max }}
                                                             @elseif ($job->salary_min)
                                                             {{ $job->salary_min }}
                                                             @elseif ($job->salary_max)
@@ -134,35 +134,54 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    {{-- Show only for candidates --}}
+
+                    {{-- Show session messages and validation errors for all users --}}
+                    @if(session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
+                    @if(session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    {{-- Show only for logged-in candidates --}}
                     @auth
-                    @if(Auth::user()->role_id === 3) {{-- Candidate --}}
+                    @if(Auth::user()->role_id === 3)
                     <div class="detail-side-block bg-white mb-4">
                         <div class="detail-side-heads mb-2">
                             <h3>Ready To Apply?</h3>
                         </div>
                         <form action="{{ route('job.apply', $job->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="job_id" value="{{ $job->id }}">
 
                             <div class="detail-side-middle">
                                 <div class="form-floating mb-3">
-                                    <input type="text" name="name" class="form-control" placeholder=""
-                                        value="{{ Auth::user()->name }}" readonly>
+                                    <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}"
+                                        readonly>
                                     <label>Name:</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="email" name="email" class="form-control" placeholder=""
+                                    <input type="email" name="email" class="form-control"
                                         value="{{ Auth::user()->email }}" readonly>
                                     <label>Email:</label>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label>Upload Resume (PDF, DOC, DOCX - Max 2MB)</label>
+                                    <label>Upload Resume (PDF, DOC, DOCX - Max 5MB)</label>
                                     <input type="file" name="resume" class="form-control" accept=".pdf,.doc,.docx"
                                         required>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label>Upload Cover Letter (Optional - PDF, DOC, DOCX - Max 2MB)</label>
+                                    <label>Upload Cover Letter (Optional - PDF, DOC, DOCX - Max 5MB)</label>
                                     <input type="file" name="cover_letter" class="form-control"
                                         accept=".pdf,.doc,.docx">
                                 </div>
@@ -177,27 +196,10 @@
                     </div>
                     @endif
                     @else
-                    {{-- For guests: redirect to login/register --}}
+                    {{-- Guest view --}}
                     <div class="detail-side-block bg-white mb-4">
                         <div class="detail-side-heads mb-2">
                             <h3>Ready To Apply?</h3>
-
-                            @if(session('success'))
-                            <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-                            @if(session('error'))
-                            <div class="alert alert-danger">{{ session('error') }}</div>
-                            @endif
-                            @if($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
-
                         </div>
                         <div class="detail-side-middle text-center">
                             <p class="mb-3">You need to be logged in as a candidate to apply for this job.</p>
@@ -208,117 +210,8 @@
                     </div>
                     @endauth
 
-
-                    <div class="side-jbs-info-blox bg-white mb-4">
-                        <div class="side-jbs-info-header">
-                            <div class="side-jbs-info-thumbs">
-                                <figure>
-                                    <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
-                                        class="img-fluid" alt="{{ $job->company_name ?? 'Company' }}">
-                                </figure>
-                            </div>
-                            <div class="side-jbs-info-captionyo ps-3">
-                                <div class="sld-info-title">
-                                    <h5 class="rtls-title mb-1">
-                                        {{ $job->company_name ?? 'Not available' }}
-                                    </h5>
-                                    <div class="jbs-locat-oiu text-sm-muted">
-                                        <span class="me-1"><i
-                                                class="fa-solid fa-location-dot me-1"></i>{{ $job->country ?? 'N/A' }}</span>
-                                        <span class="ms-1">{{ $job->industry ?? 'N/A' }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="side-jbs-info-middle">
-                            <div class="side-full-info-groups">
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Company Founder:</span>
-                                    <h6 class="sld-title">
-                                        {{ $job->company_name ?? 'Not available' }}
-                                    </h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Founded:</span>
-                                    <h6 class="sld-title">{{ $job->date_founded ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Head Office:</span>
-                                    <h6 class="sld-title">{{ $job->country ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Email:</span>
-                                    <h6 class="sld-title">{{ $job->email ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Age limit:</span>
-                                    <h6 class="sld-title">{{ $job->age_limit ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Date posted:</span>
-                                    <h6 class="sld-title">{{ $job->created_at ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Expiry date:</span>
-                                    <h6 class="sld-title">{{ $job->expiry_date ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Salary type:</span>
-                                    <h6 class="sld-title">{{ $job->salary_type ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Status:</span>
-                                    <h6 class="sld-title">{{ $job->status ?? 'N/A' }}</h6>
-                                </div>
-                                <div class="single-side-info">
-                                    <span class="text-sm-muted sld-subtitle">Min Exp.:</span>
-                                    <h6 class="sld-title">{{ $job->experience ?? 'N/A' }}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="side-rtl-jbs-block">
-                        <div class="side-rtl-jbs-head">
-                            <h5 class="side-jbs-titles">Related Jobs</h5>
-                        </div>
-                        <div class="side-rtl-jbs-body">
-                            @forelse($relatedJobs as $related)
-                            <div class="single-side-rtl-jbs">
-                                <div class="single-rtl-jbs-caption">
-                                    <div class="hjs-rtls-titles">
-                                        <div class="jbs-types mb-1">
-                                            <span
-                                                class="label text-success bg-light-success">{{ $related->type }}</span>
-                                        </div>
-                                        <h5 class="rtls-title">
-                                            <a href="{{ route('job.details', $related->id) }}">{{ $related->title }}</a>
-                                        </h5>
-                                        <div class="jbs-locat-oiu text-sm-muted">
-                                            <span><i
-                                                    class="fa-solid fa-location-dot me-1"></i>{{ $related->country }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @empty
-                            <div class="alert alert-warning text-center mt-3">
-                                No related jobs found.
-                            </div>
-                            @endforelse
-
-                            <div class="text-center mt-3">
-                                <a href="{{ route('all-jobs') }}" class="btn btn-outline-primary">See All Jobs</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
                 </div>
+
             </div>
         </div>
     </section>
