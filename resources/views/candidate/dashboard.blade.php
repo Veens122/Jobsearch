@@ -175,7 +175,7 @@
                                         <div class="jbs-list-head">
                                             <div class="jbs-list-head-thunner">
                                                 <div class="jbs-list-emp-thumb jbs-verified">
-                                                    <a href="{{ route('job-detail', ['id' => $job->id]) }}">
+                                                    <a href="{{ route('job-detail', ['slug' => $job->slug]) }}">
                                                         <figure>
                                                             <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
                                                                 class="img-fluid" alt="{{ $job->company_name }}">
@@ -190,7 +190,7 @@
                                                     </div>
                                                     <div class="jbs-job-title-wrap">
                                                         <h4>
-                                                            <a href="{{ route('job-detail', ['id' => $job->id]) }}"
+                                                            <a href="{{ route('job-detail', ['slug' => $job->slug]) }}"
                                                                 class="jbs-job-title">
                                                                 {{ $job->title }}
                                                             </a>
@@ -216,7 +216,7 @@
                                                 </div>
                                             </div>
                                             <div class="jbs-list-head-last">
-                                                <a href="{{ route('job-detail', ['id' => $job->id]) }}"
+                                                <a href="{{ route('job-detail', ['slug' => $job->slug]) }}"
                                                     class="btn btn-md btn-outline-secondary px-3 me-2">View Detail</a>
                                                 <!-- <a href="#" class="btn btn-md btn-primary px-3">Quick Apply</a> -->
                                             </div>

@@ -74,10 +74,21 @@
                     <div class="dash-prfs-subtitle">
                         <div class="jbs-job-mrch-lists">
                             <div class="single-mrch-lists">
-                                <span>{{ $employer->employerProfile->industry ?? 'N/A' }}</span>.<span><i
-                                        class="fa-solid fa-location-dot me-1"></i>
-                                    {{ auth()->user()->employerProfile->country ?? 'N/A' }}</span>
+                                <span>{{ $employer->employerProfile->industry ?? 'N/A' }}</span>.
+                                <span>
+                                    <i class="fa-solid fa-location-dot me-1"></i>
+                                    @php
+                                    $city = $employer->employerProfile->city ?? null;
+                                    $state = $employer->employerProfile->state ?? null;
+                                    $country = $employer->employerProfile->country ?? null;
+
+                                    $locationParts = array_filter([$city, $state, $country]);
+                                    @endphp
+
+                                    {{ $locationParts ? implode(', ', $locationParts) : 'N/A' }}
+                                </span>
                             </div>
+
                         </div>
                     </div>
                     @if (!empty($employer->profile?->specialties))
@@ -111,13 +122,13 @@
 
                             </div>
                         </div>
-                        <div class="single-dash-prf-infos">
+                        <!-- <div class="single-dash-prf-infos">
                             <div class="single-dash-prf-infos-icons"><i class="fa-solid fa-users"></i></div>
                             <div class="single-dash-prf-infos-caption">
                                 <p class="text-sm-muted mb-0">Size</p>
                                 <h5>{{ $employer->employerProfile->company_size ?? 'N/A' }}</h5>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -143,8 +154,12 @@
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
-                        <strong>Founded:</strong>
-                        <p>{{ $employer->employerProfile->founded ?? 'N/A' }}</p>
+                        <strong>Date Founded:</strong>
+                        <p>
+                            {{ optional($employer->employerProfile)->founded
+            ? \Carbon\Carbon::parse($employer->employerProfile->founded)->format('F j, Y')
+            : 'N/A' }}
+                        </p>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
@@ -157,7 +172,7 @@
 
                     <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
                         <strong>Company Description:</strong>
-                        <p>{{ $employer->employerProfile->company_description ?? 'N/A' }}</p>
+                        <p> {{ $employer->employerProfile->company_description ?? 'N/A' }}</p>
                     </div>
 
 

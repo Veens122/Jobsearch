@@ -33,8 +33,15 @@
 
                       <div class="jbs-tiosk">
                           <h4 class="jbs-tiosk-title"><a href="candidate-detail.html"></a></h4>
-                          <div class="jbs-tiosk-subtitle"><span><i
-                                      class="fa-solid fa-location-dot me-2"></i>{{ auth()->user()->employerProfile->country ?? 'N/A' }}
+                          <div class="jbs-tiosk-subtitle"><span><i class="fa-solid fa-location-dot me-2"></i>@php
+                                  $city = $employer->employerProfile->city ?? null;
+                                  $state = $employer->employerProfile->state ?? null;
+                                  $country = $employer->employerProfile->country ?? null;
+
+                                  $locationParts = array_filter([$city, $state, $country]);
+                                  @endphp
+
+                                  {{ $locationParts ? implode(', ', $locationParts) : 'N/A' }}
                               </span>
                           </div>
                       </div>

@@ -22,7 +22,7 @@
     <div class="page-title primary-bg-dark" style="background:url(assets/img/bg2.png) no-repeat;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-12">
+                <div class="col-lg-12 col-md-12 mt-5">
 
                     <form method="GET" action="{{ route('search-jobs') }}">
                         <div class="full-search-2">
@@ -45,7 +45,7 @@
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                                         <div class="form-group briod">
                                             <div class="input-with-icon">
-                                                <select class="form-control" name="category_id">
+                                                <select class="form-control select2" name="category_id">
                                                     <option value="">All Categories</option>
                                                     @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}"
@@ -54,7 +54,6 @@
                                                     </option>
                                                     @endforeach
                                                 </select>
-                                                <i class="fa-solid fa-briefcase text-primary"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -63,7 +62,7 @@
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <div class="input-with-icon">
-                                                <select class="form-control" name="city">
+                                                <select class="form-control select2" name="city">
                                                     <option value="">All Cities</option>
                                                     @foreach ($cities as $city)
                                                     <option value="{{ $city }}"
@@ -72,7 +71,6 @@
                                                     </option>
                                                     @endforeach
                                                 </select>
-                                                <i class="fa-solid fa-location-crosshairs text-primary"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +148,7 @@
                                 <div class="jbs-list-head">
                                     <div class="jbs-list-head-thunner">
                                         <div class="jbs-list-emp-thumb jbs-verified">
-                                            <a href="{{ route('job-detail', ['id' => $job->id]) }}">
+                                            <a href="{{ route('job-detail', ['slug' => $job->slug]) }}">
                                                 <figure>
                                                     <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
                                                         class="img-fluid" alt="{{ $job->company_name }}">
@@ -162,13 +160,13 @@
                                                 <span>{{ $job->company_name }}</span>
                                             </div>
                                             <div class="jbs-job-title-wrap">
-                                                <h4><a href="{{ route('job-detail', ['id' => $job->id]) }}"
+                                                <h4><a href="{{ route('job-detail', ['slug' => $job->slug]) }}"
                                                         class="jbs-job-title">{{ $job->title }}</a></h4>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="jbs-list-head-last">
-                                        <a href="{{ route('job-detail', ['id' => $job->id]) }}"
+                                        <a href="{{ route('job-detail', ['slug' => $job->slug]) }}"
                                             class="btn btn-md btn-primary px-4">
                                             Apply</a>
                                     </div>
@@ -267,37 +265,65 @@
                     </div>
                 </div>
                 <div class="modal-body">
+
                     <div class="modal-login-form">
-                        <form>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                        @endif
+
+
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+
+
 
                             <div class="form-floating mb-4">
-                                <input type="email" class="form-control" placeholder="name@example.com">
-                                <label>User Name</label>
+                                <input type="email" name="email" class="form-control" placeholder="name@example.com"
+                                    required>
+                                <label for="email">Email</label>
                             </div>
 
                             <div class="form-floating mb-4">
-                                <input type="password" class="form-control" placeholder="Password">
-                                <label>Password</label>
+                                <input type="password" name="password" class="form-control" id="password"
+                                    placeholder="Password" required>
+                                <label for="password">Password</label>
+                                <span class="position-absolute top-50 end-0 translate-middle-y me-3"
+                                    style="cursor: pointer;" onclick="togglePassword()">
+                                    👁️
+                                </span>
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary full-width font--bold btn-lg">Log
-                                    In</button>
+                                <button type="submit" class="btn btn-primary full-width font--bold btn-lg">
+                                    Log In
+                                </button>
                             </div>
 
                             <div class="modal-flex-item mb-3">
                                 <div class="modal-flex-first">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="savepassword"
-                                            value="option1">
-                                        <label class="form-check-label" for="savepassword">Save Password</label>
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                                        <label class="form-check-label" for="remember">Remember Me</label>
                                     </div>
                                 </div>
                                 <div class="modal-flex-last">
-                                    <a href="JavaScript:Void(0);">Forget Password?</a>
+                                    <a href="{{ route('forgotPassword') }}">Forgot Password?</a>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                     <div class="social-login">
                         <ul>
@@ -309,7 +335,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <p>Don't have an account yet?<a href="signup.html" class="text-primary font--bold ms-1">Sign
+                    <p>Don't have an account yet?<a href="{{ route('sign-up') }}"
+                            class="text-primary font--bold ms-1">Sign
                             Up</a></p>
                 </div>
             </div>

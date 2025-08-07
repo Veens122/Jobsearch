@@ -153,9 +153,13 @@ class BlogController extends Controller
 
 
 
-    public function blogDetail($id)
+    public function blogDetail($slug)
     {
-        $blog = Blog::with('category', 'author')->where('status', 'published')->findOrFail($id);
+        $blog = Blog::with('category', 'author')
+            ->where('slug', $slug)
+            ->where('status', 'published')
+            ->firstOrFail();
+
         return view('blogs.blog-details', compact('blog'));
     }
 }

@@ -1,26 +1,4 @@
-/*
-* Theme Name: Job Stock - Job Board & Freelancing Template
-* Author: Themez Hub
-* Version: 2.3
-* Last Change: 12 Dec 2024
-  Author URI    : http://www.Themezhub.com/
--------------------------------------------------------------------*/
-/*------------- List Of Table -----------
-# Fonts
-# Preloader
-# Global Settings
-# Header Navigation Styles
-# Homes Banner
-# General Features Design 
-# Vesh Property Style
-# Detail Page Elements Style
-# jobstock All Features Styles
-# Inner Page Design
-# Blog Design Start
-# User Dashboard
-# Theme Footer Design
-# Responsiveness Start
-------------- List Of Table ----------*/
+
 
 @import url(plugins/animation.css);
 @import url(plugins/bootstrap.min.css);
@@ -4567,14 +4545,7 @@ ul.shorting-list li a:hover, ul.shorting-list li a:focus, ul.shorting-list li a.
 	font-weight: 500;
     font-size: 17px;
 }
-.jbs-job-title-wrap {
-    position: relative;
-    max-width: 290px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0.4rem;
-}
+
 .jbs-grid-job-info-wrap {
     position: relative;
     display: flex;

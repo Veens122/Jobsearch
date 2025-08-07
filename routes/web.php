@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Candidate\CandidateController;
 use App\Http\Controllers\CandidateProfileController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Employer\EmployerController;
 use App\Http\Controllers\EmployerProfileController;
 use App\Http\Controllers\HomeController;
@@ -116,7 +117,7 @@ Route::delete('/profile/resume', [CandidateController::class, 'deleteResume'])->
 // ===========================
 // Job Routes public
 // ===========================
-Route::get('/job-details/{id}', [JobController::class, 'jobDetail'])->name('job-detail');
+Route::get('/job-details/{slug}', [JobController::class, 'jobDetail'])->name('job-detail');
 Route::get('/all-jobs', [JobController::class, 'allJobs'])->name('all-jobs');
 Route::get('/search-jobs', [JobController::class, 'searchJobs'])->name('search-jobs');
 Route::get('/jobs/filter', [JobController::class, 'filter'])->name('jobs.filter');
@@ -177,7 +178,7 @@ Route::middleware(['auth', 'role:1'])->prefix('superadmin')->group(function () {
 
 //Blogs page
 Route::get('/blogs', [BlogController::class, 'blogs'])->name('blogs.index');
-Route::get('/blogs/{id}', [BlogController::class, 'blogDetail'])->name('blog.details');
+Route::get('/blogs/{slug}', [BlogController::class, 'blogDetail'])->name('blog.details');
 
 
 // Employer with the the role:2
@@ -295,6 +296,9 @@ Route::get('/jobs/job-list', [JobController::class, 'listByCategory'])->name('jo
 // contact us page
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::post('/contact-us', [HomeController::class, 'sendContactMessage'])->name('contact.send');
+
+// Contact form submission
+Route::post('/submit-request', [ContactController::class, 'submit'])->name('submit.request');
 
 // about us page
 Route::get('/about-us', [HomeController::class, 'about'])->name('about');

@@ -65,18 +65,18 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('blog.details', $blog->id) }}">
+                                                            href="{{ route('blog.details', $blog->slug) }}">
                                                             <i class="fas fa-eye me-1"></i> View
                                                         </a>
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('blogs.edit', $blog->id) }}">
+                                                            href="{{ route('blogs.edit', $blog->slug) }}">
                                                             <i class="fas fa-edit me-1"></i> Edit
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <form action="{{ route('blogs.destroy', $blog->id) }}"
+                                                        <form action="{{ route('blogs.destroy', $blog->slug) }}"
                                                             method="POST" onsubmit="return confirm('Are you sure?')">
                                                             @csrf
                                                             @method('DELETE')
@@ -88,7 +88,7 @@
                                                     <li>
                                                     <li>
                                                         @if($blog->status === 'published')
-                                                        <form action="{{ route('blogs.unpublish', $blog->id) }}"
+                                                        <form action="{{ route('blogs.unpublish', $blog->slug) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')
@@ -97,7 +97,7 @@
                                                             </button>
                                                         </form>
                                                         @else
-                                                        <form action="{{ route('blogs.publish', $blog->id) }}"
+                                                        <form action="{{ route('blogs.publish', $blog->slug) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')

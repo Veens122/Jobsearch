@@ -30,7 +30,8 @@
                      <div class="jbs-tiosk">
                          <h4 class="jbs-tiosk-title"><a href="">{{ Auth::user()->name }}</a></h4>
                          <div class="jbs-tiosk-subtitle"><span><i
-                                     class="fa-solid fa-location-dot me-2"></i>{{ $candidate->candidateProfile->country ?? 'N/A' }}
+                                     class="fa-solid fa-location-dot me-2"></i>{{ optional(Auth::user()->candidateProfile)->country ?? 'N/A' }}
+
 
 
                              </span>
@@ -57,8 +58,8 @@
                      <li><a href="shortlisted-jobs"><i class="fa-solid fa-user-clock me-2"></i>Shortlisted
                              Jobs</a></li>
                      <!-- <li><a href="employer-package.html"><i class="fa-solid fa-wallet me-2"></i>Package</a></li> -->
-                     <li><a href="{{ route('messages') }}"><i class="fa-solid fa-comments me-2"></i>Messages</a>
-                     </li>
+                     <!-- <li><a href="{{ route('messages') }}"><i class="fa-solid fa-comments me-2"></i>Messages</a>
+                     </li> -->
                      <li><a href="{{ route('password.edit')}}"><i class="fa-solid fa-unlock-keyhole me-2"></i>Change
                              Password</a></li>
                      <!-- <li><a href="employer-delete-account.html"><i class="fa-solid fa-trash-can me-2"></i>Delete

@@ -161,7 +161,7 @@
                         <div class="detail-side-heads mb-2">
                             <h3>Ready To Apply?</h3>
                         </div>
-                        <form action="{{ route('job.apply', $job->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('job.apply', $job->slug) }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="detail-side-middle">

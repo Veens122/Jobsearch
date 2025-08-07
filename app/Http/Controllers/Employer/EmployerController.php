@@ -44,6 +44,7 @@ class EmployerController extends Controller
 
         //  Active Jobs: expiry_date is today or later
         $activeJobsCount = Job::where('employer_id', $employer->id)
+            ->where('status', 'open')
             ->whereDate('expiry_date', '>=', Carbon::today())
             ->count();
 

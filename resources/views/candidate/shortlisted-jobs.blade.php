@@ -81,7 +81,7 @@
                                                     </div>
                                                     <div class="jbs-job-title-wrap">
                                                         <h4>
-                                                            <a href="{{ route('job-detail', $job->id) }}"
+                                                            <a href="{{ route('job-detail', $job->slug) }}"
                                                                 class="jbs-job-title">
                                                                 {{ $job->title }}
                                                             </a>
@@ -114,7 +114,7 @@
                                                     class="btn btn-md btn-light-primary px-3" title="View Employer">
                                                     <i class="fa-solid fa-building"></i>
                                                 </a>
-                                                <a href="{{ route('job-detail', $job->id) }}"
+                                                <a href="{{ route('job-detail', $job->slug) }}"
                                                     class="btn btn-md btn-light-secondary px-3" title="View Job">
                                                     <i class="fa-solid fa-eye"></i>
                                                 </a>

@@ -53,8 +53,7 @@
 
                             <li>
                                 <div class="lios-parts">
-                                    <h2><span class="ctr">{{ number_format($totalCandidates) }}</span><span
-                                            class="primary-2-cl">K</span></h2>
+                                    <h2><span class="ctr">{{ number_format($totalCandidates) }}</span></h2>
                                     <h6>Registered Users</h6>
                                 </div>
                             </li>
@@ -309,7 +308,7 @@
 
                         {{-- Company Logo --}}
                         <div class="job-instructor-thumb">
-                            <a href="{{ route('job-detail', ['id' => $job->id]) }}">
+                            <a href="{{ route('job-detail', ['slug' => $job->slug]) }}">
                                 <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
                                     class="img-fluid" alt="{{ $job->company_name }}">
                             </a>
@@ -318,7 +317,7 @@
                         {{-- Job Info --}}
                         <div class="job-instructor-content">
                             <h4 class="instructor-title">
-                                <a href="{{ route('job-detail', ['id' => $job->id]) }}">{{ $job->title }}</a>
+                                <a href="{{ route('job-detail', ['slug' => $job->slug]) }}">{{ $job->title }}</a>
                             </h4>
                             <div class="instructor-skills">
                                 {{ $job->skills ?? 'Not specified' }}

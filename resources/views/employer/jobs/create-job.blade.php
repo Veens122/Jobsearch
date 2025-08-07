@@ -117,6 +117,16 @@
                                     @enderror
                                 </div>
 
+                                {{-- Industry --}}
+                                <div class="col-md-6 mb-3">
+                                    <label for="industry">Industry</label>
+                                    <input type="text" name="industry" id="industry" class="form-control"
+                                        placeholder="Enter industry" value="{{ old('industry') }}" required>
+                                    @error('industry')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
                                 {{-- Job Type --}}
                                 <div class="col-md-6 mb-3">
                                     <label for="type">Job Type</label>
@@ -242,7 +252,8 @@
                                         <option value="">Select Status</option>
                                         <option value="open" {{ old('status') == 'open' ? 'selected' : '' }}>Open
                                         </option>
-                                        <option value="closed" {{ old('status') == 'closed' ? 'selected' : '' }}>Closed
+                                        <option value="closed" {{ old('status') == 'closed' ? 'selected' : '' }}>
+                                            Closed
                                         </option>
                                     </select>
                                     @error('status')
@@ -287,7 +298,8 @@
 
                                 {{-- Responsibilities --}}
                                 <div class="col-12 mb-3">
-                                    <label for="responsibilities">Responsibilities <small class="text-muted">(enter each
+                                    <label for="responsibilities">Responsibilities <small class="text-muted">(enter
+                                            each
                                             responsibility on a new line)</small></label>
                                     <textarea name="responsibilities" id="responsibilities" class="form-control"
                                         rows="5"

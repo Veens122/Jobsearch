@@ -28,9 +28,9 @@ class JobController extends Controller
 
     // Job detail
 
-    public function jobDetail($id)
+    public function jobDetail($slug)
     {
-        $job = Job::with('employerProfile')->findOrFail($id);
+        $job = Job::with('employerProfile')->where('slug', $slug)->firstOrFail();
         $employer = User::with('employerProfile')->find($job->user_id);
 
         // Fetch related jobs
@@ -55,6 +55,7 @@ class JobController extends Controller
     public function jobList(Request $request)
     {
         $employer = Auth::user();
+
 
         $query = Job::with(['employer.employerProfile'])
             ->where('employer_id', $employer->id);
@@ -99,7 +100,7 @@ class JobController extends Controller
         $job = Job::findOrFail($id);
 
         $validated = $request->validate([
-            'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5060',
             'company_name' => 'required|string|max:255',
             'title' => 'required|string|max:255',
             'industry' => 'required|string|max:255',

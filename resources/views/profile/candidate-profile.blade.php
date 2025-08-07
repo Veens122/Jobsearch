@@ -108,6 +108,10 @@
                                     <h5>{{ $candidate->candidateProfile->experience ?? 'No experience' }}</h5>
                                 </div>
                             </div>
+
+
+
+
                         </div>
                     </div>
                 </div>

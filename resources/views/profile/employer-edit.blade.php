@@ -97,11 +97,25 @@
                                         class="form-control">
 
                                 </div>
-                                <div class="col-12 mb-3">
-                                    <label>Company decription</label>
-                                    <textarea name="bio"
-                                        class="form-control">{{ old('company_description', $employer->employerProfile->company_description) }}</textarea>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Date Founded</label>
+                                    <input type="date" name="founded"
+                                        value="{{ old('founded', $employer->employerProfile->founded) }}"
+                                        class="form-control">
                                 </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 mb-3">
+                                    <label for="company_description"><strong>Company Description:</strong></label>
+                                    <textarea name="company_description" id="company_description" class="form-control"
+                                        rows="5"
+                                        placeholder="Enter a brief description about your company...">{{ old('company_description', $employer->employerProfile->company_description ?? '') }}</textarea>
+
+                                    @error('company_description')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+
                                 <div class="col-12 mb-3">
                                     <label>Specialties (comma separated)</label>
                                     <input type="text" name="specialties"
@@ -145,27 +159,32 @@
                                         class="form-control">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label>State/City</label>
-                                    <input type="text" name="city"
-                                        value="{{ old('city', $employer->employerProfile->city) }}"
+                                    <label>State</label>
+                                    <input type="text" name="state"
+                                        value="{{ old('state', $employer->employerProfile->state) }}"
                                         class="form-control">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label>Zip Code</label>
-                                    <input type="text" name="zipcode"
-                                        value="{{ old('zipcode', $employer->employerProfile->zipcode) }}"
+                                    <label>City</label>
+                                    <input type="text" name="city"
+                                        value="{{ old('city', $employer->employerProfile->city) }}"
                                         class="form-control">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Zip Code</label>
+                                        <input type="text" name="zipcode"
+                                            value="{{ old('zipcode', $employer->employerProfile->zipcode) }}"
+                                            class="form-control">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
 
-                            <button class="btn btn-danger"> <a href="{{ route('employer-profile')}}">Cancel</a>
-                            </button>
-                        </div>
+                                <button class="btn btn-danger"> <a href="{{ route('employer-profile')}}">Cancel</a>
+                                </button>
+                            </div>
 
                     </form>
                 </div>

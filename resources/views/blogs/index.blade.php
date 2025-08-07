@@ -37,14 +37,14 @@
                                 <span>{{ $blog->created_at->format('d M Y') }}</span>
                             </div>
                             <div class="jobstock-grid-title">
-                                <h4><a href="{{ route('blog.details', $blog->id) }}">{{ $blog->title }}</a></h4>
+                                <h4><a href="{{ route('blog.details', $blog->slug) }}">{{ $blog->title }}</a></h4>
                             </div>
                         </div>
                         <div class="jobstock-grid-body-middle">
                             <p>{{ Str::limit(strip_tags($blog->content), 100) }}</p>
                         </div>
                         <div class="jobstock-grid-body-footer">
-                            <a href="{{ route('blog.details', $blog->id) }}" class="btn btn-blog-link">Continue
+                            <a href="{{ route('blog.details', $blog->slug) }}" class="btn btn-blog-link">Continue
                                 Reading</a>
                         </div>
                     </div>

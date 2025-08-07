@@ -70,6 +70,7 @@ class EmployerProfileController extends Controller
             'address'               => 'nullable|string|max:255',
             'country'               => 'nullable|string|max:100',
             'state'                 => 'nullable|string|max:100',
+            'founded'               => 'nullable|date|max:100',
             'city'                  => 'nullable|string|max:100',
             'zipcode'               => 'nullable|string|max:20',
             'logo'                  => 'nullable|image|mimes:jpg,jpeg,png|max:5020',
@@ -97,6 +98,7 @@ class EmployerProfileController extends Controller
                 'zipcode'              => $request->input('zipcode'),
                 'city'                 => $request->input('city'),
                 'phone'                => $request->input('phone'),
+                'founded'              => $request->input('founded'),
             ]
         );
 

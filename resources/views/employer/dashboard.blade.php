@@ -264,7 +264,7 @@
                                                     <div class="jbs-list-head">
                                                         <div class="jbs-list-head-thunner">
                                                             <div class="jbs-list-emp-thumb jbs-verified">
-                                                                <a href="{{ route('job-detail', $job->id) }}">
+                                                                <a href="{{ route('job-detail', $job->slug) }}">
                                                                     <figure>
 
 
@@ -282,7 +282,7 @@
                                                                 </div>
                                                                 <div class="jbs-job-title-wrap">
                                                                     <h4>
-                                                                        <a href="{{ route('job-detail', $job->id) }}"
+                                                                        <a href="{{ route('job-detail', $job->slug) }}"
                                                                             class="jbs-job-title">
                                                                             {{ $job->title }}
                                                                         </a>

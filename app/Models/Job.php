@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Job extends Model
 {
@@ -14,7 +15,7 @@ class Job extends Model
 
     public function employer()
     {
-        return $this->belongsTo(User::class, 'employer_id')->with('employerProfile');
+        return $this->belongsTo(User::class, 'employer_id');
     }
 
     public function applications()
@@ -22,6 +23,10 @@ class Job extends Model
         return $this->hasMany(Application::class);
     }
 
+    public function employerProfile()
+    {
+        return $this->belongsTo(EmployerProfile::class, 'employer_id');
+    }
 
 
     public function category()
@@ -35,8 +40,21 @@ class Job extends Model
         return $this->hasMany(Application::class, 'job_id');
     }
 
-    public function employerProfile()
+
+
+    protected static function boot()
     {
-        return $this->belongsTo(EmployerProfile::class, 'employer_id', 'user_id', 'user_id');
+
+        parent::boot();
+
+        // Creating
+        static::creating(function ($job) {
+            $job->slug = Str::slug($job->title, '-' . uniqid());
+        });
+
+        // Updating
+        static::updating(function ($job) {
+            $job->slug = Str::slug($job->title, '-' . uniqid());
+        });
     }
 }

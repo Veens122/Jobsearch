@@ -34,20 +34,26 @@
                         <label class="col-xl-2 col-md-12 col-form-label">Old Password</label>
                         <div class="col-xl-7 col-md-12 position-relative">
                             <input type="password" name="old_password" class="form-control" id="oldPassword" required>
-                            <span class="toggle-password" onclick="togglePassword('oldPassword')"
-                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); cursor:pointer;">👁️</span>
+                            <span class="toggle-password" data-target="oldPassword" onclick="togglePassword(this)"
+                                style="position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer;">
+                                👁️
+                            </span>
                         </div>
                     </div>
+
 
                     <!-- New Password -->
                     <div class="row mb-3 align-items-center">
                         <label class="col-xl-2 col-md-12 col-form-label">New Password</label>
                         <div class="col-xl-7 col-md-12 position-relative">
                             <input type="password" name="new_password" class="form-control" id="newPassword" required>
-                            <span class="toggle-password" onclick="togglePassword('newPassword')"
-                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); cursor:pointer;">👁️</span>
+                            <span class="toggle-password" data-target="newPassword" onclick="togglePassword(this)"
+                                style="position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer;">
+                                👁️
+                            </span>
                         </div>
                     </div>
+
 
                     <!-- Confirm Password -->
                     <div class="row mb-3 align-items-center">
@@ -55,10 +61,11 @@
                         <div class="col-xl-7 col-md-12 position-relative">
                             <input type="password" name="new_password_confirmation" class="form-control"
                                 id="confirmPassword" required>
-                            <span class="toggle-password" onclick="togglePassword('confirmPassword')"
-                                style="position:absolute; top:50%; right:10px; transform:translateY(-50%); cursor:pointer;">👁️</span>
+                            <span class="toggle-password" data-target="confirmPassword" onclick="togglePassword(this)"
+                                style="position:absolute; top:50%; right:15px; transform:translateY(-50%); cursor:pointer;">👁️</span>
                         </div>
                     </div>
+
 
                     <!-- Submit Button -->
                     <div class="row mb-3">
@@ -79,13 +86,7 @@
     </div>
 </div>
 
-<!-- JavaScript for toggling password visibility -->
-<script>
-    function togglePassword(id) {
-        const input = document.getElementById(id);
-        input.type = input.type === "password" ? "text" : "password";
-    }
-</script>
+
 
 
 @endsection

@@ -100,7 +100,7 @@
                                             <div class="jbs-list-head">
                                                 <div class="jbs-list-head-thunner">
                                                     <div class="jbs-list-emp-thumb jbs-verified">
-                                                        <a href="{{ route('job-detail', $job->id) }}">
+                                                        <a href="{{ route('job-detail', $job->slug) }}">
                                                             <figure><img
                                                                     src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
                                                                     class="img-fluid" alt="{{ $job->company_name }}">
@@ -115,7 +115,7 @@
                                                         </div>
                                                         <div class="jbs-job-title-wrap">
                                                             <h4>
-                                                                <a href="{{ route('job-detail', $job->id) }}"
+                                                                <a href="{{ route('job-detail', $job->slug) }}"
                                                                     class="jbs-job-title">
                                                                     {{ $job->title }}
                                                                 </a>
@@ -150,7 +150,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="jbs-list-head-last">
-                                                    <a href="{{ route('job-detail', $job->id) }}"
+                                                    <a href="{{ route('job-detail', $job->slug) }}"
                                                         class="btn btn-md btn-light-primary px-3">
                                                         <i class="fa-solid fa-eye"></i>
                                                     </a>

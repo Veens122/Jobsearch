@@ -45,7 +45,7 @@
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
                                         <div class="form-group briod ">
                                             <div class="input-with-icon">
-                                                <select class="form-control" name="category_id">
+                                                <select class="form-control select2" name="category_id">
                                                     <option value="">All Categories</option>
                                                     @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}"
@@ -63,7 +63,7 @@
                                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                                         <div class="form-group">
                                             <div class="input-with-icon">
-                                                <select class="form-control" name="city">
+                                                <select class="form-control select2" name="city">
                                                     <option value="">All Cities</option>
                                                     @foreach ($cities as $city)
                                                     <option value="{{ $city }}"
@@ -149,7 +149,7 @@
                                 <div class="jbs-list-head">
                                     <div class="jbs-list-head-thunner">
                                         <div class="jbs-list-emp-thumb jbs-verified">
-                                            <a href="{{ route('job-detail', ['id' => $job->id]) }}">
+                                            <a href="{{ route('job-detail', ['slug' => $job->slug]) }}">
                                                 <figure>
                                                     <img src="{{ $job->company_logo ? asset('storage/' . $job->company_logo) : asset('assets/img/default-logo.png') }}"
                                                         class="img-fluid" alt="{{ $job->company_name }}">
@@ -162,10 +162,12 @@
                                             </div>
                                             <div class="jbs-job-title-wrap">
                                                 <h4>
-                                                    <a href="{{ route('job-detail', ['id' => $job->id]) }}"
+                                                    <a href="{{ route('job-detail', ['slug' => $job->slug]) }}"
                                                         class="jbs-job-title">
                                                         {{ $job->title }}
                                                     </a>
+
+
                                                 </h4>
                                             </div>
                                         </div>
@@ -190,7 +192,7 @@
 
                                     <!-- Quick Apply Button -->
                                     <div class="jbs-list-head-last mt-3">
-                                        <a href="{{ route('job-detail', ['id' => $job->id]) }}"
+                                        <a href="{{ route('job-detail', ['slug' => $job->slug]) }}"
                                             class="btn btn-md btn-primary px-4 quick-apply-btn">
                                             Apply
                                         </a>
@@ -212,6 +214,7 @@
 
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- ============================ All List Wrap ================================== -->
@@ -670,15 +673,16 @@
 
 @if ($errors->has('email') || $errors->has('password'))
 <script>
-window.onload = () => {
-    const loginModal = new bootstrap.Modal(document.getElementById('login'));
-    loginModal.show();
-};
+    window.onload = () => {
+        const loginModal = new bootstrap.Modal(document.getElementById('login'));
+        loginModal.show();
+    };
 </script>
 @endif
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 

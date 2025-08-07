@@ -79,12 +79,28 @@
     <script src="{{ asset('assets/js/password-toggle.js') }}"></script>
 
 
+    <!-- Select2 -->
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
+
+
 
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script src="{{ asset('assets/js/cl-switch.js') }}"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
+
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- End of select2 -->
+
+    <!-- jquery for select2 -->
+
+    <!-- end of jquery for select2 -->
+
 
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -120,6 +136,5 @@
 
 </body>
 
-<!-- Mirrored from shreethemes.net/jobstock-landing-2.3/jobstock/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 05 May 2025 12:43:37 GMT -->
 
 </html>

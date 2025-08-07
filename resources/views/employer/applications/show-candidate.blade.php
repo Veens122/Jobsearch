@@ -16,6 +16,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <div class="cndt-head-block">
+
                         <div class="cndt-head-left">
                             <div class="cndt-head-thumb">
                                 <figure>
@@ -39,8 +40,7 @@
                                         <span><i
                                                 class="fa-solid fa-user-graduate me-1"></i>{{ $candidateProfile ? $candidateProfile->job_title : ($candidate->job_title ?? 'Candidate') }}
                                         </span>
-                                        <span><i
-                                                class="fa-solid fa-location-dot me-1"></i>{{ $candidateProfile ? $candidateProfile->full_name : ($candidate->full_name ?? 'Candidate') }}
+                                        <span><i class="fa-solid fa-location-dot me-1"></i>
 
                                             {{ $candidateProfile ? $candidateProfile->city : ($candidate->city ?? 'city') }},
                                             {{ $candidateProfile ? $candidateProfile->country : $candidateProfile ?? 'country' }}</span>
@@ -136,44 +136,113 @@
                             <div class="single-cdtsr-header">
                                 <h5>All Information</h5>
                             </div>
-                            @if($candidateProfile)
-                            <div class="single-cdtsr-body">
-                                <div class="row gy-4">
-                                    @php
-                                    $info = [
-                                    ['icon' => 'fa-envelope-open-text', 'label' => 'Mail Address', 'value' =>
-                                    $candidateProfile->email],
-                                    ['icon' => 'fa-phone-volume', 'label' => 'Phone No.', 'value' =>
-                                    $candidateProfile->phone],
-                                    ['icon' => 'fa-user', 'label' => 'Gender', 'value' => $candidateProfile->gender],
-                                    ['icon' => 'fa-cake-candles', 'label' => 'Age', 'value' =>
-                                    $candidateProfile->date_of_birth],
-                                    ['icon' => 'fa-briefcase', 'label' => 'Experience', 'value' =>
-                                    $candidateProfile->experience . ' Years'],
-                                    ['icon' => 'fa-user-graduate', 'label' => 'Qualification', 'value' =>
-                                    $candidateProfile->qualification],
-                                    ['icon' => 'fa-layer-group', 'label' => 'Work Type', 'value' =>
-                                    $candidateProfile->work_type],
-                                    ];
-                                    @endphp
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Basic Detail</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
 
-                                    @foreach($info as $item)
-                                    @if(!empty($item['value']))
-                                    <div class="col-md-6">
-                                        <div class="cdtx-infr-box">
-                                            <div class="cdtx-infr-icon"><i class="fa-solid {{ $item['icon'] }}"></i>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Your Name:</strong>
+                                            <p>{{ $candidate->name }}</p>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Username:</strong>
+                                            <p>{{ $candidate->username }}</p>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Job Title:</strong>
+                                            <p>{{ $candidate->candidateProfile->job_title ?? 'N/A'}}</p>
+                                        </div>
+                                        <!-- 
+                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                            <strong>Age:</strong>
+                            <p>{{ $candidate->candidateProfile->age ?? 'N/A'}}</p>
+                        </div> -->
+
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Experience:</strong>
+                                            <p>{{ $candidate->candidateProfile->experience ?? 'N/A' }}</p>
+                                        </div>
+
+                                        <!-- <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                            <strong>Language:</strong>
+                            <p>{{ $candidate->candidateProfile->language ?? 'N/A' }}</p>
+                        </div> -->
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Skills</h4>
                                             </div>
-                                            <div class="cdtx-infr-captions">
-                                                <h5>{{ $item['value'] }}</h5>
-                                                <p>{{ $item['label'] }}</p>
+                                            <div class="card-body">
+                                                <p>{{ $candidate->candidateProfile->skills ?? 'No skills listed' }}</p>
                                             </div>
                                         </div>
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Bio:</strong>
+                                            <p>{{ $candidate->candidateProfile->bio ?? 'N/A'}}</p>
+                                        </div>
+
                                     </div>
-                                    @endif
-                                    @endforeach
                                 </div>
                             </div>
-                            @endif
+
+
+                            <!-- Contact Info Display -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Contact Detail</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Your Email:</strong>
+                                            <p>{{ $candidate->email }}</p>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Phone no.:</strong>
+                                            <p>{{ $candidate->candidateProfile->phone ?? 'N/A' }}</p>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Address:</strong>
+                                            <p>{{ $candidate->candidateProfile->address ?? 'N/A' }}</p>
+                                        </div>
+
+
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Country:</strong>
+                                            <p>{{ $candidate->candidateProfile->country ?? 'N/A'}}</p>
+                                        </div>
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>City:</strong>
+                                            <p>{{ $candidate->candidateProfile->city ?? 'N/A'}}</p>
+                                        </div>
+
+                                        <!-- <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                            <strong>City:</strong>
+                            <p>{{ $candidate->candidateProfile->city ?? 'N/A'}}</p>
+                        </div> -->
+
+                                        <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
+                                            <strong>Zip Code:</strong>
+                                            <p>{{ $candidate->candidateProfile->zipcode ?? 'N/A'}}</p>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -205,78 +274,7 @@
                         @endif
 
 
-                        @if($candidateProfile)
-                        <div class="single-cdtsr-block">
-                            <div class="single-cdtsr-header">
-                                <h5>Work Experience</h5>
-                            </div>
-                            <div class="single-cdtsr-body">
-                                <div class="single-experinc-block d-flex">
-                                    <div class="single-experinc-rght">
-                                        <div class="experinc-emp-title">
-                                            <p>{!! nl2br(e($candidateProfile->work_history)) !!}</p>
-                                            <span
-                                                class="label text-success bg-light-success">{{ $candidateProfile->work_type }}</span>
-                                        </div>
-                                        <div class="experinc-post-title">
-                                            <h6>{{ $candidateProfile->job_title }}</h6>
-                                            <div class="experinc-infos-list">
-                                                <span class="exp-start">{{ $candidateProfile->experience }} Years</span>
-                                                <span
-                                                    class="work-exp-date">{{ $candidateProfile->work_ending_date }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
 
-
-                        @if($candidateProfile)
-                        <div class="single-cdtsr-block">
-                            <div class="single-cdtsr-header">
-                                <h5>Education</h5>
-                            </div>
-                            <div class="single-cdtsr-body">
-                                <div class="single-educations-block d-flex">
-                                    <div class="single-educations-rght">
-                                        @if($candidateProfile->university_attended)
-                                        <div class="educations-emp-title">
-                                            <h5>{{ $candidateProfile->university_attended }}</h5>
-                                        </div>
-                                        @endif
-                                        @if($candidateProfile->degree)
-                                        <div class="educations-post-title">
-                                            <h6>{{ $candidateProfile->degree }}</h6>
-                                        </div>
-                                        @endif
-                                        @if($candidateProfile->year_graduated)
-                                        <div class="educations-infos-list">
-                                            <span>{{ $candidateProfile->year_graduated }}</span>
-                                        </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-
-
-                        @if(!empty($candidateProfile->skills))
-                        <div class="single-cdtsr-block">
-                            <div class="single-cdtsr-header">
-                                <h5>Skills</h5>
-                            </div>
-                            <div class="single-cdtsr-body">
-                                <div class="cndts-all-skills-list">
-                                    @foreach(explode(',', $candidateProfile->skills) as $skill)
-                                    <span class="badge bg-primary text-white me-1">{{ trim($skill) }}</span>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        @endif
 
 
                         @if($relatedCandidates->isNotEmpty())
@@ -311,7 +309,7 @@
                                                 <div>
                                                     <a href="{{ route('employer.applications.show-candidate', $related->user_id) }}"
                                                         class="btn btn-md btn-primary">View Detail</a>
-                                                    class="btn btn-md btn-primary">View Detail</a>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,7 +323,7 @@
                 </div>
 
                 <!-- Contact Candidate -->
-                <div class="col-xl-4 col-lg-4 col-md-12">
+                <!-- <div class="col-xl-4 col-lg-4 col-md-12">
                     <div class="sidefr-usr-block mb-4">
                         <div class="sidefr-usr-header">
                             {{ $candidateProfile ? $candidateProfile->full_name : ($candidate->full_name ?? 'Candidate') }}
@@ -361,7 +359,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
